@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="Unnamed">
+  <component name="FlexBuildConfigurationManager" active="cp3-eindopdracht-groep04">
     <configurations>
-      <configuration>
+      <configuration name="cp3-eindopdracht-groep04" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/test">
         <dependencies target-player="11.9">
           <sdk name="AIR SDK" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
-        <packaging-android />
-        <packaging-ios />
+        <packaging-android enabled="true" package-file-name="Main" />
+        <packaging-ios enabled="true" package-file-name="Main" />
       </configuration>
     </configurations>
     <compiler-options />
