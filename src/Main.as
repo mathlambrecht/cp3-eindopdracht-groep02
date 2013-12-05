@@ -1,13 +1,31 @@
 package {
 
-import flash.display.Sprite;
-import flash.text.TextField;
+import be.devine.cp3.billsplit.Application;
 
-public class Main extends Sprite {
+import flash.display.MovieClip;
+import flash.display.StageAlign;
+import flash.display.StageScaleMode;
+
+import starling.core.Starling;
+
+public class Main extends MovieClip {
+
+    // Properties
+    private var _app:Starling;
+
+    // Constructor
     public function Main() {
-        var textField:TextField = new TextField();
-        textField.text = "Hello, World";
-        addChild(textField);
+
+        trace('[Main]');
+
+        stage.scaleMode = StageScaleMode.NO_SCALE;
+        stage.align = StageAlign.TOP_LEFT;
+
+        _app = new Starling(Application, stage);
+        _app.start();
     }
+
+    // Methods
+
 }
 }
