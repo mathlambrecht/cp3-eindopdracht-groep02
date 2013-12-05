@@ -8,14 +8,14 @@ import flash.display.StageScaleMode;
 
 import starling.core.Starling;
 
-public class Main extends MovieClip {
-
+public class Main extends MovieClip
+{
     // Properties
     private var _app:Starling;
 
     // Constructor
-    public function Main() {
-
+    public function Main()
+    {
         trace('[Main]');
 
         stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -26,6 +26,5 @@ public class Main extends MovieClip {
     }
 
     // Methods
-
 }
 }
