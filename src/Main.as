@@ -16,16 +16,11 @@ public class Main extends MovieClip
     // Constructor
     public function Main()
     {
-        trace('[Main]');
-
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
 
         _app = new Starling(Application, stage);
         _app.start();
     }
-
-    // Methods
-
 }
 }
