@@ -15,6 +15,7 @@ import be.devine.cp3.billsplit.view.Header;
 import feathers.themes.MinimalMobileTheme;
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.events.ResizeEvent;
 
 public class Application extends Sprite
 {
@@ -32,7 +33,7 @@ public class Application extends Sprite
 
         _appModel = AppModel.getInstance();
 
-        _header = new Header();
+        _header = new Header(_appModel);
         addChild(_header);
 
         _content = new Content();
@@ -45,13 +46,13 @@ public class Application extends Sprite
     private function addedToStageHandler(event:Event):void
     {
         this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-        stage.addEventListener(Event.RESIZE, resizeHandler);
+        stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
         layout();
 
-        // data
+        /* data
          _JSONService = new JSONService();
          _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
-         _JSONService.load();
+         _JSONService.load();*/
     }
 
     private function jsonServiceCompleteHandler(event:Event):void
@@ -59,7 +60,7 @@ public class Application extends Sprite
         trace(_JSONService.data.bills[0].name);
     }
 
-    public function resizeHandler(event:Event = null):void
+    public function resizeHandler(event:ResizeEvent = null):void
     {
         layout();
     }
@@ -68,6 +69,8 @@ public class Application extends Sprite
     {
         trace('[Application] Resize: ' + stage.stageWidth + " " + stage.stageHeight);
         _header.setSize(stage.stageWidth,65);
+        _content.y = 65;
+        _content.setSize(stage.stageWidth,stage.stageHeight-65);
     }
 }
 }

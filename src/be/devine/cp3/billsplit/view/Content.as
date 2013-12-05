@@ -32,5 +32,9 @@ public class Content extends Sprite{
     }
 
     // Methods
+    public function setSize(width:Number,height:Number):void{
+        this.width = width;
+        this.height = height;
+    }
 }
 }

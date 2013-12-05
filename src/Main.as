@@ -1,7 +1,7 @@
 package {
 
 import be.devine.cp3.billsplit.Application;
-import flash.display.MovieClip;
+import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
@@ -9,8 +9,9 @@ import flash.geom.Rectangle;
 
 import starling.core.Starling;
 import starling.events.Event;
+import starling.events.ResizeEvent;
 
-public class Main extends MovieClip
+public class Main extends Sprite
 {
     // Properties
     private var _app:Starling;
@@ -37,7 +38,7 @@ public class Main extends MovieClip
         _app.viewPort = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
         _app.stage.stageWidth = stage.stageWidth;
         _app.stage.stageHeight = stage.stageHeight;
-        _app.stage.dispatchEvent(new starling.events.Event(starling.events.Event.RESIZE));
+        _app.stage.dispatchEvent(new starling.events.ResizeEvent(ResizeEvent.RESIZE, stage.stageWidth,stage.stageHeight));
     }
 }
 }

@@ -31,7 +31,7 @@ public class Home extends Screen{
         addChild(_buttonGroup);
 
         var layout:HorizontalLayout = new HorizontalLayout();
-        layout.gap = 10;
+        layout.gap = 40;
         _buttonGroup.layout = layout;
 
         _oldBillsButton = new Button();
@@ -54,7 +54,12 @@ public class Home extends Screen{
 
     private function buttonGroupCreationCompleteHandler(event:Event):void
     {
+        _buttonGroup.y = 200;
+        _buttonGroup.x = 480/2 - _buttonGroup.width/2;
+    }
 
+    override public function setSize(width:Number, height:Number):void {
+        super.setSize(width,height);
     }
 }
 }

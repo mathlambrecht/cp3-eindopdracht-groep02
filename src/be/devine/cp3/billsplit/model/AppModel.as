@@ -8,6 +8,8 @@ public class AppModel extends EventDispatcher
     // Properties
     private static var _instance:AppModel;
 
+    private var _currentPage:String;
+
     private var _bills:Array;
     private var _friends:Array;
     private var _selectedFriends:Array;
@@ -108,6 +110,14 @@ public class AppModel extends EventDispatcher
         _totalPrice = value;
     }
 
+    public function get currentPage():String {
+        return _currentPage;
+    }
+
+    public function set currentPage(value:String):void {
+        if ( _currentPage == value ) return;
+        _currentPage = value;
+    }
 }
 }
 
