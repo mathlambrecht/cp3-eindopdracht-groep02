@@ -23,7 +23,6 @@ public class Application extends Sprite
     private var _appModel:AppModel;
     private var _JSONService:JSONService;
 
-
     // Constructor
     public function Application()
     {
