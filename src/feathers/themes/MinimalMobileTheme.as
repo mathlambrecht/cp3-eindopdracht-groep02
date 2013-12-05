@@ -91,13 +91,13 @@ package feathers.themes
 	{
 		public static const COMPONENT_NAME_PICKER_LIST_ITEM_RENDERER:String = "feathers-mobile-picker-list-item-renderer";
 
-		[Embed(source="/../assets/images/minimal.png")]
+		[Embed(source="/assets/images/minimal.png")]
 		protected static const ATLAS_IMAGE:Class;
 
-		[Embed(source="/../assets/images/minimal.xml",mimeType="application/octet-stream")]
+		[Embed(source="/assets/images/minimal.xml",mimeType="application/octet-stream")]
 		protected static const ATLAS_XML:Class;
 
-		[Embed(source="/../assets/fonts/pf_ronda_seven.fnt",mimeType="application/octet-stream")]
+		[Embed(source="/assets/fonts/pf_ronda_seven.fnt",mimeType="application/octet-stream")]
 		protected static const ATLAS_FONT_XML:Class;
 
 		protected static const SCALE_9_GRID:Rectangle = new Rectangle(9, 9, 2, 2);
