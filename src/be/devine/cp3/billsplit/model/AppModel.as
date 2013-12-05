@@ -1,16 +1,11 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Annelies
- * Date: 5/12/13
- * Time: 13:01
- * To change this template use File | Settings | File Templates.
- */
-package be.devine.cp3.billsplit.model {
+package be.devine.cp3.billsplit.model
+{
 import flash.events.EventDispatcher;
 
-public class AppModel extends EventDispatcher{
-
+public class AppModel extends EventDispatcher
+{
     // Properties
+    private static var _instance:AppModel;
 
     /* todo: properties
     *
@@ -23,8 +18,24 @@ public class AppModel extends EventDispatcher{
     *
     */
 
+    //Singleton
+    public static function getInstance():AppModel
+    {
+        if(_instance == null)
+        {
+            _instance = new AppModel(new Enforcer());
+        }
+
+        return _instance;
+    }
+
     // Constructor
-    public function AppModel() {
+    public function AppModel(event:Enforcer)
+    {
+        if(event == null)
+        {
+            throw new Error("AppModel is a singleton, use getInstance() instead");
+        }
 
         trace('[AppModel]');
     }
@@ -32,3 +43,5 @@ public class AppModel extends EventDispatcher{
     // Methods
 }
 }
+
+internal class Enforcer{};
