@@ -25,7 +25,6 @@ public class JSONService extends EventDispatcher
         _fileStream.open(_JSONFile, FileMode.READ);
         _JSONString = _fileStream.readUTFBytes(_fileStream.bytesAvailable);
         _fileStream.close();
-
         _data = JSON.parse(_JSONString);
 
         dispatchEvent(new Event(Event.COMPLETE));

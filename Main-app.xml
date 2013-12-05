@@ -12,11 +12,8 @@
 
     <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-<<<<<<< HEAD
-    <id>be.devine.student.anneliesclauwaert.billsplit</id>
-=======
-    <id>be.devine.student.mathias.lambrecht.BillSplit</id>
->>>>>>> b3c705b64da14b4dede8035d1320c329c4735c8d
+
+    <id>be.devine.student.annelies.clauwaert.billsplit</id>
 
     <!-- Used as the filename for the application. Required. -->
     <filename>Main</filename>

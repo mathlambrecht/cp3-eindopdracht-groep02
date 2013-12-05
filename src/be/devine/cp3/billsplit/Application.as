@@ -9,13 +9,12 @@ package be.devine.cp3.billsplit
 {
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.service.JSONService;
+import be.devine.cp3.billsplit.view.Content;
+import be.devine.cp3.billsplit.view.Header;
 
 import feathers.themes.MinimalMobileTheme;
-
-import flash.events.Event;
-
 import starling.display.Sprite;
-
+import starling.events.Event;
 
 public class Application extends Sprite
 {
@@ -23,24 +22,52 @@ public class Application extends Sprite
     private var _appModel:AppModel;
     private var _JSONService:JSONService;
 
+    private var _header:Header;
+    private var _content:Content;
 
     // Constructor
     public function Application()
     {
-        _appModel = AppModel.getInstance();
-
         new MinimalMobileTheme();
 
-        _JSONService = new JSONService();
-        _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
-        _JSONService.load();
+        _appModel = AppModel.getInstance();
+
+        _header = new Header();
+        addChild(_header);
+
+        _content = new Content();
+        addChild(_content);
+
+        this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
     }
 
     // Methods
+    private function addedToStageHandler(event:Event):void
+    {
+        this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+        stage.addEventListener(Event.RESIZE, resizeHandler);
+        layout();
+
+        /* data
+         _JSONService = new JSONService();
+         _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
+         _JSONService.load();*/
+    }
+
     private function jsonServiceCompleteHandler(event:Event):void
     {
         trace(_JSONService.data);
     }
 
+    public function resizeHandler(event:Event = null):void
+    {
+        layout();
+    }
+
+    private function layout():void
+    {
+        trace('[Application] Resize: ' + stage.stageWidth + " " + stage.stageHeight);
+        _header.setSize(stage.stageWidth,65);
+    }
 }
 }
