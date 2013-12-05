@@ -1,7 +1,0 @@
-{
-"bills":
-    [
-        {"name":"McDo bill" , "friends":["friend1","friend2","friend3"]},
-        {"name":"Not McDo bill" , "friends":["friend1","friend2","friend3"]}
-    ]
-}

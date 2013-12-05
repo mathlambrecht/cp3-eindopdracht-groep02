@@ -18,8 +18,12 @@ public class Main extends MovieClip
     // Constructor
     public function Main()
     {
+<<<<<<< HEAD
         trace('[Main]');
 
+=======
+        stage.scaleMode = StageScaleMode.NO_SCALE;
+>>>>>>> 33966be743ae85a3c9507a4158c06ed19a3657ba
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
 
@@ -28,6 +32,7 @@ public class Main extends MovieClip
 
         stage.addEventListener(flash.events.Event.RESIZE, resizeHandler);
     }
+<<<<<<< HEAD
 
     // Methods
 
@@ -41,5 +46,7 @@ public class Main extends MovieClip
         _app.stage.dispatchEvent(new starling.events.Event(starling.events.Event.RESIZE));
     }
 
+=======
+>>>>>>> 33966be743ae85a3c9507a4158c06ed19a3657ba
 }
 }
