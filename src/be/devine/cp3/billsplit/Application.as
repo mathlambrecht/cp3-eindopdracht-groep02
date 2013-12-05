@@ -38,8 +38,7 @@ public class Application extends Sprite
     // Methods
     private function jsonServiceCompleteHandler(event:Event):void
     {
-        trace(_JSONService.data);
+        trace(_JSONService.data.bills[0].name);
     }
-
 }
 }
