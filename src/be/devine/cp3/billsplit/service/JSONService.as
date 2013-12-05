@@ -23,12 +23,11 @@ public class JSONService extends EventDispatcher
     {
         _JSONFile = File.applicationStorageDirectory.resolvePath(Config.JSON_FILENAME);
         _fileStream = new FileStream();
-<<<<<<< HEAD
+        trace(_JSONFile.nativePath);
         _fileStream.open(_JSONFile, FileMode.READ);
         _JSONString = _fileStream.readUTFBytes(_fileStream.bytesAvailable);
         _fileStream.close();
         _data = JSON.parse(_JSONString);
-=======
 
         if(_JSONFile.exists)
         {
@@ -47,7 +46,6 @@ public class JSONService extends EventDispatcher
 
             _data = [];
         }
->>>>>>> 33966be743ae85a3c9507a4158c06ed19a3657ba
 
         dispatchEvent(new Event(Event.COMPLETE));
     }

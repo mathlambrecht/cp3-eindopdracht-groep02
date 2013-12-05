@@ -9,7 +9,6 @@ bin-release/
 *.iml
 out/
 .idea/
-Main-app.xml
 .DS_Store
 
 

@@ -22,12 +22,9 @@ public class Application extends Sprite
     private var _appModel:AppModel;
     private var _JSONService:JSONService;
 
-<<<<<<< HEAD
     private var _header:Header;
     private var _content:Content;
 
-=======
->>>>>>> 33966be743ae85a3c9507a4158c06ed19a3657ba
     // Constructor
     public function Application()
     {
@@ -51,17 +48,16 @@ public class Application extends Sprite
         stage.addEventListener(Event.RESIZE, resizeHandler);
         layout();
 
-        /* data
+        // data
          _JSONService = new JSONService();
          _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
-         _JSONService.load();*/
+         _JSONService.load();
     }
 
     private function jsonServiceCompleteHandler(event:Event):void
     {
         trace(_JSONService.data.bills[0].name);
     }
-<<<<<<< HEAD
 
     public function resizeHandler(event:Event = null):void
     {
@@ -73,7 +69,5 @@ public class Application extends Sprite
         trace('[Application] Resize: ' + stage.stageWidth + " " + stage.stageHeight);
         _header.setSize(stage.stageWidth,65);
     }
-=======
->>>>>>> 33966be743ae85a3c9507a4158c06ed19a3657ba
 }
 }
