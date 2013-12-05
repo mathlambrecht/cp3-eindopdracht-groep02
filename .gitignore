@@ -9,6 +9,8 @@ bin-release/
 *.iml
 out/
 .idea/
+Main-app.xml
+.DS_Store
 
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
