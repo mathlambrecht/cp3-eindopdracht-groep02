@@ -20,20 +20,19 @@ import feathers.controls.ScreenNavigatorItem;
 import flash.events.Event;
 
 import starling.display.Sprite;
-import starling.events.ResizeEvent;
 
 public class Content extends Sprite{
 
     // Properties
     private var _appModel:AppModel;
     private var _navigator:ScreenNavigatorWithHistory;
-    private var _screens:Array;
+    private var _arrScreens:Array;
 
     // Constructor
     public function Content(navigator:ScreenNavigatorWithHistory)
     {
         trace('[Content]');
-        _screens =[];
+        _arrScreens =[];
 
         _navigator = navigator;
         _appModel = AppModel.getInstance();
@@ -43,33 +42,34 @@ public class Content extends Sprite{
     }
 
     // Methods
-    private function createNavigator():void{
+    private function createNavigator():void
+    {
         var home:ScreenNavigatorItem = new ScreenNavigatorItem( new Home() );
         var newBill:ScreenNavigatorItem = new ScreenNavigatorItem( new NewBill() );
         var oldBills:ScreenNavigatorItem = new ScreenNavigatorItem( new OldBills() );
-        _screens.push(home,newBill,oldBills);
+        _arrScreens.push(home,newBill,oldBills);
 
         _navigator.addScreen( Config.HOME , home );
         _navigator.addScreen( Config.NEW_BILL , newBill );
         _navigator.addScreen( Config.OLD_BILLS , oldBills );
         addChild(_navigator);
 
-        _navigator.showScreen(Config.HOME);
+        _appModel.currentPage = Config.HOME;
     }
 
-    private function changeScreenHandler(event:Event):void {
+    private function changeScreenHandler(event:Event):void
+    {
         trace('[Content] Change screen');
 
         _navigator.showScreen(_appModel.currentPage);
     }
 
-    public function setSize(width:Number,height:Number):void{
-        trace(width);
-        trace(height);
+    public function setSize(width:Number,height:Number):void
+    {
         _navigator.height = height;
         _navigator.width = width;
 
-        for each(var screenNavigatorItem:ScreenNavigatorItem in _screens){
+        for each(var screenNavigatorItem:ScreenNavigatorItem in _arrScreens){
             var screen:Screen = screenNavigatorItem.screen as Screen;
             screen.setSize(width,height);
         }

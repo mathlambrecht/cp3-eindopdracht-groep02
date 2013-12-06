@@ -7,11 +7,14 @@
  */
 package be.devine.cp3.billsplit.view {
 
+import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 
 import feathers.controls.Button;
 import feathers.controls.Screen;
+
+import flash.events.Event;
 
 import starling.display.Quad;
 import starling.events.Event;
@@ -36,6 +39,7 @@ public class Header extends Screen {
 
         _navigator = navigator;
         _appModel = AppModel.getInstance();
+        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED,showHideBackButton);
         createHeader();
     }
 
@@ -53,8 +57,13 @@ public class Header extends Screen {
         // todo: positionering (button group?)
         _backButton = new Button();
         _backButton.nameList.add( Button.ALTERNATE_NAME_BACK_BUTTON );
-        _backButton.addEventListener(Event.TRIGGERED, backButtonClickHandler);
+        _backButton.addEventListener(starling.events.Event.TRIGGERED, backButtonClickHandler);
         this.addChild(_backButton);
+    }
+
+    private function showHideBackButton(event:flash.events.Event):void
+    {
+        _backButton.visible = (!(_appModel.currentPage == Config.HOME && _navigator.history.length == 0));
     }
 
     override public function setSize(width:Number,height:Number):void
@@ -68,7 +77,7 @@ public class Header extends Screen {
         _textField.height = height;
     }
 
-    private function backButtonClickHandler(event:Event):void {
+    private function backButtonClickHandler(event:starling.events.Event):void {
         trace('[Header] Back button clicked');
 
         _appModel.currentPage = _navigator.goBack(1);

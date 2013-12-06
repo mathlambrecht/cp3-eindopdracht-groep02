@@ -78,7 +78,7 @@ public class Home extends Screen{
 
     private function layout():void
     {
-        _buttonGroup.y = this.height - _buttonGroup.height - 50;
+        _buttonGroup.y = this.height - _buttonGroup.height - 80;
         _buttonGroup.x = this.width/2 - _buttonGroup.width/2;
     }
 
