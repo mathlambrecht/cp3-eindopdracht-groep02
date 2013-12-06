@@ -5,7 +5,7 @@
  * Time: 15:24
  * To change this template use File | Settings | File Templates.
  */
-package be.devine.cp3.billsplit.view.pages {
+package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 

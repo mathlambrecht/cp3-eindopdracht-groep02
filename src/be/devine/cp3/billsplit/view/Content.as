@@ -9,11 +9,17 @@ package be.devine.cp3.billsplit.view {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
-import be.devine.cp3.billsplit.view.pages.BillPrice;
+import be.devine.cp3.billsplit.view.pages.bills.AddItem;
+import be.devine.cp3.billsplit.view.pages.bills.BillFriends;
+import be.devine.cp3.billsplit.view.pages.bills.BillItems;
+import be.devine.cp3.billsplit.view.pages.bills.BillPrice;
+import be.devine.cp3.billsplit.view.pages.friends.AddFriend;
+import be.devine.cp3.billsplit.view.pages.friends.Friends;
 import be.devine.cp3.billsplit.view.pages.Home;
-import be.devine.cp3.billsplit.view.pages.NewBill;
-import be.devine.cp3.billsplit.view.pages.OldBills;
-import be.devine.cp3.billsplit.view.pages.SplitBill;
+import be.devine.cp3.billsplit.view.pages.bills.NewBill;
+import be.devine.cp3.billsplit.view.pages.bills.OldBills;
+import be.devine.cp3.billsplit.view.pages.bills.Results;
+import be.devine.cp3.billsplit.view.pages.bills.SplitBill;
 
 import feathers.controls.Screen;
 
@@ -47,17 +53,29 @@ public class Content extends Sprite{
     private function createNavigator():void
     {
         var home:ScreenNavigatorItem = new ScreenNavigatorItem( new Home() );
+        var friends:ScreenNavigatorItem = new ScreenNavigatorItem( new Friends() );
+        var addFriend:ScreenNavigatorItem = new ScreenNavigatorItem( new AddFriend() );
+        var oldBills:ScreenNavigatorItem = new ScreenNavigatorItem( new OldBills() );
         var newBill:ScreenNavigatorItem = new ScreenNavigatorItem( new NewBill() );
         var billPrice:ScreenNavigatorItem = new ScreenNavigatorItem( new BillPrice() );
-        var oldBills:ScreenNavigatorItem = new ScreenNavigatorItem( new OldBills() );
+        var billItems:ScreenNavigatorItem = new ScreenNavigatorItem( new BillItems() );
+        var addItem:ScreenNavigatorItem = new ScreenNavigatorItem( new AddItem() );
+        var billFriends:ScreenNavigatorItem = new ScreenNavigatorItem( new BillFriends() );
         var splitBill:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBill() );
+        var results:ScreenNavigatorItem = new ScreenNavigatorItem( new Results() );
         _arrScreens.push(home,newBill,oldBills,splitBill);
 
         _navigator.addScreen( Config.HOME , home );
+        _navigator.addScreen( Config.FRIEND , friends );
+        _navigator.addScreen( Config.ADD_FRIEND , addFriend );
+        _navigator.addScreen( Config.OLD_BILLS , oldBills );
         _navigator.addScreen( Config.NEW_BILL , newBill );
         _navigator.addScreen( Config.BILL_PRICE , billPrice );
-        _navigator.addScreen( Config.OLD_BILLS , oldBills );
+        _navigator.addScreen( Config.BILL_ITEMS , billItems );
+        _navigator.addScreen( Config.ADD_ITEM , addItem );
+        _navigator.addScreen( Config.BILL_FRIENDS , billFriends );
         _navigator.addScreen( Config.SPLIT_BILL , splitBill );
+        _navigator.addScreen( Config.RESULTS , results );
         addChild(_navigator);
 
         _appModel.currentPage = Config.HOME;
