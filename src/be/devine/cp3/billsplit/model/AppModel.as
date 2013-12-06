@@ -1,6 +1,9 @@
 package be.devine.cp3.billsplit.model
 {
 
+import be.devine.cp3.billsplit.vo.BillVO;
+import be.devine.cp3.billsplit.vo.FriendVO;
+
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
@@ -17,14 +20,11 @@ public class AppModel extends EventDispatcher
 
     private static var _instance:AppModel;
 
-    private var _arrBillsVO:Array;
-    private var _arrFriendsVO:Array;
+    private var _arrBillsVO:Vector.<BillVO>;
+    private var _arrFriendsVO:Vector.<FriendVO>;
 
     private var _currentPage:String;
-
-    private var _bills:Array;
     private var _currentBill:BillModel;
-    private var _friends:Array;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -51,59 +51,41 @@ public class AppModel extends EventDispatcher
 
         trace('[AppModel]');
 
-        _arrBillsVO = [];
-        _arrFriendsVO = [];
+        _arrBillsVO = new Vector.<BillVO>();
+        _arrFriendsVO = new Vector.<FriendVO>();
     }
 
     //---------------------------------------------------------------
     //-------------------------- Methods ----------------------------
     //---------------------------------------------------------------
-    public function get arrVO():Array
+    public function get arrBillsVO():Vector.<BillVO>
     {
         return _arrBillsVO;
     }
 
-    public function set arrVO(value:Array):void
+    public function set arrBillsVO(value:Vector.<BillVO>):void
     {
         if(_arrBillsVO != value)
         {
             _arrBillsVO = value;
+
             dispatchEvent(new Event(ARRAY_BILLS_VO_CHANGED));
         }
     }
 
-    public function get arrFriendsVO():Array
+    public function get arrFriendsVO():Vector.<FriendVO>
     {
         return _arrFriendsVO;
     }
 
-    public function set arrFriendsVO(value:Array):void
+    public function set arrFriendsVO(value:Vector.<FriendVO>):void
     {
         if(_arrFriendsVO != value)
         {
             _arrFriendsVO = value;
+
             dispatchEvent(new Event(ARRAY_FRIENDS_VO_CHANGED));
         }
-    }
-
-    public function get bills():Array
-    {
-        return _bills;
-    }
-
-    public function set bills(value:Array):void
-    {
-        _bills = value;
-    }
-
-    public function get friends():Array
-    {
-        return _friends;
-    }
-
-    public function set friends(value:Array):void
-    {
-        _friends = value;
     }
 
     public function get currentPage():String
