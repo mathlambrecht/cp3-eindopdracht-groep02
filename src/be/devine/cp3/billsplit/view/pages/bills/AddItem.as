@@ -1,15 +1,9 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Annelies
- * Date: 6/12/13
- * Time: 18:11
- * To change this template use File | Settings | File Templates.
- */
-package be.devine.cp3.billsplit.view.pages.bills {
+package be.devine.cp3.billsplit.view.pages.bills
+{
 import feathers.controls.Screen;
 
-public class AddItem extends Screen{
-
+public class AddItem extends Screen
+{
     // Properties
 
     // Constructor

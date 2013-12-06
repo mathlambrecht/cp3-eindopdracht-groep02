@@ -1,6 +1,5 @@
 package be.devine.cp3.billsplit.view.pages.bills
 {
-import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.vo.BillVO;
 
@@ -34,8 +33,6 @@ public class OldBills extends Screen
     private function arrBillsVOChangedHandler(event:flash.events.Event):void
     {
         _list = new List();
-        _list.width = 200;
-        _list.height = 800;
         this.addChild(_list);
 
         _billsListCollection = new ListCollection();
