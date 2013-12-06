@@ -8,8 +8,8 @@ public class Config
 
     // pages
     public static const HOME:String = 'Home';
-    public static const OLD_BILLS:String = 'Old bills';
-    public static const NEW_BILL:String = 'New bill';
+    public static const OLD_BILLS:String = 'OldBills';
+    public static const NEW_BILL:String = 'NewBill';
 
     public function Config(){}
 

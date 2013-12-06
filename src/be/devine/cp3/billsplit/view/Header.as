@@ -8,10 +8,10 @@
 package be.devine.cp3.billsplit.view {
 
 import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 
 import feathers.controls.Button;
 import feathers.controls.Screen;
-import feathers.controls.ScreenNavigator;
 
 import starling.display.Quad;
 import starling.events.Event;
@@ -23,17 +23,18 @@ public class Header extends Screen {
 
     // Properties
     private var _appModel:AppModel;
-    private var _navigator:ScreenNavigator;
+    private var _navigator:ScreenNavigatorWithHistory;
 
     private var _background:Quad;
     private var _textField:TextField;
     private var _backButton:Button;
 
     // Constructor
-    public function Header()
+    public function Header(navigator:ScreenNavigatorWithHistory)
     {
         trace('[Header]');
 
+        _navigator = navigator;
         _appModel = AppModel.getInstance();
         createHeader();
     }
@@ -68,7 +69,9 @@ public class Header extends Screen {
     }
 
     private function backButtonClickHandler(event:Event):void {
-        trace('back');
+        trace('[Header] Back button clicked');
+
+        _appModel.currentPage = _navigator.goBack(1);
     }
 }
 }

@@ -15,7 +15,7 @@ public class NewBill extends Screen{
     // Constructor
     public function NewBill()
     {
-        trace('[NewBill');
+        trace('[NewBill]');
     }
 
     // Methods

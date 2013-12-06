@@ -45,12 +45,14 @@ public class Home extends Screen{
         _buttonGroup.layout = layout;
 
         _oldBillsButton = new Button();
-        _oldBillsButton.label = OLD_BILLS;
+        _oldBillsButton.label = "Old bill";
+        _oldBillsButton.name = OLD_BILLS;
         _oldBillsButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_oldBillsButton);
 
         _newBillButton = new Button();
-        _newBillButton.label = NEW_BILL;
+        _newBillButton.label = "New bill";
+        _newBillButton.name = NEW_BILL;
         _newBillButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_newBillButton);
     }
@@ -61,7 +63,7 @@ public class Home extends Screen{
         var button:Button = event.currentTarget as Button;
         var nextScreen:String;
 
-        switch (button.label){
+        switch (button.name){
             case OLD_BILLS:
                 nextScreen = Config.OLD_BILLS;
                 break;

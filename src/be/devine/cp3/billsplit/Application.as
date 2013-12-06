@@ -9,6 +9,7 @@ package be.devine.cp3.billsplit
 {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 import be.devine.cp3.billsplit.service.JSONService;
 import be.devine.cp3.billsplit.view.Content;
 import be.devine.cp3.billsplit.view.Header;
@@ -29,6 +30,7 @@ public class Application extends Sprite
 
     private var _header:Header;
     private var _content:Content;
+    private var _navigator:ScreenNavigatorWithHistory;
 
     // Constructor
     public function Application()
@@ -45,11 +47,12 @@ public class Application extends Sprite
         _config.setTheme();
 
         _appModel = AppModel.getInstance();
+        _navigator = new ScreenNavigatorWithHistory();
 
-        _header = new Header();
+        _header = new Header(_navigator);
         addChild(_header);
 
-        _content = new Content();
+        _content = new Content(_navigator);
         addChild(_content);
 
         _JSONService = new JSONService();
