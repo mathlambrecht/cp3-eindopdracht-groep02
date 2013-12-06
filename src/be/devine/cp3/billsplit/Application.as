@@ -55,12 +55,12 @@ public class Application extends Sprite
         _content = new Content(_navigator);
         addChild(_content);
 
+        stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
+        resizeHandler(null);
+
         _JSONService = new JSONService();
         _JSONService.addEventListener(flash.events.Event.COMPLETE, jsonServiceCompleteHandler);
         _JSONService.load();
-
-        stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
-        resizeHandler(null);
     }
 
     private function jsonServiceCompleteHandler(event:flash.events.Event):void
@@ -70,7 +70,6 @@ public class Application extends Sprite
 
     public function resizeHandler(event:ResizeEvent = null):void
     {
-        trace('[Application] Resize: ' + stage.stageWidth + ' ' + stage.stageHeight);
         _header.setSize(stage.stageWidth,65);
         _content.y = 65;
         _content.setSize(stage.stageWidth,stage.stageHeight-65);
