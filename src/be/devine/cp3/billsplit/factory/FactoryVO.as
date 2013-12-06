@@ -1,9 +1,9 @@
 package be.devine.cp3.billsplit.factory
 {
-import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
+import be.devine.cp3.billsplit.vo.BillVO;
 
 public class FactoryVO
 {

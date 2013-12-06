@@ -1,11 +1,5 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Annelies
- * Date: 5/12/13
- * Time: 20:54
- * To change this template use File | Settings | File Templates.
- */
-package be.devine.cp3.billsplit.view {
+package be.devine.cp3.billsplit.view
+{
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
@@ -29,8 +23,8 @@ import flash.events.Event;
 
 import starling.display.Sprite;
 
-public class Content extends Sprite{
-
+public class Content extends Sprite
+{
     // Properties
     private var _appModel:AppModel;
     private var _navigator:ScreenNavigatorWithHistory;
@@ -96,7 +90,7 @@ public class Content extends Sprite{
         for each(var screenNavigatorItem:ScreenNavigatorItem in _arrScreens)
         {
             var screen:Screen = screenNavigatorItem.screen as Screen;
-            screen.setSize(width,height);
+            screen.setSize(width, height);
         }
 
     }
