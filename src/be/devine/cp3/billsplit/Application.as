@@ -71,16 +71,13 @@ public class Application extends Sprite
 
     public function resizeHandler(event:ResizeEvent = null):void
     {
-<<<<<<< HEAD
         _header.setSize(stage.stageWidth,65);
         _content.y = 65;
         _content.setSize(stage.stageWidth,stage.stageHeight-65);
-=======
         trace('[Application] Resize: ' + stage.stageWidth + ' ' + stage.stageHeight);
         _header.setSize(stage.stageWidth, Config.HEADER_HEIGHT);
         _content.y = Config.HEADER_HEIGHT;
         _content.setSize(stage.stageWidth,stage.stageHeight - Config.HEADER_HEIGHT);
->>>>>>> 8637c36093a4c690625e5ccfa6db58e7838498e6
     }
 }
 }
