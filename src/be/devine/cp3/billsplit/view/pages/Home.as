@@ -36,7 +36,12 @@ public class Home extends Screen{
         trace('[Home]');
 
         _appModel = AppModel.getInstance();
+        createHome();
+    }
 
+    // Methods
+    private function createHome():void
+    {
         _buttonGroup = new LayoutGroup();
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
         addChild(_buttonGroup);
@@ -46,19 +51,18 @@ public class Home extends Screen{
         _buttonGroup.layout = layout;
 
         _oldBillsButton = new Button();
-        _oldBillsButton.label = "Old bill";
+        _oldBillsButton.label = 'Old bill';
         _oldBillsButton.name = OLD_BILLS;
         _oldBillsButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_oldBillsButton);
 
         _newBillButton = new Button();
-        _newBillButton.label = "New bill";
+        _newBillButton.label = 'New bill';
         _newBillButton.name = NEW_BILL;
         _newBillButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_newBillButton);
     }
 
-    // Methods
     private function onClickHandler(event:Event):void
     {
         var button:Button = event.currentTarget as Button;
@@ -87,9 +91,9 @@ public class Home extends Screen{
         layout();
     }
 
-    override public function setSize(width:Number, height:Number):void {
+    override public function setSize(width:Number, height:Number):void
+    {
         super.setSize(width,height);
-
         layout();
     }
 }

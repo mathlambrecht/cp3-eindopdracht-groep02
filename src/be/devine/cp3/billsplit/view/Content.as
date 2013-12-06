@@ -12,6 +12,7 @@ import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 import be.devine.cp3.billsplit.view.pages.Home;
 import be.devine.cp3.billsplit.view.pages.NewBill;
 import be.devine.cp3.billsplit.view.pages.OldBills;
+import be.devine.cp3.billsplit.view.pages.SplitBill;
 
 import feathers.controls.Screen;
 
@@ -47,11 +48,13 @@ public class Content extends Sprite{
         var home:ScreenNavigatorItem = new ScreenNavigatorItem( new Home() );
         var newBill:ScreenNavigatorItem = new ScreenNavigatorItem( new NewBill() );
         var oldBills:ScreenNavigatorItem = new ScreenNavigatorItem( new OldBills() );
-        _arrScreens.push(home,newBill,oldBills);
+        var splitBill:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBill() );
+        _arrScreens.push(home,newBill,oldBills,splitBill);
 
         _navigator.addScreen( Config.HOME , home );
         _navigator.addScreen( Config.NEW_BILL , newBill );
         _navigator.addScreen( Config.OLD_BILLS , oldBills );
+        _navigator.addScreen( Config.SPLIT_BILL , splitBill );
         addChild(_navigator);
 
         _appModel.currentPage = Config.HOME;

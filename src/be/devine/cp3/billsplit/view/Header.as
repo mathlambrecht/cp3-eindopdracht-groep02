@@ -57,7 +57,7 @@ public class Header extends Screen {
         // todo: positionering (button group?)
         _backButton = new Button();
         _backButton.nameList.add( Button.ALTERNATE_NAME_BACK_BUTTON );
-        _backButton.addEventListener(starling.events.Event.TRIGGERED, backButtonClickHandler);
+        _backButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
         this.addChild(_backButton);
     }
 
@@ -77,7 +77,7 @@ public class Header extends Screen {
         _textField.height = height;
     }
 
-    private function backButtonClickHandler(event:starling.events.Event):void {
+    private function onClickHandler(event:starling.events.Event):void {
         trace('[Header] Back button clicked');
 
         _appModel.currentPage = _navigator.goBack(1);
