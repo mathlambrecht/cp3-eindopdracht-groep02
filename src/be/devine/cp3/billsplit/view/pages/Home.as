@@ -16,6 +16,7 @@ import feathers.events.FeathersEventType;
 import feathers.layout.HorizontalLayout;
 
 import starling.events.Event;
+import starling.events.ResizeEvent;
 
 public class Home extends Screen{
 
@@ -75,14 +76,21 @@ public class Home extends Screen{
         _appModel.currentPage = nextScreen;
     }
 
-    private function buttonGroupCreationCompleteHandler(event:Event):void
+    private function layout():void
     {
         _buttonGroup.y = this.height - _buttonGroup.height - 50;
         _buttonGroup.x = this.width/2 - _buttonGroup.width/2;
     }
 
+    private function buttonGroupCreationCompleteHandler(event:Event):void
+    {
+        layout();
+    }
+
     override public function setSize(width:Number, height:Number):void {
         super.setSize(width,height);
+
+        layout();
     }
 }
 }

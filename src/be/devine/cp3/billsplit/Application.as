@@ -65,7 +65,7 @@ public class Application extends Sprite
 
     private function jsonServiceCompleteHandler(event:flash.events.Event):void
     {
-        trace(_JSONService.billsData.bills[0].name);
+        //trace(_JSONService.billsData.bills[0].name);
     }
 
     public function resizeHandler(event:ResizeEvent = null):void
