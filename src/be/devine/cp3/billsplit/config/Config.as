@@ -8,12 +8,16 @@ public class Config
 
     // pages
     public static const HOME:String = 'Home';
+    public static const FRIEND:String = 'Friends';
+    public static const ADD_FRIEND:String = 'AddFriend';
     public static const OLD_BILLS:String = 'OldBills';
     public static const NEW_BILL:String = 'NewBill';
-    public static const SPLIT_BILL:String = 'SplitBill';
     public static const BILL_FRIENDS:String = 'BillFriends';
     public static const BILL_PRICE:String = 'BillPrice';
     public static const BILL_ITEMS:String = 'BillItems';
+    public static const ADD_ITEM:String = 'AddItem';
+    public static const SPLIT_BILL:String = 'SplitBill';
+    public static const RESULTS:String = 'Results';
 
     public function Config(){}
 
