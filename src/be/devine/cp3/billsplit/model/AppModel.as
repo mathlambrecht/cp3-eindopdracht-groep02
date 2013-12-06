@@ -22,15 +22,8 @@ public class AppModel extends EventDispatcher
     private var _currentPage:String;
 
     private var _bills:Array;
+    private var _currentBill:BillModel;
     private var _friends:Array;
-    private var _selectedFriends:Array;
-
-    private var _splitMethod:Array;
-
-    private var _date:Date;
-    private var _title:String;
-    private var _items:Array;
-    private var _totalPrice:Number;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -57,8 +50,8 @@ public class AppModel extends EventDispatcher
 
         trace('[AppModel]');
 
-        _arrBillsVO = new Array();
-        _arrFriendsVO = new Array();
+        _arrBillsVO = [];
+        _arrFriendsVO = [];
     }
 
     //---------------------------------------------------------------
@@ -92,7 +85,6 @@ public class AppModel extends EventDispatcher
         }
     }
 
-
     public function get bills():Array
     {
         return _bills;
@@ -111,54 +103,6 @@ public class AppModel extends EventDispatcher
         _friends = value;
     }
 
-    public function get selectedFriends():Array {
-        return _selectedFriends;
-    }
-
-    public function set selectedFriends(value:Array):void {
-        _selectedFriends = value;
-    }
-
-    public function get splitMethod():Array {
-        return _splitMethod;
-    }
-
-    public function set splitMethod(value:Array):void {
-        _splitMethod = value;
-    }
-
-    public function get date():Date {
-        return _date;
-    }
-
-    public function set date(value:Date):void {
-        _date = value;
-    }
-
-    public function get title():String {
-        return _title;
-    }
-
-    public function set title(value:String):void {
-        _title = value;
-    }
-
-    public function get items():Array {
-        return _items;
-    }
-
-    public function set items(value:Array):void {
-        _items = value;
-    }
-
-    public function get totalPrice():Number {
-        return _totalPrice;
-    }
-
-    public function set totalPrice(value:Number):void {
-        _totalPrice = value;
-    }
-
     public function get currentPage():String {
         return _currentPage;
     }
@@ -169,8 +113,13 @@ public class AppModel extends EventDispatcher
         dispatchEvent(new Event(CURRENT_PAGE_CHANGED));
     }
 
+    public function get currentBill():BillModel {
+        return _currentBill;
+    }
 
-
+    public function set currentBill(value:BillModel):void {
+        _currentBill = value;
+    }
 }
 }
 
