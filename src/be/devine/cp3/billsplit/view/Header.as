@@ -6,10 +6,12 @@
  * To change this template use File | Settings | File Templates.
  */
 package be.devine.cp3.billsplit.view {
+
 import be.devine.cp3.billsplit.model.AppModel;
 
 import feathers.controls.Button;
 import feathers.controls.Screen;
+import feathers.controls.ScreenNavigator;
 
 import starling.display.Quad;
 import starling.events.Event;
@@ -21,6 +23,8 @@ public class Header extends Screen {
 
     // Properties
     private var _appModel:AppModel;
+    private var _navigator:ScreenNavigator;
+
     private var _background:Quad;
     private var _textField:TextField;
     private var _backButton:Button;
@@ -40,7 +44,7 @@ public class Header extends Screen {
         _background = new Quad(1,1,0x000000);
         addChild(_background);
 
-        _textField = new TextField(200,65,"Title","Verdana",18,0xffffff);
+        _textField = new TextField(200,65,'Title','Verdana',18,0xffffff);
         _textField.hAlign = HAlign.CENTER;
         _textField.vAlign = VAlign.CENTER;
         addChild(_textField);
@@ -64,7 +68,7 @@ public class Header extends Screen {
     }
 
     private function backButtonClickHandler(event:Event):void {
-        trace("back");
+        trace('back');
     }
 }
 }

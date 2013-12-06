@@ -9,8 +9,10 @@ public class AppModel extends EventDispatcher
     //---------------------------------------------------------------
     //-------------------------- Properties -------------------------
     //---------------------------------------------------------------
-    public static var ARRAY_BILLS_VO_CHANGED:String = 'arrBillsVoChanged';
-    public static var ARRAY_FRIENDS_VO_CHANGED:String = 'arrFriendsVoChanged';
+    public static const ARRAY_BILLS_VO_CHANGED:String = 'arrBillsVoChanged';
+    public static const ARRAY_FRIENDS_VO_CHANGED:String = 'arrFriendsVoChanged';
+
+    public static const CURRENT_PAGE_CHANGED:String = 'currentPageChanged';
 
     private static var _instance:AppModel;
 
@@ -164,6 +166,7 @@ public class AppModel extends EventDispatcher
     public function set currentPage(value:String):void {
         if ( _currentPage == value ) return;
         _currentPage = value;
+        dispatchEvent(new Event(CURRENT_PAGE_CHANGED));
     }
 
 

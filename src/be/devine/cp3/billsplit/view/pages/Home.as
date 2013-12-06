@@ -6,6 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 package be.devine.cp3.billsplit.view.pages {
+import be.devine.cp3.billsplit.config.Config;
+import be.devine.cp3.billsplit.model.AppModel;
+
 import feathers.controls.Button;
 import feathers.controls.LayoutGroup;
 import feathers.controls.Screen;
@@ -17,14 +20,21 @@ import starling.events.Event;
 public class Home extends Screen{
 
     // Properties
+    private var _appModel:AppModel;
+
     private var _oldBillsButton:Button;
     private var _newBillButton:Button;
     private var _buttonGroup:LayoutGroup;
+
+    private static var OLD_BILLS:String = 'Old bills';
+    private static var NEW_BILL:String = 'New bill';
 
     // Contructor
     public function Home()
     {
         trace('[Home]');
+
+        _appModel = AppModel.getInstance();
 
         _buttonGroup = new LayoutGroup();
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
@@ -35,12 +45,12 @@ public class Home extends Screen{
         _buttonGroup.layout = layout;
 
         _oldBillsButton = new Button();
-        _oldBillsButton.label = "Old bills";
+        _oldBillsButton.label = OLD_BILLS;
         _oldBillsButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_oldBillsButton);
 
         _newBillButton = new Button();
-        _newBillButton.label = "New bill";
+        _newBillButton.label = NEW_BILL;
         _newBillButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_newBillButton);
     }
@@ -49,13 +59,24 @@ public class Home extends Screen{
     private function onClickHandler(event:Event):void
     {
         var button:Button = event.currentTarget as Button;
-        trace(button.label);
+        var nextScreen:String;
+
+        switch (button.label){
+            case OLD_BILLS:
+                nextScreen = Config.OLD_BILLS;
+                break;
+            case NEW_BILL:
+                nextScreen = Config.NEW_BILL;
+                break;
+        }
+
+        _appModel.currentPage = nextScreen;
     }
 
     private function buttonGroupCreationCompleteHandler(event:Event):void
     {
-        _buttonGroup.y = 200;
-        _buttonGroup.x = 480/2 - _buttonGroup.width/2;
+        _buttonGroup.y = this.height - _buttonGroup.height - 50;
+        _buttonGroup.x = this.width/2 - _buttonGroup.width/2;
     }
 
     override public function setSize(width:Number, height:Number):void {
