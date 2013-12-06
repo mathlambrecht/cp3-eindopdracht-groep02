@@ -14,9 +14,10 @@ public class JSONService extends EventDispatcher
     private var _JSONFile:File;
     private var _fileStream:FileStream;
     private var _JSONString:String;
+    private var _parsedJSON:Object;
 
-    private var _billsData:Object;
-    private var _friendsData:Object;
+    private var _billsData:Array;
+    private var _friendsData:Array;
 
     public function JSONService() {}
 
@@ -31,7 +32,7 @@ public class JSONService extends EventDispatcher
             _JSONString = _fileStream.readUTFBytes(_fileStream.bytesAvailable);
             _fileStream.close();
 
-            _billsData = JSON.parse(_JSONString);
+            _parsedJSON = JSON.parse(_JSONString);
         }
         else
         {
