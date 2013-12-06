@@ -16,7 +16,6 @@ public class AppModel extends EventDispatcher
     public static const ARRAY_FRIENDS_VO_CHANGED:String = 'arrFriendsVoChanged';
 
     public static const CURRENT_PAGE_CHANGED:String = 'currentPageChanged';
-    public static const NEW_BILL:String = 'newBill';
 
     private static var _instance:AppModel;
 
@@ -53,6 +52,8 @@ public class AppModel extends EventDispatcher
 
         _arrBillsVO = new Vector.<BillVO>();
         _arrFriendsVO = new Vector.<FriendVO>();
+
+        _currentBill = new BillModel();
     }
 
     //---------------------------------------------------------------
@@ -109,7 +110,6 @@ public class AppModel extends EventDispatcher
     {
         if ( _currentBill == value ) return;
         _currentBill = value;
-        dispatchEvent(new Event(NEW_BILL));
     }
 }
 }

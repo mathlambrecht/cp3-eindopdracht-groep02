@@ -48,7 +48,7 @@ public class Home extends Screen{
         _buttonGroup.layout = layout;
 
         _oldBillsButton = new Button();
-        _oldBillsButton.label = 'Old bill';
+        _oldBillsButton.label = 'Old bills';
         _oldBillsButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_oldBillsButton);
 

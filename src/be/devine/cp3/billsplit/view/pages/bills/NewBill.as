@@ -40,26 +40,26 @@ public class NewBill extends Screen{
         trace('[NewBill]');
 
         _appModel = AppModel.getInstance();
-        _appModel.addEventListener(AppModel.NEW_BILL,addEventsHandler);
+        _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
+        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
+        _appModel.currentBill.addEventListener(BillModel.TITLE_CHANGED,titleChanged);
 
         createNewBill();
     }
 
     // Methods
-    private function addEventsHandler(event:flash.events.Event):void
-    {
-        _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
-        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
-    }
-
     private function splitMethodChanged(event:flash.events.Event):void
     {
     }
 
     private function totalPriceChanged(event:flash.events.Event):void
     {
-        trace(_appModel.currentBill.totalPrice);
         if(_appModel.currentBill.totalPrice != 0) _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
+    }
+
+    private function titleChanged(event:flash.events.Event):void
+    {
+        _textInput.text = _appModel.currentBill.title;
     }
 
     private function createNewBill():void{
@@ -140,23 +140,15 @@ public class NewBill extends Screen{
         _appModel.currentPage = nextScreen;
     }
 
+    private function groupCreationCompleteHandler(event:starling.events.Event):void
+    {
+        draw();
+    }
 
-
-    private function layout():void
+    override protected function draw():void
     {
         _group.y = 60;
         _group.x = this.width/2 - _group.width/2;
-    }
-
-    private function groupCreationCompleteHandler(event:starling.events.Event):void
-    {
-        layout();
-    }
-
-    override public function setSize(width:Number, height:Number):void
-    {
-        super.setSize(width,height);
-        layout();
     }
 }
 }

@@ -15,28 +15,22 @@ public class BillModel extends EventDispatcher{
     // Properties
     public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
     public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
+    public static const TITLE_CHANGED:String = 'TitleChanged';
 
-    private var _date:Date;
+    private var _id:String;
     private var _title:String;
-    private var _items:Array;
-    private var _friends:Array;
+    private var _datetime:String;
+    private var _arrItems:Array;
+    private var _arrFriends:Array;
     private var _totalPrice:Number;
     private var _splitMethod:String = "percentage";
+    private var _arrFriendPercentage:Array;
+    private var _arrFriendItems:Array;
 
     // Constructor
     public function BillModel() {}
 
     // Methods
-    public function get date():Date
-    {
-        return _date;
-    }
-
-    public function set date(value:Date):void
-    {
-        _date = value;
-    }
-
     public function get title():String
     {
         return _title;
@@ -46,16 +40,7 @@ public class BillModel extends EventDispatcher{
     {
         if ( _title == value ) return;
         _title = value;
-    }
-
-    public function get items():Array
-    {
-        return _items;
-    }
-
-    public function set items(value:Array):void
-    {
-        _items = value;
+        dispatchEvent(new Event(TITLE_CHANGED));
     }
 
     public function get totalPrice():Number
@@ -85,14 +70,65 @@ public class BillModel extends EventDispatcher{
         dispatchEvent(new Event(SPLITMETHOD_CHANGED));
     }
 
-    public function get friends():Array
-    {
-        return _friends;
+    public function get arrFriendItems():Array {
+        return _arrFriendItems;
     }
 
-    public function set friends(value:Array):void
+    public function set arrFriendItems(value:Array):void {
+        _arrFriendItems = value;
+    }
+
+    public function get arrFriendPercentage():Array {
+        return _arrFriendPercentage;
+    }
+
+    public function set arrFriendPercentage(value:Array):void {
+        _arrFriendPercentage = value;
+    }
+
+    public function get arrFriends():Array {
+        return _arrFriends;
+    }
+
+    public function set arrFriends(value:Array):void {
+        _arrFriends = value;
+    }
+
+    public function get arrItems():Array {
+        return _arrItems;
+    }
+
+    public function set arrItems(value:Array):void {
+        _arrItems = value;
+    }
+
+    public function get datetime():String {
+        return _datetime;
+    }
+
+    public function set datetime(value:String):void {
+        _datetime = value;
+    }
+
+    public function get id():String {
+        return _id;
+    }
+
+    public function set id(value:String):void {
+        _id = value;
+    }
+
+    public function readObject(billVO:Object):void
     {
-        _friends = value;
+        id = billVO.id;
+        title = billVO.title;
+        datetime = billVO.datetime;
+        arrItems = billVO.arrItems;
+        arrFriends = billVO.arrFriends;
+        totalPrice = billVO.totalPrice;
+        splitMethod = billVO.splitMethod;
+        arrFriendPercentage = billVO.arrFriendPercentage;
+        arrFriendItems = billVO.arrFriendItems;
     }
 }
 }

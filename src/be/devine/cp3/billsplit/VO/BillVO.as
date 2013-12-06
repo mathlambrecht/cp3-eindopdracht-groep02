@@ -14,10 +14,10 @@ public class BillVO
 
     public function BillVO()
     {
-        arrFriends = new Array();
-        arrItems = new Array();
-        arrFriendPercentage = new Array();
-        arrFriendItems = new Array();
+        arrFriends = [];
+        arrItems = [];
+        arrFriendPercentage = [];
+        arrFriendItems = [];
     }
 }
 }
