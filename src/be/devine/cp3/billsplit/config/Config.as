@@ -5,6 +5,7 @@ import feathers.themes.MetalWorksMobileTheme;
 public class Config
 {
     public static const JSON_FILENAME:String = 'bills.json';
+    public static const HEADER_HEIGHT:Number = 65;
 
     // pages
     public static const HOME:String = 'Home';
