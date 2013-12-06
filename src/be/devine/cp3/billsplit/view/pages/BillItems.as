@@ -16,9 +16,14 @@ public class BillItems extends Screen{
     public function BillItems()
     {
         trace('[BillItems]');
+        createBillItems();
     }
 
     // Methods
+    private function createBillItems():void
+    {
+    }
+
     private function layout():void
     {
 

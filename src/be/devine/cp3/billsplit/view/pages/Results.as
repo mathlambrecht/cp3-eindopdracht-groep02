@@ -2,25 +2,25 @@
  * Created with IntelliJ IDEA.
  * User: Annelies
  * Date: 6/12/13
- * Time: 15:45
+ * Time: 17:01
  * To change this template use File | Settings | File Templates.
  */
 package be.devine.cp3.billsplit.view.pages {
 import feathers.controls.Screen;
 
-public class BillFriends extends Screen{
+public class Results extends Screen{
 
     // Properties
 
     // Constructor
-    public function BillFriends()
+    public function Results()
     {
-        trace('[BillFriends]');
-        createBillFriends();
+        trace('[Results]');
+        createResults();
     }
 
     // Methods
-    private function createBillFriends():void
+    private function createResults():void
     {
     }
 

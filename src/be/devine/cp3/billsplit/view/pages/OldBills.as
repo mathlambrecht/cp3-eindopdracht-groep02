@@ -16,8 +16,22 @@ public class OldBills extends Screen{
     public function OldBills()
     {
         trace('[OldBills]');
+        createOldResults();
     }
 
     // Methods
+    private function createOldResults():void
+    {
+    }
+
+    private function layout():void
+    {
+    }
+
+    override public function setSize(width:Number, height:Number):void
+    {
+        super.setSize(width,height);
+        layout();
+    }
 }
 }

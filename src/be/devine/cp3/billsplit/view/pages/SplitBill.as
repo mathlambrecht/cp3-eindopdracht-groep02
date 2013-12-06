@@ -21,8 +21,18 @@ public class SplitBill extends Screen{
     }
 
     // Methods
-    private function createSplitBill():void{
+    private function createSplitBill():void
+    {
+    }
 
+    private function layout():void
+    {
+    }
+
+    override public function setSize(width:Number, height:Number):void
+    {
+        super.setSize(width,height);
+        layout();
     }
 }
 }
