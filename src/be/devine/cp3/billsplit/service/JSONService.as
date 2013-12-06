@@ -1,10 +1,10 @@
 package be.devine.cp3.billsplit.service
 {
 
-import be.devine.cp3.billsplit.config.Config;
-import be.devine.cp3.billsplit.factory.FactoryVO;
 import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
+import be.devine.cp3.billsplit.config.Config;
+import be.devine.cp3.billsplit.factory.FactoryVO;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;

@@ -26,17 +26,16 @@ public class OldBills extends Screen
     {
         trace('[OldBills]');
 
+        _list = new List();
+        _billsListCollection = new ListCollection();
+        _list.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
+
         _appModel = AppModel.getInstance();
         _appModel.addEventListener(AppModel.ARRAY_BILLS_VO_CHANGED, arrBillsVOChangedHandler);
     }
 
     private function arrBillsVOChangedHandler(event:flash.events.Event):void
     {
-        _list = new List();
-        this.addChild(_list);
-
-        _billsListCollection = new ListCollection();
-
         for each(var billVO:BillVO in _appModel.arrBillsVO)
         {
             _billsListCollection.addItem({title: billVO.title, billVO: billVO});
@@ -44,8 +43,6 @@ public class OldBills extends Screen
 
         _list.dataProvider = _billsListCollection;
         _list.itemRendererProperties.labelField = "title";
-
-        _list.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
     }
 
     private function listChangeHandler(event:starling.events.Event):void
@@ -54,14 +51,14 @@ public class OldBills extends Screen
         var item:Object = list.selectedItem;
     }
 
-    private function layout():void
+    override protected function initialize():void
     {
+        this.addChild(_list);
     }
 
-    override public function setSize(width:Number, height:Number):void
+    override protected function draw():void
     {
-        super.setSize(width, height);
-        layout();
+        _list.width = stage.stageWidth;
     }
 }
 }

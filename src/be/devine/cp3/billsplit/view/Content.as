@@ -57,7 +57,7 @@ public class Content extends Sprite
         var billFriends:ScreenNavigatorItem = new ScreenNavigatorItem( new BillFriends() );
         var splitBill:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBill() );
         var results:ScreenNavigatorItem = new ScreenNavigatorItem( new Results() );
-        _arrScreens.push(home,newBill,oldBills,splitBill);
+        _arrScreens.push(home,friends,addFriend,oldBills,newBill,billPrice,billItems,addItem,billFriends,splitBill,results);
 
         _navigator.addScreen( Config.HOME , home );
         _navigator.addScreen( Config.FRIEND , friends );

@@ -16,6 +16,7 @@ public class BillFriends extends Screen{
     public function BillFriends()
     {
         trace('[BillFriends]');
+
         createBillFriends();
     }
 
