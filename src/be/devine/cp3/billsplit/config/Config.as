@@ -12,6 +12,7 @@ public class Config
     public static const NEW_BILL:String = 'NewBill';
     public static const SPLIT_BILL:String = 'SplitBill';
     public static const BILL_FRIENDS:String = 'BillFriends';
+    public static const BILL_PRICE:String = 'BillPrice';
     public static const BILL_ITEMS:String = 'BillItems';
 
     public function Config(){}

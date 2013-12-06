@@ -7,22 +7,26 @@
  */
 package be.devine.cp3.billsplit.view.pages {
 import be.devine.cp3.billsplit.config.Config;
+import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.model.BillModel;
 
 import feathers.controls.Button;
 import feathers.controls.LayoutGroup;
 import feathers.controls.Screen;
 import feathers.controls.TextInput;
 import feathers.controls.ToggleSwitch;
-import feathers.controls.text.TextFieldTextRenderer;
-import feathers.core.ITextRenderer;
 import feathers.events.FeathersEventType;
 import feathers.layout.VerticalLayout;
+
+import flash.events.Event;
 
 import starling.events.Event;
 
 public class NewBill extends Screen{
 
     // Properties
+    private var _appModel:AppModel;
+
     private var _group:LayoutGroup;
     private var _textInput:TextInput;
     private var _splitMethodToggle:ToggleSwitch;
@@ -35,10 +39,29 @@ public class NewBill extends Screen{
     {
         trace('[NewBill]');
 
+        _appModel = AppModel.getInstance();
+        _appModel.addEventListener(AppModel.NEW_BILL,addEventsHandler);
+
         createNewBill();
     }
 
     // Methods
+    private function addEventsHandler(event:flash.events.Event):void
+    {
+        _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
+        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
+    }
+
+    private function splitMethodChanged(event:flash.events.Event):void
+    {
+    }
+
+    private function totalPriceChanged(event:flash.events.Event):void
+    {
+        trace(_appModel.currentBill.totalPrice);
+        if(_appModel.currentBill.totalPrice != 0) _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
+    }
+
     private function createNewBill():void{
 
         _group = new LayoutGroup();
@@ -51,21 +74,23 @@ public class NewBill extends Screen{
 
         _textInput = new TextInput();
         _textInput.text = '';
-        _textInput.prompt = 'Title goes here';
         _textInput.setFocus();
+        _textInput.maxChars = 25;
+        _textInput.prompt = 'Title goes here';
+        _textInput.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
         _group.addChild(_textInput);
 
         _splitMethodToggle = new ToggleSwitch();
-        _splitMethodToggle.onText = "%";
-        _splitMethodToggle.offText = "€";
+        _splitMethodToggle.onText = "€";
+        _splitMethodToggle.offText = "%";
         _splitMethodToggle.trackLayoutMode = ToggleSwitch.TRACK_LAYOUT_MODE_ON_OFF;
+        _splitMethodToggle.addEventListener(starling.events.Event.CHANGE, toggleChangeHandler);
         _group.addChild(_splitMethodToggle);
 
         _friendsButton = new Button();
         _friendsButton.label = '8 friends';
-        _friendsButton.name = Config.BILL_FRIENDS;
         _friendsButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
-        _friendsButton.addEventListener(Event.TRIGGERED, onClickHandler);
+        _friendsButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
         _group.addChild(_friendsButton);
 
 
@@ -73,24 +98,49 @@ public class NewBill extends Screen{
         // todo: if splitmethod == % -> name = Config.BILL_PRICE // if splitmethod == € -> name = Config.BILL_ITEMS
 
         _priceButton = new Button();
-        _priceButton.label = '34 euros';
-        _priceButton.name = '';
+        _priceButton.label = '? euros';
         _priceButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
-        _priceButton.addEventListener(Event.TRIGGERED, onClickHandler);
+        _priceButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
         _group.addChild(_priceButton);
 
         _submitButton = new Button();
         _submitButton.label = 'Split that bill!';
-        _submitButton.name = Config.SPLIT_BILL;
-        _submitButton.addEventListener(Event.TRIGGERED, onClickHandler);
-        _group.addChild(_submitButton)
+        _submitButton.nameList.add( Button.STATE_DISABLED );
+        // _submitButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
+        _group.addChild(_submitButton);
     }
 
-    private function onClickHandler(event:Event):void
+
+
+    private function inputChangeHandler(event:starling.events.Event):void
+    {
+        _appModel.currentBill.title = _textInput.text;
+    }
+
+    private function toggleChangeHandler(event:starling.events.Event):void
+    {
+        _appModel.currentBill.splitMethod = (_splitMethodToggle.isSelected == true)? "absolute" : "percentage" ;
+    }
+
+    private function onClickHandler(event:starling.events.Event):void
     {
         var button:Button = event.currentTarget as Button;
-        trace(button.name);
+        var nextScreen:String;
+
+        switch (button){
+            case _friendsButton:
+                nextScreen = Config.BILL_FRIENDS;
+                break;
+            case _priceButton:
+
+                nextScreen = (_appModel.currentBill.splitMethod == "percentage")? Config.BILL_PRICE : Config.BILL_ITEMS;
+                break;
+        }
+
+        _appModel.currentPage = nextScreen;
     }
+
+
 
     private function layout():void
     {
@@ -98,7 +148,7 @@ public class NewBill extends Screen{
         _group.x = this.width/2 - _group.width/2;
     }
 
-    private function groupCreationCompleteHandler(event:Event):void
+    private function groupCreationCompleteHandler(event:starling.events.Event):void
     {
         layout();
     }

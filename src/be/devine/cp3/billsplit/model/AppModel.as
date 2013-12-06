@@ -13,6 +13,7 @@ public class AppModel extends EventDispatcher
     public static const ARRAY_FRIENDS_VO_CHANGED:String = 'arrFriendsVoChanged';
 
     public static const CURRENT_PAGE_CHANGED:String = 'currentPageChanged';
+    public static const NEW_BILL:String = 'newBill';
 
     private static var _instance:AppModel;
 
@@ -95,32 +96,40 @@ public class AppModel extends EventDispatcher
         _bills = value;
     }
 
-    public function get friends():Array {
+    public function get friends():Array
+    {
         return _friends;
     }
 
-    public function set friends(value:Array):void {
+    public function set friends(value:Array):void
+    {
         _friends = value;
     }
 
-    public function get currentPage():String {
+    public function get currentPage():String
+    {
         return _currentPage;
     }
 
-    public function set currentPage(value:String):void {
+    public function set currentPage(value:String):void
+    {
         if ( _currentPage == value ) return;
         _currentPage = value;
         dispatchEvent(new Event(CURRENT_PAGE_CHANGED));
     }
 
-    public function get currentBill():BillModel {
+    public function get currentBill():BillModel
+    {
         return _currentBill;
     }
 
-    public function set currentBill(value:BillModel):void {
+    public function set currentBill(value:BillModel):void
+    {
+        if ( _currentBill == value ) return;
         _currentBill = value;
+        dispatchEvent(new Event(NEW_BILL));
     }
 }
 }
 
-internal class Enforcer{};
+internal class Enforcer{}

@@ -8,6 +8,7 @@
 package be.devine.cp3.billsplit.view.pages {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.model.BillModel;
 
 import feathers.controls.Button;
 import feathers.controls.LayoutGroup;
@@ -16,7 +17,6 @@ import feathers.events.FeathersEventType;
 import feathers.layout.HorizontalLayout;
 
 import starling.events.Event;
-import starling.events.ResizeEvent;
 
 public class Home extends Screen{
 
@@ -26,9 +26,6 @@ public class Home extends Screen{
     private var _oldBillsButton:Button;
     private var _newBillButton:Button;
     private var _buttonGroup:LayoutGroup;
-
-    private static var OLD_BILLS:String = 'Old bills';
-    private static var NEW_BILL:String = 'New bill';
 
     // Contructor
     public function Home()
@@ -52,13 +49,11 @@ public class Home extends Screen{
 
         _oldBillsButton = new Button();
         _oldBillsButton.label = 'Old bill';
-        _oldBillsButton.name = OLD_BILLS;
         _oldBillsButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_oldBillsButton);
 
         _newBillButton = new Button();
         _newBillButton.label = 'New bill';
-        _newBillButton.name = NEW_BILL;
         _newBillButton.addEventListener(Event.TRIGGERED, onClickHandler);
         _buttonGroup.addChild(_newBillButton);
     }
@@ -68,12 +63,13 @@ public class Home extends Screen{
         var button:Button = event.currentTarget as Button;
         var nextScreen:String;
 
-        switch (button.name){
-            case OLD_BILLS:
-                nextScreen = Config.OLD_BILLS;
+        switch (button){
+            case _oldBillsButton:
+                    nextScreen = Config.OLD_BILLS;
                 break;
-            case NEW_BILL:
-                nextScreen = Config.NEW_BILL;
+            case _newBillButton:
+                    _appModel.currentBill = new BillModel();
+                    nextScreen = Config.NEW_BILL;
                 break;
         }
 

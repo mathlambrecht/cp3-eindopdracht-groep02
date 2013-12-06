@@ -6,69 +6,92 @@
  * To change this template use File | Settings | File Templates.
  */
 package be.devine.cp3.billsplit.model {
-import starling.events.EventDispatcher;
+
+import flash.events.Event;
+import flash.events.EventDispatcher;
 
 public class BillModel extends EventDispatcher{
 
     // Properties
-    private var _splitMethod:String;
+    public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
+    public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
 
     private var _date:Date;
     private var _title:String;
     private var _items:Array;
     private var _friends:Array;
     private var _totalPrice:Number;
+    private var _splitMethod:String = "percentage";
 
     // Constructor
-    public function BillModel() {
-    }
+    public function BillModel() {}
 
     // Methods
-    public function get date():Date {
+    public function get date():Date
+    {
         return _date;
     }
 
-    public function set date(value:Date):void {
+    public function set date(value:Date):void
+    {
         _date = value;
     }
 
-    public function get title():String {
+    public function get title():String
+    {
         return _title;
     }
 
-    public function set title(value:String):void {
+    public function set title(value:String):void
+    {
+        if ( _title == value ) return;
         _title = value;
     }
 
-    public function get items():Array {
+    public function get items():Array
+    {
         return _items;
     }
 
-    public function set items(value:Array):void {
+    public function set items(value:Array):void
+    {
         _items = value;
     }
 
-    public function get totalPrice():Number {
+    public function get totalPrice():Number
+    {
         return _totalPrice;
     }
 
-    public function set totalPrice(value:Number):void {
+    public function set totalPrice(value:Number):void
+    {
+        if(_totalPrice == value) return;
+
+        if(isNaN(value)) value = 0;
+
         _totalPrice = value;
+        dispatchEvent(new Event(TOTAL_PRICE_CHANGED));
     }
 
-    public function get splitMethod():String {
+    public function get splitMethod():String
+    {
         return _splitMethod;
     }
 
-    public function set splitMethod(value:String):void {
+    public function set splitMethod(value:String):void
+    {
+        if(_splitMethod == value) return;
         _splitMethod = value;
+        dispatchEvent(new Event(SPLITMETHOD_CHANGED));
     }
 
-    public function get friends():Array {
+    public function get friends():Array
+    {
         return _friends;
     }
 
-    public function set friends(value:Array):void {
+    public function set friends(value:Array):void
+    {
         _friends = value;
     }
 }
