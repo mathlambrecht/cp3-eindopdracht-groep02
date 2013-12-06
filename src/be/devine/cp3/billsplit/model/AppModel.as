@@ -1,12 +1,21 @@
 package be.devine.cp3.billsplit.model
 {
 
+import flash.events.Event;
 import flash.events.EventDispatcher;
 
 public class AppModel extends EventDispatcher
 {
-    // Properties
+    //---------------------------------------------------------------
+    //-------------------------- Properties -------------------------
+    //---------------------------------------------------------------
+    public static var ARRAY_BILLS_VO_CHANGED:String = 'arrBillsVoChanged';
+    public static var ARRAY_FRIENDS_VO_CHANGED:String = 'arrFriendsVoChanged';
+
     private static var _instance:AppModel;
+
+    private var _arrBillsVO:Array;
+    private var _arrFriendsVO:Array;
 
     private var _currentPage:String;
 
@@ -21,7 +30,9 @@ public class AppModel extends EventDispatcher
     private var _items:Array;
     private var _totalPrice:Number;
 
-    //Singleton
+    //---------------------------------------------------------------
+    //-------------------------- Singleton --------------------------
+    //---------------------------------------------------------------
     public static function getInstance():AppModel
     {
         if(_instance == null)
@@ -32,7 +43,9 @@ public class AppModel extends EventDispatcher
         return _instance;
     }
 
-    // Constructor
+    //---------------------------------------------------------------
+    //-------------------------- Constructor ------------------------
+    //---------------------------------------------------------------
     public function AppModel(event:Enforcer)
     {
         if(event == null)
@@ -41,9 +54,43 @@ public class AppModel extends EventDispatcher
         }
 
         trace('[AppModel]');
+
+        _arrBillsVO = new Array();
+        _arrFriendsVO = new Array();
     }
 
-    // Methods
+    //---------------------------------------------------------------
+    //-------------------------- Methods ----------------------------
+    //---------------------------------------------------------------
+    public function get arrVO():Array
+    {
+        return _arrBillsVO;
+    }
+
+    public function set arrVO(value:Array):void
+    {
+        if(_arrBillsVO != value)
+        {
+            _arrBillsVO = value;
+            dispatchEvent(new Event(ARRAY_BILLS_VO_CHANGED));
+        }
+    }
+
+    public function get arrFriendsVO():Array
+    {
+        return _arrFriendsVO;
+    }
+
+    public function set arrFriendsVO(value:Array):void
+    {
+        if(_arrFriendsVO != value)
+        {
+            _arrFriendsVO = value;
+            dispatchEvent(new Event(ARRAY_FRIENDS_VO_CHANGED));
+        }
+    }
+
+
     public function get bills():Array
     {
         return _bills;
@@ -118,6 +165,9 @@ public class AppModel extends EventDispatcher
         if ( _currentPage == value ) return;
         _currentPage = value;
     }
+
+
+
 }
 }
 

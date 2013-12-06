@@ -8,7 +8,6 @@ import flash.events.Event;
 import flash.geom.Rectangle;
 
 import starling.core.Starling;
-import starling.events.Event;
 import starling.events.ResizeEvent;
 
 public class Main extends Sprite
@@ -22,7 +21,6 @@ public class Main extends Sprite
         trace('[Main]');
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
-        stage.scaleMode = StageScaleMode.NO_SCALE;
 
         _app = new Starling(Application, stage);
         _app.start();
@@ -34,7 +32,6 @@ public class Main extends Sprite
     private function resizeHandler(event:flash.events.Event):void
     {
         trace('[Main] Resize');
-
         _app.viewPort = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
         _app.stage.stageWidth = stage.stageWidth;
         _app.stage.stageHeight = stage.stageHeight;

@@ -6,6 +6,7 @@ public class FactoryBillsVO
 
     public static function createBillVOFromJSON()
     {
+
     }
 }
 }

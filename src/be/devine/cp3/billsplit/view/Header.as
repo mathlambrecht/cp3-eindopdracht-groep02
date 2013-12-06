@@ -26,11 +26,11 @@ public class Header extends Screen {
     private var _backButton:Button;
 
     // Constructor
-    public function Header(appModel:AppModel)
+    public function Header()
     {
         trace('[Header]');
 
-        _appModel = appModel;
+        _appModel = AppModel.getInstance();
         createHeader();
     }
 

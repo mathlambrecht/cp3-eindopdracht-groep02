@@ -15,7 +15,8 @@ public class JSONService extends EventDispatcher
     private var _fileStream:FileStream;
     private var _JSONString:String;
 
-    private var _data:Object;
+    private var _billsData:Object;
+    private var _friendsData:Object;
 
     public function JSONService() {}
 
@@ -23,11 +24,6 @@ public class JSONService extends EventDispatcher
     {
         _JSONFile = File.applicationStorageDirectory.resolvePath(Config.JSON_FILENAME);
         _fileStream = new FileStream();
-        trace(_JSONFile.nativePath);
-        _fileStream.open(_JSONFile, FileMode.READ);
-        _JSONString = _fileStream.readUTFBytes(_fileStream.bytesAvailable);
-        _fileStream.close();
-        _data = JSON.parse(_JSONString);
 
         if(_JSONFile.exists)
         {
@@ -35,7 +31,7 @@ public class JSONService extends EventDispatcher
             _JSONString = _fileStream.readUTFBytes(_fileStream.bytesAvailable);
             _fileStream.close();
 
-            _data = JSON.parse(_JSONString);
+            _billsData = JSON.parse(_JSONString);
         }
         else
         {
@@ -44,15 +40,15 @@ public class JSONService extends EventDispatcher
             _fileStream.writeUTFBytes('{}');
             _fileStream.close();
 
-            _data = [];
+            _billsData = [];
         }
 
         dispatchEvent(new Event(Event.COMPLETE));
     }
 
-    public function get data():Object
+    public function get billsData():Object
     {
-        return _data;
+        return _billsData;
     }
 }
 }

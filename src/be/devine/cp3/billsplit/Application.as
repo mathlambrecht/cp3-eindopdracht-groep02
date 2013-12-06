@@ -7,12 +7,14 @@
  */
 package be.devine.cp3.billsplit
 {
+import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.service.JSONService;
 import be.devine.cp3.billsplit.view.Content;
 import be.devine.cp3.billsplit.view.Header;
 
-import feathers.themes.MinimalMobileTheme;
+import flash.events.Event;
+
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.events.ResizeEvent;
@@ -20,6 +22,8 @@ import starling.events.ResizeEvent;
 public class Application extends Sprite
 {
     // Properties
+    private var _config:Config;
+
     private var _appModel:AppModel;
     private var _JSONService:JSONService;
 
@@ -29,43 +33,39 @@ public class Application extends Sprite
     // Constructor
     public function Application()
     {
-        new MinimalMobileTheme();
+        this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
+    }
+
+    // Methods
+    private function addedToStageHandler(event:starling.events.Event):void
+    {
+        this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
+
+        _config = new Config();
+        _config.setTheme();
 
         _appModel = AppModel.getInstance();
 
-        _header = new Header(_appModel);
+        _header = new Header();
         addChild(_header);
 
         _content = new Content();
         addChild(_content);
 
-        this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-    }
+        _JSONService = new JSONService();
+        _JSONService.addEventListener(flash.events.Event.COMPLETE, jsonServiceCompleteHandler);
+        _JSONService.load();
 
-    // Methods
-    private function addedToStageHandler(event:Event):void
-    {
-        this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
-        layout();
-
-        /* data
-         _JSONService = new JSONService();
-         _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
-         _JSONService.load();*/
+        resizeHandler(null);
     }
 
-    private function jsonServiceCompleteHandler(event:Event):void
+    private function jsonServiceCompleteHandler(event:flash.events.Event):void
     {
-        trace(_JSONService.data.bills[0].name);
+        trace(_JSONService.billsData.bills[0].name);
     }
 
     public function resizeHandler(event:ResizeEvent = null):void
-    {
-        layout();
-    }
-
-    private function layout():void
     {
         trace('[Application] Resize: ' + stage.stageWidth + " " + stage.stageHeight);
         _header.setSize(stage.stageWidth,65);
