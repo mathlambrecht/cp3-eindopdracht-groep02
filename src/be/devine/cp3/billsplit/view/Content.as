@@ -60,7 +60,7 @@ public class Content extends Sprite
         _arrScreens.push(home,friends,addFriend,oldBills,newBill,billPrice,billItems,addItem,billFriends,splitBill,results);
 
         _navigator.addScreen( Config.HOME , home );
-        _navigator.addScreen( Config.FRIEND , friends );
+        _navigator.addScreen( Config.FRIENDS , friends );
         _navigator.addScreen( Config.ADD_FRIEND , addFriend );
         _navigator.addScreen( Config.OLD_BILLS , oldBills );
         _navigator.addScreen( Config.NEW_BILL , newBill );

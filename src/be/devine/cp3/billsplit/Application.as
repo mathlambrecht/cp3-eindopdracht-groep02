@@ -49,11 +49,11 @@ public class Application extends Sprite
         _appModel = AppModel.getInstance();
         _navigator = new ScreenNavigatorWithHistory();
 
-        _header = new Header(_navigator);
-        addChild(_header);
-
         _content = new Content(_navigator);
         addChild(_content);
+
+        _header = new Header(_navigator);
+        addChild(_header);
 
         stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
         resizeHandler(null);

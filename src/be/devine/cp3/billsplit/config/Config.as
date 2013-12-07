@@ -6,10 +6,12 @@ public class Config
 {
     public static const JSON_FILENAME:String = 'bills.json';
     public static const HEADER_HEIGHT:Number = 65;
+    public static const MENU_MARGIN:Number = 120;
 
     // pages
     public static const HOME:String = 'Home';
-    public static const FRIEND:String = 'Friends';
+    public static const MENU:String = 'Menu';
+    public static const FRIENDS:String = 'Friends';
     public static const ADD_FRIEND:String = 'AddFriend';
     public static const OLD_BILLS:String = 'OldBills';
     public static const NEW_BILL:String = 'NewBill';
