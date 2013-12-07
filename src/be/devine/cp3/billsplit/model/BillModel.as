@@ -23,12 +23,13 @@ public class BillModel extends EventDispatcher{
     private var _arrItems:Array;
     private var _arrFriends:Array;
     private var _totalPrice:Number;
-    private var _splitMethod:String = "percentage";
+    private var _splitMethod:String;
     private var _arrFriendPercentage:Array;
     private var _arrFriendItems:Array;
 
     // Constructor
-    public function BillModel() {}
+    public function BillModel() {
+    }
 
     // Methods
     public function get title():String
@@ -126,7 +127,11 @@ public class BillModel extends EventDispatcher{
         arrItems = billVO.arrItems;
         arrFriends = billVO.arrFriends;
         totalPrice = billVO.totalPrice;
-        splitMethod = billVO.splitMethod;
+
+        // new bill -> splitmethod standaard op percentage
+        if(billVO.splitMethod == null) splitMethod = "percentage";
+        if(billVO.splitMethod != null) splitMethod = billVO.splitMethod;
+
         arrFriendPercentage = billVO.arrFriendPercentage;
         arrFriendItems = billVO.arrFriendItems;
     }

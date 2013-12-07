@@ -110,8 +110,6 @@ public class NewBill extends Screen{
         _group.addChild(_submitButton);
     }
 
-
-
     private function inputChangeHandler(event:starling.events.Event):void
     {
         _appModel.currentBill.title = _textInput.text;
@@ -132,7 +130,6 @@ public class NewBill extends Screen{
                 nextScreen = Config.BILL_FRIENDS;
                 break;
             case _priceButton:
-
                 nextScreen = (_appModel.currentBill.splitMethod == "percentage")? Config.BILL_PRICE : Config.BILL_ITEMS;
                 break;
         }

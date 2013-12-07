@@ -9,6 +9,7 @@ package be.devine.cp3.billsplit.view.pages {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
+import be.devine.cp3.billsplit.vo.BillVO;
 
 import feathers.controls.Button;
 import feathers.controls.LayoutGroup;
@@ -68,7 +69,8 @@ public class Home extends Screen{
                     nextScreen = Config.OLD_BILLS;
                 break;
             case _newBillButton:
-                    _appModel.currentBill = new BillModel();
+                    var billVO:BillVO = new BillVO();
+                    _appModel.currentBill.readObject(billVO);
                     nextScreen = Config.NEW_BILL;
                 break;
         }
