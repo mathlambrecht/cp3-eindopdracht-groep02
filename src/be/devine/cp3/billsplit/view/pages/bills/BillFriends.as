@@ -10,6 +10,7 @@ import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.FriendVO;
+import be.devine.cp3.billsplit.vo.FriendVO;
 
 import feathers.controls.List;
 import feathers.controls.Screen;
@@ -20,6 +21,7 @@ import feathers.layout.VerticalLayout;
 import flash.events.Event;
 
 import starling.events.Event;
+import starling.events.EventDispatcher;
 
 public class BillFriends extends Screen{
 
@@ -38,8 +40,8 @@ public class BillFriends extends Screen{
         trace('[BillFriends]');
 
         _appModel = AppModel.getInstance();
-        _appModel.addEventListener(AppModel.ARRAY_FRIENDS_VO_CHANGED, arrFriendsVOChangedHandler);
-        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsChangedHandler);
+        _appModel.addEventListener(AppModel.ARRAY_FRIENDS_VO_CHANGED, arrFriendsChangedHandler);
+        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrSelectedFriendsChangedHandler);
 
         _scrolContainer = new ScrollContainer();
         _scrolContainer.interactionMode = ScrollContainer.INTERACTION_MODE_TOUCH;
@@ -50,15 +52,15 @@ public class BillFriends extends Screen{
         _friendsList = new List();
         _friendsList.allowMultipleSelection = true;
         _friendsListCollection = new ListCollection();
-        _friendsList.addEventListener(starling.events.Event.TRIGGERED, selectFriendHandler);
+        _friendsList.addEventListener(starling.events.Event.CHANGE, friendListChangedHandler);
 
         _selectedFriendsList = new List();
+        _selectedFriendsList.isSelectable = false;
         _selectedFriendsListCollection = new ListCollection();
-        _selectedFriendsList.addEventListener(starling.events.Event.TRIGGERED, selectFriendHandler);
     }
 
     // Methods
-    private function arrFriendsVOChangedHandler(event:flash.events.Event):void
+    private function arrFriendsChangedHandler(event:flash.events.Event):void
     {
         if(_friendsListCollection.length != 0) _friendsListCollection.removeAll();
 
@@ -71,9 +73,8 @@ public class BillFriends extends Screen{
         _friendsList.itemRendererProperties.labelField = 'name';
     }
 
-    private function arrFriendsVOUpdateHandler():void
+    private function arrFriendsUpdateHandler():void
     {
-        trace("update");
         if(_friendsListCollection.length != 0) _friendsListCollection.removeAll();
 
         for each(var friendVO:FriendVO in _appModel.arrFriendsVO)
@@ -93,21 +94,38 @@ public class BillFriends extends Screen{
         _friendsList.itemRendererProperties.labelField = 'name';
     }
 
-    private function arrFriendsChangedHandler(event:flash.events.Event):void {
+    private function arrSelectedFriendsChangedHandler(event:flash.events.Event):void
+    {
+        if(_selectedFriendsListCollection.length != 0) _selectedFriendsListCollection.removeAll();
 
-        for each(var friendVO:FriendVO in _appModel.currentBill.arrFriends)
+        for each(var selectedFriendVO:FriendVO in _appModel.currentBill.arrFriends)
         {
-            _selectedFriendsListCollection.addItem({name: friendVO.name, friendVO: friendVO});
+            _selectedFriendsListCollection.addItem({name: selectedFriendVO.name, friendVO: selectedFriendVO});
         }
 
         _selectedFriendsList.dataProvider = _selectedFriendsListCollection;
         _selectedFriendsList.itemRendererProperties.labelField = 'name';
 
-        arrFriendsVOUpdateHandler();
+        arrFriendsUpdateHandler();
     }
 
-    private function selectFriendHandler(event:starling.events.Event):void
+    private function friendListChangedHandler(event:starling.events.Event):void
     {
+        var list:List = List(event.currentTarget);
+        var listCollection:ListCollection = ListCollection(list.dataProvider);
+
+        for(var index:uint = 0; index < listCollection.length; index++)
+        {
+            var item:Object = listCollection.getItemAt(index);
+            var friendVO:FriendVO = item.friendVO;
+            if(list.selectedIndices.indexOf(index) == -1)
+            {
+                _appModel.currentBill.removeFriend(friendVO);
+            } else {
+                _appModel.currentBill.addFriend(friendVO);
+            }
+        }
+
     }
 
     override protected function initialize():void

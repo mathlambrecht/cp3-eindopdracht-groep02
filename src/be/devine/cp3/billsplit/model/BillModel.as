@@ -98,7 +98,6 @@ public class BillModel extends EventDispatcher{
     public function set arrFriends(value:Array):void {
         if(_arrFriends == value) return;
         _arrFriends = value;
-        trace('dispatch');
         dispatchEvent(new Event(ARR_FRIENDS_CHANGED));
     }
 
@@ -124,6 +123,45 @@ public class BillModel extends EventDispatcher{
 
     public function set id(value:String):void {
         _id = value;
+    }
+
+    public function addFriend(friendVOAdd:FriendVO):void{
+
+        var contains:Boolean;
+
+        for each(var selectedFriendVO:FriendVO in _arrFriends)
+        {
+            if(FriendVO.equals(selectedFriendVO, friendVOAdd))
+            {
+                contains = true;
+            }
+        }
+
+        if(!contains) arrFriends = arrFriends.concat(friendVOAdd);
+    }
+
+    public function removeFriend(friendVO:FriendVO):void
+    {
+        var contains:Boolean;
+
+        for each(var selectedFriendVO:FriendVO in _arrFriends)
+        {
+            if(FriendVO.equals(selectedFriendVO, friendVO))
+            {
+                contains = true;
+            }
+        }
+
+        if(contains){
+            var newArrFriends:Array = [];
+
+            for each(var friendVOAdd:FriendVO in _arrFriends)
+            {
+                if(!FriendVO.equals(friendVOAdd,friendVO)) newArrFriends.push(friendVOAdd);
+            }
+
+            arrFriends = newArrFriends;
+        }
     }
 
     public function readObject(billVO:Object):void
