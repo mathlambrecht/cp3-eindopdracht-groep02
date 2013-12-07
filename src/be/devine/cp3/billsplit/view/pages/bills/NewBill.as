@@ -45,32 +45,6 @@ public class NewBill extends Screen{
         _appModel.currentBill.addEventListener(BillModel.TITLE_CHANGED,titleChanged);
         _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsChangedHandler);
 
-        createNewBill();
-    }
-
-    // Methods
-    private function splitMethodChanged(event:flash.events.Event):void
-    {
-    }
-
-    private function totalPriceChanged(event:flash.events.Event):void
-    {
-        if(_appModel.currentBill.totalPrice != 0) _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
-    }
-
-    private function titleChanged(event:flash.events.Event):void
-    {
-        _textInput.text = _appModel.currentBill.title;
-    }
-
-    private function arrFriendsChangedHandler(event:flash.events.Event):void
-    {
-        var friendText:String = (_appModel.currentBill.arrFriends.length <= 1)? ' friend' : ' friends';
-        _friendsButton.label = _appModel.currentBill.arrFriends.length + friendText;
-    }
-
-    private function createNewBill():void{
-
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
 
@@ -81,6 +55,7 @@ public class NewBill extends Screen{
         _textInput = new TextInput();
         _textInput.text = '';
         _textInput.maxChars = 25;
+        _textInput.restrict = "a-zA-Z ";
         _textInput.prompt = 'Title goes here';
         _textInput.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
 
@@ -104,6 +79,30 @@ public class NewBill extends Screen{
         _submitButton.label = 'Split that bill!';
         _submitButton.nameList.add( Button.STATE_DISABLED );
         // _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
+    }
+
+    // Methods
+    private function splitMethodChanged(event:flash.events.Event):void
+    {
+    }
+
+    private function totalPriceChanged(event:flash.events.Event):void
+    {
+        if(_appModel.currentBill.totalPrice != 0) _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
+    }
+
+    private function titleChanged(event:flash.events.Event):void
+    {
+        _textInput.text = _appModel.currentBill.title;
+    }
+
+    private function arrFriendsChangedHandler(event:flash.events.Event):void
+    {
+        var friendText:String = (_appModel.currentBill.arrFriends.length == 1)? ' friend' : ' friends';
+        _friendsButton.label = _appModel.currentBill.arrFriends.length + friendText;
+    }
+
+    private function createNewBill():void{
     }
 
     private function inputChangeHandler(event:starling.events.Event):void

@@ -2,6 +2,7 @@ package be.devine.cp3.billsplit.model
 {
 
 import be.devine.cp3.billsplit.vo.BillVO;
+import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
 import flash.events.Event;
@@ -85,6 +86,7 @@ public class AppModel extends EventDispatcher
         {
             _arrFriendsVO = value;
 
+            trace('change');
             dispatchEvent(new Event(ARRAY_FRIENDS_VO_CHANGED));
         }
     }
@@ -110,6 +112,11 @@ public class AppModel extends EventDispatcher
     {
         if ( _currentBill == value ) return;
         _currentBill = value;
+    }
+
+    public function addFriend(friendVO:FriendVO):void{
+        trace('add');
+        arrFriendsVO = _arrFriendsVO.concat(new <FriendVO>[friendVO]);
     }
 }
 }

@@ -51,18 +51,19 @@ public class BillPrice extends Screen{
         trace(_appModel.currentBill.totalPrice);
         _textInput.text = '';
         _textInput.prompt = 'Total price';
+        _textInput.restrict = "0-9.";
         _textInput.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
         _group.addChild(_textInput);
 
         _resetButton = new Button();
         _resetButton.label = 'reset';
         _resetButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
-        _resetButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
+        _resetButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
         _group.addChild(_resetButton);
 
         _submitButton = new Button();
         _submitButton.label = 'Ok';
-        _submitButton.nameList.add( Button.STATE_DISABLED );
+        _submitButton.alpha = 0.5;
         _group.addChild(_submitButton);
     }
 
@@ -75,15 +76,15 @@ public class BillPrice extends Screen{
     private function inputChangeHandler(event:starling.events.Event):void
     {
         if(_textInput.text.length >= 1){
-            _submitButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
-            _submitButton.nameList.remove( Button.STATE_DISABLED );
+            _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
+            _submitButton.alpha = 1;
         }else{
-            _submitButton.removeEventListener(starling.events.Event.TRIGGERED, onClickHandler);
-            _submitButton.nameList.add( Button.STATE_DISABLED );
+            _submitButton.removeEventListener(starling.events.Event.TRIGGERED, clickHandler);
+            _submitButton.alpha = 0.5;
         }
     }
 
-    private function onClickHandler(event:starling.events.Event):void
+    private function clickHandler(event:starling.events.Event):void
     {
         var button:Button = event.currentTarget as Button;
 

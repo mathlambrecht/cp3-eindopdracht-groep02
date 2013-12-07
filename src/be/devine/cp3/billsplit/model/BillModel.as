@@ -7,7 +7,6 @@
  */
 package be.devine.cp3.billsplit.model {
 
-import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
 import flash.events.Event;

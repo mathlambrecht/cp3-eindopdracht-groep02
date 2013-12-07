@@ -6,7 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 package be.devine.cp3.billsplit.view.pages.friends {
+import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.vo.FriendVO;
 
 import feathers.controls.Button;
 
@@ -44,6 +46,7 @@ public class AddFriend extends Screen{
         _textInput = new TextInput();
         _textInput.text = '';
         _textInput.maxChars = 25;
+        _textInput.restrict = "a-zA-Z ";
         _textInput.prompt = 'Name of your new friend';
         _textInput.addEventListener(Event.CHANGE, inputChangeHandler);
 
@@ -54,19 +57,51 @@ public class AddFriend extends Screen{
 
         _submitButton = new Button();
         _submitButton.label = 'Done';
-        _submitButton.nameList.add( Button.STATE_DISABLED );
-        // _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
-
+        _submitButton.alpha = 0.5;
     }
 
     // Methods
     private function inputChangeHandler(event:Event):void
     {
+        if(_textInput.text.length >= 2){
+            _submitButton.addEventListener(Event.TRIGGERED, clickHandler);
+            _submitButton.alpha = 1;
+        }else{
+            _submitButton.removeEventListener(Event.TRIGGERED, clickHandler);
+            _submitButton.alpha = 0.5;
+        }
     }
 
     private function clickHandler(event:Event):void
     {
+        var button:Button = event.currentTarget as Button;
 
+        switch (button){
+            case _resetButton:
+                _textInput.text = "";
+                _textInput.setFocus();
+                break;
+            case _submitButton:
+
+                    var highestID:uint = 0;
+                    for each(var friendVO:FriendVO in _appModel.arrFriendsVO)
+                    {
+                        if (friendVO.id > highestID) highestID = friendVO.id;
+                    }
+
+                    var newFriendVO:FriendVO = new FriendVO();
+                    newFriendVO.id = highestID + 1;
+                    newFriendVO.name = _textInput.text;
+
+                    _appModel.addFriend(newFriendVO);
+                    _appModel.currentBill.addFriend(newFriendVO);
+
+                    _textInput.text = 'Name of your new friend';
+
+                    _appModel.currentPage = Config.BILL_FRIENDS;
+
+                break;
+        }
     }
 
     override protected function initialize():void
