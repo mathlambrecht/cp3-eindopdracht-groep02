@@ -29,9 +29,9 @@ public class OldBills extends Screen
     {
         trace('[OldBills]');
 
-        _scrolContainer = new ScrollContainer();
-
         _list = new List();
+        _list.verticalScrollPolicy = List.SCROLL_POLICY_ON;
+        _list.interactionMode = List.INTERACTION_MODE_TOUCH;
         _billsListCollection = new ListCollection();
         _list.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
 
@@ -61,15 +61,13 @@ public class OldBills extends Screen
 
     override protected function initialize():void
     {
-        _scrolContainer.addChild(_list);
-        this.addChild(_scrolContainer);
+        this.addChild(_list);
     }
 
     override protected function draw():void
     {
         _list.width = stage.width;
-        _scrolContainer.width = stage.stageWidth;
-        _scrolContainer.height = stage.stageHeight - Config.HEADER_HEIGHT;
+        _list.height = stage.stageHeight - Config.HEADER_HEIGHT;
     }
 }
 }

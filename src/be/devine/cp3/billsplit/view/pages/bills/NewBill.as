@@ -43,6 +43,7 @@ public class NewBill extends Screen{
         _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
         _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
         _appModel.currentBill.addEventListener(BillModel.TITLE_CHANGED,titleChanged);
+        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsChangedHandler);
 
         createNewBill();
     }
@@ -60,6 +61,12 @@ public class NewBill extends Screen{
     private function titleChanged(event:flash.events.Event):void
     {
         _textInput.text = _appModel.currentBill.title;
+    }
+
+    private function arrFriendsChangedHandler(event:flash.events.Event):void
+    {
+        var friendText:String = (_appModel.currentBill.arrFriends.length <= 1)? ' friend' : ' friends';
+        _friendsButton.label = _appModel.currentBill.arrFriends.length + friendText;
     }
 
     private function createNewBill():void{
@@ -87,7 +94,7 @@ public class NewBill extends Screen{
         _group.addChild(_splitMethodToggle);
 
         _friendsButton = new Button();
-        _friendsButton.label = '8 friends';
+        _friendsButton.label = '1 friend';
         _friendsButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
         _friendsButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
         _group.addChild(_friendsButton);
