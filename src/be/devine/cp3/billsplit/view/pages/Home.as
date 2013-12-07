@@ -50,16 +50,16 @@ public class Home extends Screen{
 
         _oldBillsButton = new Button();
         _oldBillsButton.label = 'Old bills';
-        _oldBillsButton.addEventListener(Event.TRIGGERED, onClickHandler);
+        _oldBillsButton.addEventListener(Event.TRIGGERED, clickHandler);
         _buttonGroup.addChild(_oldBillsButton);
 
         _newBillButton = new Button();
         _newBillButton.label = 'New bill';
-        _newBillButton.addEventListener(Event.TRIGGERED, onClickHandler);
+        _newBillButton.addEventListener(Event.TRIGGERED, clickHandler);
         _buttonGroup.addChild(_newBillButton);
     }
 
-    private function onClickHandler(event:Event):void
+    private function clickHandler(event:Event):void
     {
         var button:Button = event.currentTarget as Button;
         var nextScreen:String;

@@ -10,7 +10,8 @@ import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.FriendVO;
-import be.devine.cp3.billsplit.vo.FriendVO;
+
+import feathers.controls.Button;
 
 import feathers.controls.List;
 import feathers.controls.Screen;
@@ -21,7 +22,6 @@ import feathers.layout.VerticalLayout;
 import flash.events.Event;
 
 import starling.events.Event;
-import starling.events.EventDispatcher;
 
 public class BillFriends extends Screen{
 
@@ -33,6 +33,7 @@ public class BillFriends extends Screen{
     private var _scrolContainer:ScrollContainer;
     private var _friendsListCollection:ListCollection;
     private var _selectedFriendsListCollection:ListCollection;
+    private var _addFriendButton:Button;
 
     // Constructor
     public function BillFriends()
@@ -57,6 +58,10 @@ public class BillFriends extends Screen{
         _selectedFriendsList = new List();
         _selectedFriendsList.isSelectable = false;
         _selectedFriendsListCollection = new ListCollection();
+
+        _addFriendButton = new Button();
+        _addFriendButton.label = 'Add a new friend';
+        _addFriendButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
     }
 
     // Methods
@@ -125,20 +130,29 @@ public class BillFriends extends Screen{
                 _appModel.currentBill.addFriend(friendVO);
             }
         }
+    }
 
+    private function clickHandler(event:starling.events.Event):void
+    {
+        _appModel.currentPage = Config.ADD_FRIEND;
     }
 
     override protected function initialize():void
     {
         _scrolContainer.addChild(_selectedFriendsList);
         _scrolContainer.addChild(_friendsList);
+        _scrolContainer.addChild(_addFriendButton);
         this.addChild(_scrolContainer);
     }
 
     override protected function draw():void
     {
+        _addFriendButton.width = stage.width;
+        _addFriendButton.height = 90;
+
         _friendsList.width = stage.width;
         _selectedFriendsList.width = stage.width;
+
         _scrolContainer.width = stage.stageWidth;
         _scrolContainer.height = stage.stageHeight - Config.HEADER_HEIGHT;
     }

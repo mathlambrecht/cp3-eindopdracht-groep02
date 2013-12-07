@@ -73,7 +73,6 @@ public class NewBill extends Screen{
 
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
-        addChild(_group);
 
         var layout:VerticalLayout = new VerticalLayout();
         layout.gap = 10;
@@ -84,32 +83,27 @@ public class NewBill extends Screen{
         _textInput.maxChars = 25;
         _textInput.prompt = 'Title goes here';
         _textInput.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
-        _group.addChild(_textInput);
 
         _splitMethodToggle = new ToggleSwitch();
         _splitMethodToggle.onText = '€';
         _splitMethodToggle.offText = '%';
         _splitMethodToggle.trackLayoutMode = ToggleSwitch.TRACK_LAYOUT_MODE_ON_OFF;
         _splitMethodToggle.addEventListener(starling.events.Event.CHANGE, toggleChangeHandler);
-        _group.addChild(_splitMethodToggle);
 
         _friendsButton = new Button();
         _friendsButton.label = '1 friend';
         _friendsButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
-        _friendsButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
-        _group.addChild(_friendsButton);
+        _friendsButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
 
         _priceButton = new Button();
         _priceButton.label = '? euros';
         _priceButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
-        _priceButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
-        _group.addChild(_priceButton);
+        _priceButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
 
         _submitButton = new Button();
         _submitButton.label = 'Split that bill!';
         _submitButton.nameList.add( Button.STATE_DISABLED );
-        // _submitButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
-        _group.addChild(_submitButton);
+        // _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
     }
 
     private function inputChangeHandler(event:starling.events.Event):void
@@ -122,7 +116,7 @@ public class NewBill extends Screen{
         _appModel.currentBill.splitMethod = (_splitMethodToggle.isSelected == true)? "absolute" : "percentage" ;
     }
 
-    private function onClickHandler(event:starling.events.Event):void
+    private function clickHandler(event:starling.events.Event):void
     {
         var button:Button = event.currentTarget as Button;
         var nextScreen:String;
@@ -137,6 +131,16 @@ public class NewBill extends Screen{
         }
 
         _appModel.currentPage = nextScreen;
+    }
+
+    override protected function initialize():void
+    {
+        _group.addChild(_textInput);
+        _group.addChild(_splitMethodToggle);
+        _group.addChild(_friendsButton);
+        _group.addChild(_priceButton);
+        _group.addChild(_submitButton);
+        this.addChild(_group);
     }
 
     private function groupCreationCompleteHandler(event:starling.events.Event):void
