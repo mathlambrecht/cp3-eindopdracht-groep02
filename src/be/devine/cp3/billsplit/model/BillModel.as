@@ -7,6 +7,9 @@
  */
 package be.devine.cp3.billsplit.model {
 
+import be.devine.cp3.billsplit.vo.FriendItemVO;
+import be.devine.cp3.billsplit.vo.FriendVO;
+
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
@@ -16,6 +19,7 @@ public class BillModel extends EventDispatcher{
     public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
     public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
     public static const TITLE_CHANGED:String = 'TitleChanged';
+    public static const ARR_FRIENDS_CHANGED:String = 'arrFriendsChanged';
 
     private var _id:String;
     private var _title:String;
@@ -92,7 +96,10 @@ public class BillModel extends EventDispatcher{
     }
 
     public function set arrFriends(value:Array):void {
+        if(_arrFriends == value) return;
         _arrFriends = value;
+        trace('dispatch');
+        dispatchEvent(new Event(ARR_FRIENDS_CHANGED));
     }
 
     public function get arrItems():Array {

@@ -74,15 +74,14 @@ public class NewBill extends Screen{
 
         _textInput = new TextInput();
         _textInput.text = '';
-        _textInput.setFocus();
         _textInput.maxChars = 25;
         _textInput.prompt = 'Title goes here';
         _textInput.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
         _group.addChild(_textInput);
 
         _splitMethodToggle = new ToggleSwitch();
-        _splitMethodToggle.onText = "€";
-        _splitMethodToggle.offText = "%";
+        _splitMethodToggle.onText = '€';
+        _splitMethodToggle.offText = '%';
         _splitMethodToggle.trackLayoutMode = ToggleSwitch.TRACK_LAYOUT_MODE_ON_OFF;
         _splitMethodToggle.addEventListener(starling.events.Event.CHANGE, toggleChangeHandler);
         _group.addChild(_splitMethodToggle);
@@ -92,10 +91,6 @@ public class NewBill extends Screen{
         _friendsButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
         _friendsButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
         _group.addChild(_friendsButton);
-
-
-        // todo: if splitmetho != null -> addEventListener
-        // todo: if splitmethod == % -> name = Config.BILL_PRICE // if splitmethod == € -> name = Config.BILL_ITEMS
 
         _priceButton = new Button();
         _priceButton.label = '? euros';
