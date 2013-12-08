@@ -5,6 +5,7 @@
  * Time: 20:54
  * To change this template use File | Settings | File Templates.
  */
+
 package be.devine.cp3.billsplit.view {
 
 import be.devine.cp3.billsplit.config.Config;
@@ -49,8 +50,8 @@ public class Header extends Screen {
 
         _navigator = navigator;
         _appModel = AppModel.getInstance();
-        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED,showHideBackButton);
-        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, changeScreenHandler);
+        _appModel.addEventListener(AppModel.CURRENT_BILL_CHANGED,clearScreen);
+        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED,clearScreen);
 
         createMenuNavigator();
         createHeader();
@@ -89,11 +90,6 @@ public class Header extends Screen {
         _menuButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
     }
 
-    private function showHideBackButton(event:flash.events.Event):void
-    {
-        _backButton.visible = (!(_appModel.currentPage == Config.HOME && _navigator.history.length == 0));
-    }
-
     private function onClickHandler(event:starling.events.Event):void
     {
         var button:Button = event.currentTarget as Button;
@@ -114,9 +110,11 @@ public class Header extends Screen {
         }
     }
 
-    private function changeScreenHandler(event:flash.events.Event):void
+    private function clearScreen(event:flash.events.Event):void
     {
+        trace('clear');
         if (_menuNavigator.activeScreenID == Config.MENU) _menuNavigator.clearScreen();
+        _backButton.visible = (!(_appModel.currentPage == Config.HOME && _navigator.history.length == 0));
     }
 
     /*

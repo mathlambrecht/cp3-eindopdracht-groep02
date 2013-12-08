@@ -2,7 +2,6 @@ package be.devine.cp3.billsplit.model
 {
 
 import be.devine.cp3.billsplit.vo.BillVO;
-import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
 import flash.events.Event;
@@ -17,6 +16,7 @@ public class AppModel extends EventDispatcher
     public static const ARRAY_FRIENDS_VO_CHANGED:String = 'arrFriendsVoChanged';
 
     public static const CURRENT_PAGE_CHANGED:String = 'currentPageChanged';
+    public static const CURRENT_BILL_CHANGED:String = 'currentBillChanged';
 
     private static var _instance:AppModel;
 
@@ -25,6 +25,7 @@ public class AppModel extends EventDispatcher
 
     private var _currentPage:String;
     private var _currentBill:BillModel;
+    private var _currentBillVO:BillVO;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -86,7 +87,6 @@ public class AppModel extends EventDispatcher
         {
             _arrFriendsVO = value;
 
-            trace('change');
             dispatchEvent(new Event(ARRAY_FRIENDS_VO_CHANGED));
         }
     }
@@ -103,19 +103,25 @@ public class AppModel extends EventDispatcher
         dispatchEvent(new Event(CURRENT_PAGE_CHANGED));
     }
 
-    public function get currentBill():BillModel
-    {
+    public function get currentBillVO():BillVO {
+        return _currentBillVO;
+    }
+
+    public function set currentBillVO(value:BillVO):void {
+        if( _currentBillVO == value ) return;
+        _currentBillVO = value;
+        currentBill.readObject(_currentBillVO);
+    }
+
+    public function get currentBill():BillModel {
         return _currentBill;
     }
 
-    public function set currentBill(value:BillModel):void
-    {
-        if ( _currentBill == value ) return;
+    public function set currentBill(value:BillModel):void {
         _currentBill = value;
     }
 
     public function addFriend(friendVO:FriendVO):void{
-        trace('add');
         arrFriendsVO = _arrFriendsVO.concat(new <FriendVO>[friendVO]);
     }
 }

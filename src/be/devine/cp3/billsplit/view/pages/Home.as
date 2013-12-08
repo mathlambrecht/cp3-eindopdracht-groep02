@@ -69,8 +69,7 @@ public class Home extends Screen{
                     nextScreen = Config.OLD_BILLS;
                 break;
             case _newBillButton:
-                    var billVO:BillVO = new BillVO();
-                    _appModel.currentBill.readObject(billVO);
+                    _appModel.currentBillVO = new BillVO();
                     nextScreen = Config.NEW_BILL;
                 break;
         }

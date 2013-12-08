@@ -40,10 +40,10 @@ public class NewBill extends Screen{
         trace('[NewBill]');
 
         _appModel = AppModel.getInstance();
-        _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
-        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
         _appModel.currentBill.addEventListener(BillModel.TITLE_CHANGED,titleChanged);
-        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsChangedHandler);
+        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
+        _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
+        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED,arrFriendsChangedHandler);
 
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
@@ -77,18 +77,19 @@ public class NewBill extends Screen{
 
         _submitButton = new Button();
         _submitButton.label = 'Split that bill!';
-        _submitButton.nameList.add( Button.STATE_DISABLED );
+        _submitButton.alpha = 0.5;
         // _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
     }
 
     // Methods
     private function splitMethodChanged(event:flash.events.Event):void
     {
+        _splitMethodToggle.isSelected = (_appModel.currentBill.splitMethod != 'percentage');
     }
 
     private function totalPriceChanged(event:flash.events.Event):void
     {
-        if(_appModel.currentBill.totalPrice != 0) _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
+        _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
     }
 
     private function titleChanged(event:flash.events.Event):void

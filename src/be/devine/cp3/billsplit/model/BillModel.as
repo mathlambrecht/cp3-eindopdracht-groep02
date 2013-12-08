@@ -173,7 +173,7 @@ public class BillModel extends EventDispatcher{
         totalPrice = billVO.totalPrice;
 
         // new bill -> splitmethod standaard op percentage
-        if(billVO.splitMethod == null) splitMethod = "percentage";
+        if(billVO.splitMethod == null) splitMethod = 'percentage';
         if(billVO.splitMethod != null) splitMethod = billVO.splitMethod;
 
         arrFriendPercentage = billVO.arrFriendPercentage;

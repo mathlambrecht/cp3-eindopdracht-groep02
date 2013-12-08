@@ -8,6 +8,7 @@
 package be.devine.cp3.billsplit.view.pages {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.vo.BillVO;
 
 import feathers.controls.Button;
 
@@ -76,6 +77,7 @@ public class Menu extends Screen{
 
         switch (button){
             case _newBillButton:
+                _appModel.currentBillVO = new BillVO();
                 nextScreen = Config.NEW_BILL;
                 break;
             case _oldBillsButton:

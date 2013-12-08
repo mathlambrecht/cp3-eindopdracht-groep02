@@ -81,17 +81,15 @@ public class BillFriends extends Screen{
     private function arrFriendsUpdateHandler():void
     {
         if(_friendsListCollection.length != 0) _friendsListCollection.removeAll();
+        if(_appModel.currentBill.arrFriends.length == 0) _friendsList.selectedIndices = new <int>[];
 
         for each(var friendVO:FriendVO in _appModel.arrFriendsVO)
         {
             _friendsListCollection.addItem({name: friendVO.name, friendVO: friendVO});
 
-            if(_appModel.currentBill.arrFriends.length != 0)
+            for each(var billFriendVO:FriendVO in _appModel.currentBill.arrFriends)
             {
-                for each(var billFriendVO:FriendVO in _appModel.currentBill.arrFriends)
-                {
-                    if(FriendVO.equals(billFriendVO,friendVO)) _friendsList.selectedIndices = _friendsList.selectedIndices.concat(new <int>[_friendsListCollection.length-1]);
-                }
+                if(FriendVO.equals(billFriendVO,friendVO)) _friendsList.selectedIndices = _friendsList.selectedIndices.concat(new <int>[_friendsListCollection.length-1]);
             }
         }
 
