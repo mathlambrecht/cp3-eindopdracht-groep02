@@ -12,9 +12,17 @@ import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 import be.devine.cp3.billsplit.service.JSONService;
 import be.devine.cp3.billsplit.view.Content;
-import be.devine.cp3.billsplit.view.Header;
+import be.devine.cp3.billsplit.view.pages.Menu;
+
+import feathers.controls.Button;
+
+import feathers.controls.Header;
+import feathers.controls.ScreenNavigator;
+import feathers.controls.ScreenNavigatorItem;
 
 import flash.events.Event;
+
+import starling.display.DisplayObject;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -28,9 +36,13 @@ public class Application extends Sprite
     private var _appModel:AppModel;
     private var _JSONService:JSONService;
 
+    /*private var _header:Header;*/
     private var _header:Header;
+    private var _backButton:Button;
+    private var _menuButton:Button;
     private var _content:Content;
     private var _navigator:ScreenNavigatorWithHistory;
+    private var _menuNavigator:ScreenNavigator;
 
     // Constructor
     public function Application()
@@ -49,11 +61,7 @@ public class Application extends Sprite
         _appModel = AppModel.getInstance();
         _navigator = new ScreenNavigatorWithHistory();
 
-        _content = new Content(_navigator);
-        addChild(_content);
-
-        _header = new Header(_navigator);
-        addChild(_header);
+        createApplication();
 
         this.stage.addEventListener(ResizeEvent.RESIZE, resizeHandler);
         resizeHandler();
@@ -67,6 +75,66 @@ public class Application extends Sprite
     {
         _appModel.arrBillsVO = _JSONService.arrBillsData;
         _appModel.arrFriendsVO = _JSONService.arrFriendsData;
+    }
+
+    private function createApplication():void
+    {
+        _content = new Content(_navigator);
+        addChild(_content);
+
+        _header = new Header();
+        _header.title = "Title";
+        addChild(_header);
+
+        _backButton = new Button();
+        _backButton.nameList.add( Button.ALTERNATE_NAME_BACK_BUTTON );
+        _backButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
+
+        _menuButton = new Button();
+        _menuButton.label = 'Menu';
+        _menuButton.addEventListener(starling.events.Event.TRIGGERED, onClickHandler);
+
+        _header.leftItems = new <DisplayObject>[ _backButton ];
+        _header.rightItems = new <DisplayObject>[ _menuButton ];
+
+        _header.width = stage.stageWidth;
+        _header.height = Config.HEADER_HEIGHT;
+
+        createMenuNavigator();
+    }
+
+    private function createMenuNavigator():void
+    {
+        _menuNavigator = new ScreenNavigator();
+        var menu:ScreenNavigatorItem = new ScreenNavigatorItem( new Menu() );
+        _menuNavigator.addScreen( Config.MENU , menu );
+        addChild(_menuNavigator);
+    }
+
+    private function onClickHandler(event:starling.events.Event):void
+    {
+        var button:Button = event.currentTarget as Button;
+
+        switch (button){
+            case _backButton:
+                _appModel.currentPage = _navigator.goBack(1);
+                break;
+            case _menuButton:
+                if (_menuNavigator.activeScreenID != Config.MENU)
+                {
+                    _menuNavigator.showScreen( Config.MENU );
+                } else
+                {
+                    _menuNavigator.clearScreen();
+                }
+                break;
+        }
+    }
+
+    private function clearScreen(event:flash.events.Event):void
+    {
+        if (_menuNavigator.activeScreenID == Config.MENU) _menuNavigator.clearScreen();
+        _backButton.visible = (!(_appModel.currentPage == Config.HOME && _navigator.history.length == 0));
     }
 
     public function resizeHandler(event:ResizeEvent = null):void
