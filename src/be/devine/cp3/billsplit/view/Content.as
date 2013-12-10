@@ -23,7 +23,7 @@ import flash.events.Event;
 
 import starling.display.Sprite;
 
-public class Content extends Sprite
+public class Content extends Screen
 {
     // Properties
     private var _appModel:AppModel;
@@ -70,28 +70,23 @@ public class Content extends Sprite
         _navigator.addScreen( Config.BILL_FRIENDS , billFriends );
         _navigator.addScreen( Config.SPLIT_BILL , splitBill );
         _navigator.addScreen( Config.RESULTS , results );
-        addChild(_navigator);
 
         _appModel.currentPage = Config.HOME;
     }
 
     private function changeScreenHandler(event:Event):void
     {
-        trace('[Content] Change screen');
-
         _navigator.showScreen(_appModel.currentPage);
     }
-
-    public function setSize(width:Number,height:Number):void
+    override protected function initialize():void
     {
-        _navigator.height = height;
-        _navigator.width = width;
+        this.addChild(_navigator);
+    }
 
-        for each(var screenNavigatorItem:ScreenNavigatorItem in _arrScreens)
-        {
-            var screen:Screen = screenNavigatorItem.screen as Screen;
-            screen.setSize(width, height);
-        }
+    override protected function draw():void
+    {
+        _navigator.width = stage.stageWidth;
+        _navigator.height = stage.stageHeight - Config.HEADER_HEIGHT;
 
     }
 }

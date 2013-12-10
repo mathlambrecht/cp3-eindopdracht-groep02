@@ -30,7 +30,7 @@ public class BillFriends extends Screen{
 
     private var _friendsList:List;
     private var _selectedFriendsList:List;
-    private var _scrolContainer:ScrollContainer;
+    private var _scrollContainer:ScrollContainer;
     private var _friendsListCollection:ListCollection;
     private var _selectedFriendsListCollection:ListCollection;
     private var _addFriendButton:Button;
@@ -44,11 +44,11 @@ public class BillFriends extends Screen{
         _appModel.addEventListener(AppModel.ARRAY_FRIENDS_VO_CHANGED, arrFriendsChangedHandler);
         _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrSelectedFriendsChangedHandler);
 
-        _scrolContainer = new ScrollContainer();
-        _scrolContainer.interactionMode = ScrollContainer.INTERACTION_MODE_TOUCH;
+        _scrollContainer = new ScrollContainer();
+        _scrollContainer.interactionMode = ScrollContainer.INTERACTION_MODE_TOUCH;
         var layout:VerticalLayout = new VerticalLayout();
         layout.gap = 10;
-        _scrolContainer.layout = layout;
+        _scrollContainer.layout = layout;
 
         _friendsList = new List();
         _friendsList.allowMultipleSelection = true;
@@ -137,22 +137,23 @@ public class BillFriends extends Screen{
 
     override protected function initialize():void
     {
-        _scrolContainer.addChild(_selectedFriendsList);
-        _scrolContainer.addChild(_friendsList);
-        _scrolContainer.addChild(_addFriendButton);
-        this.addChild(_scrolContainer);
+        trace('add');
+        _scrollContainer.addChild(_selectedFriendsList);
+        _scrollContainer.addChild(_friendsList);
+        _scrollContainer.addChild(_addFriendButton);
+        this.addChild(_scrollContainer);
     }
 
     override protected function draw():void
     {
-        _addFriendButton.width = stage.width;
+        _scrollContainer.width = stage.stageWidth;
+        _scrollContainer.height = stage.stageHeight;
+
+        _friendsList.width = stage.stageWidth;
+        _selectedFriendsList.width = stage.stageWidth;
+
+        _addFriendButton.width = stage.stageWidth;
         _addFriendButton.height = 90;
-
-        _friendsList.width = stage.width;
-        _selectedFriendsList.width = stage.width;
-
-        _scrolContainer.width = stage.stageWidth;
-        _scrolContainer.height = stage.stageHeight - Config.HEADER_HEIGHT;
     }
 }
 }

@@ -21,7 +21,6 @@ public class OldBills extends Screen
     private var _appModel:AppModel;
 
     private var _list:List;
-    private var _scrolContainer:ScrollContainer;
     private var _billsListCollection:ListCollection;
 
     // Constructor
@@ -66,8 +65,8 @@ public class OldBills extends Screen
 
     override protected function draw():void
     {
-        _list.width = stage.width;
-        _list.height = stage.stageHeight - Config.HEADER_HEIGHT;
+        _list.width = stage.stageWidth;
+        _list.height = this.height;
     }
 }
 }
