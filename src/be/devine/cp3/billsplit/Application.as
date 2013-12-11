@@ -13,17 +13,10 @@ import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 import be.devine.cp3.billsplit.service.JSONService;
 import be.devine.cp3.billsplit.view.Content;
 import be.devine.cp3.billsplit.view.Header;
-import be.devine.cp3.billsplit.view.pages.Menu;
-
-import feathers.controls.Button;
-import feathers.controls.ScreenNavigator;
-import feathers.controls.ScreenNavigatorItem;
 
 import flash.events.Event;
 
 import starling.display.Sprite;
-import starling.events.Event;
-import starling.events.ResizeEvent;
 
 public class Application extends Sprite
 {
@@ -41,14 +34,6 @@ public class Application extends Sprite
     // Constructor
     public function Application()
     {
-        this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
-    }
-
-    // Methods
-    private function addedToStageHandler(event:starling.events.Event):void
-    {
-        this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
-
         _config = new Config();
         _config.setTheme();
 
@@ -63,11 +48,12 @@ public class Application extends Sprite
         addChild(_header);
 
         _JSONService = new JSONService();
-        _JSONService.addEventListener(flash.events.Event.COMPLETE, jsonServiceCompleteHandler);
+        _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
         _JSONService.load();
     }
 
-    private function jsonServiceCompleteHandler(event:flash.events.Event):void
+    // Methods
+    private function jsonServiceCompleteHandler(event:Event):void
     {
         _appModel.arrBillsVO = _JSONService.arrBillsData;
         _appModel.arrFriendsVO = _JSONService.arrFriendsData;

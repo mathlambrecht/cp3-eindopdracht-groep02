@@ -42,7 +42,6 @@ public class Home extends Screen{
     {
         _buttonGroup = new LayoutGroup();
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
-        addChild(_buttonGroup);
 
         var layout:HorizontalLayout = new HorizontalLayout();
         layout.gap = 40;
@@ -51,12 +50,10 @@ public class Home extends Screen{
         _oldBillsButton = new Button();
         _oldBillsButton.label = 'Old bills';
         _oldBillsButton.addEventListener(Event.TRIGGERED, clickHandler);
-        _buttonGroup.addChild(_oldBillsButton);
 
         _newBillButton = new Button();
         _newBillButton.label = 'New bill';
         _newBillButton.addEventListener(Event.TRIGGERED, clickHandler);
-        _buttonGroup.addChild(_newBillButton);
     }
 
     private function clickHandler(event:Event):void
@@ -77,21 +74,22 @@ public class Home extends Screen{
         _appModel.currentPage = nextScreen;
     }
 
-    private function layout():void
+    override protected function initialize():void
     {
-        _buttonGroup.y = this.height - _buttonGroup.height - 80;
-        _buttonGroup.x = this.width/2 - _buttonGroup.width/2;
+        _buttonGroup.addChild(_oldBillsButton);
+        _buttonGroup.addChild(_newBillButton);
+        this.addChild(_buttonGroup);
     }
 
     private function buttonGroupCreationCompleteHandler(event:Event):void
     {
-        layout();
+        draw();
     }
 
-    override public function setSize(width:Number, height:Number):void
+    override protected function draw():void
     {
-        super.setSize(width,height);
-        layout();
+        _buttonGroup.y = this.height - _buttonGroup.height - 80;
+        _buttonGroup.x = this.width/2 - _buttonGroup.width/2;
     }
 }
 }

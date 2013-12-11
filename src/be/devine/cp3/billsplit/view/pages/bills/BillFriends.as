@@ -137,7 +137,6 @@ public class BillFriends extends Screen{
 
     override protected function initialize():void
     {
-        trace('add');
         _scrollContainer.addChild(_selectedFriendsList);
         _scrollContainer.addChild(_friendsList);
         _scrollContainer.addChild(_addFriendButton);
