@@ -99,8 +99,8 @@ public class NewBill extends Screen{
 
     private function arrFriendsChangedHandler(event:flash.events.Event):void
     {
-        var friendText:String = (_appModel.currentBill.arrFriends.length == 1)? ' friend' : ' friends';
-        _friendsButton.label = _appModel.currentBill.arrFriends.length + friendText;
+        //var friendText:String = (_appModel.currentBill.arrFriends.length == 1)? ' friend' : ' friends';
+       // _friendsButton.label = _appModel.currentBill.arrFriends.length + friendText;
     }
 
     private function createNewBill():void{

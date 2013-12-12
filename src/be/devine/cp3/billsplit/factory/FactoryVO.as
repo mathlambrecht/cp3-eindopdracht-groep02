@@ -4,6 +4,7 @@ import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.BillVO;
+import be.devine.cp3.billsplit.vo.ItemVO;
 
 public class FactoryVO
 {
@@ -24,6 +25,11 @@ public class FactoryVO
 
         billVO.totalPrice = bill.totalPrice;
         billVO.splitMethod = bill.splitMethod;
+
+        /*for each(var item:Object in bill.items)
+        {
+            billVO.arrItems.push(createItemVO(item));
+        }*/
 
         for each(var friendPercentage:Object in bill.friendPercentages)
         {
@@ -66,6 +72,18 @@ public class FactoryVO
         friendItemVO.idItem = friendItem.idItem;
 
         return friendItemVO;
+    }
+
+    public static function createItemVO(item:Object):ItemVO
+    {
+        var itemVO:ItemVO = new ItemVO();
+
+        itemVO.id = item.idFriend;
+        itemVO.description = item.description;
+        itemVO.value = item.value;
+        itemVO.amount = item.amount;
+
+        return itemVO;
     }
 }
 }

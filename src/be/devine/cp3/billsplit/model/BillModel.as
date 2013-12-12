@@ -19,6 +19,7 @@ public class BillModel extends EventDispatcher{
     public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
     public static const TITLE_CHANGED:String = 'TitleChanged';
     public static const ARR_FRIENDS_CHANGED:String = 'arrFriendsChanged';
+    public static const ARR_ITEMS_CHANGED:String = 'arrFriendsChanged';
 
     private var _id:String;
     private var _title:String;
@@ -105,7 +106,9 @@ public class BillModel extends EventDispatcher{
     }
 
     public function set arrItems(value:Array):void {
+        if(_arrItems == value) return;
         _arrItems = value;
+        dispatchEvent(new Event(ARR_ITEMS_CHANGED));
     }
 
     public function get datetime():String {
@@ -165,6 +168,7 @@ public class BillModel extends EventDispatcher{
 
     public function readObject(billVO:Object):void
     {
+        trace(billVO);
         id = billVO.id;
         title = billVO.title;
         datetime = billVO.datetime;
