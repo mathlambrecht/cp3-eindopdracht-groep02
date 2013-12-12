@@ -32,7 +32,12 @@ public class BillModel extends EventDispatcher{
     private var _arrFriendItems:Array;
 
     // Constructor
-    public function BillModel() {
+    public function BillModel()
+    {
+        _arrItems = [];
+        _arrFriends = [];
+        _arrFriendItems = [];
+        _arrFriendPercentage = [];
     }
 
     // Methods
@@ -95,7 +100,8 @@ public class BillModel extends EventDispatcher{
         return _arrFriends;
     }
 
-    public function set arrFriends(value:Array):void {
+    public function set arrFriends(value:Array):void
+    {
         if(_arrFriends == value) return;
         _arrFriends = value;
         dispatchEvent(new Event(ARR_FRIENDS_CHANGED));
@@ -168,7 +174,6 @@ public class BillModel extends EventDispatcher{
 
     public function readObject(billVO:Object):void
     {
-        trace(billVO);
         id = billVO.id;
         title = billVO.title;
         datetime = billVO.datetime;

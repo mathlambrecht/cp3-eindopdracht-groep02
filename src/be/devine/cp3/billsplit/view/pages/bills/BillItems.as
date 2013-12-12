@@ -5,8 +5,6 @@
  * Time: 15:43
  * To change this template use File | Settings | File Templates.
  */
-<<<<<<< HEAD
-<<<<<<< HEAD
 package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
@@ -16,13 +14,6 @@ import be.devine.cp3.billsplit.vo.ItemVO;
 import feathers.controls.Button;
 
 import feathers.controls.List;
-=======
-package be.devine.cp3.billsplit.view.pages.bills
-{
->>>>>>> 65becf109c9eaf9a91d6d15a22933c69e5e36893
-=======
-package be.devine.cp3.billsplit.view.pages.bills {
->>>>>>> 5b18a2fa9d181632d676c475122fbc4a10fc0ac7
 import feathers.controls.Screen;
 import feathers.data.ListCollection;
 
@@ -63,7 +54,6 @@ public class BillItems extends Screen{
         for each(var itemVO:ItemVO in _appModel.currentBill.arrItems)
         {
             _itemsListCollection.addItem({description: itemVO.description, value: itemVO.value, amount: itemVO.amount});
-
         }
 
         _itemsList.dataProvider = _itemsListCollection;
@@ -77,17 +67,10 @@ public class BillItems extends Screen{
 
     private function listChangeHandler(event:Event):void
     {
-<<<<<<< HEAD
     }
 
     override protected function initialize():void
     {
-<<<<<<< HEAD
-=======
->>>>>>> 65becf109c9eaf9a91d6d15a22933c69e5e36893
-=======
-
->>>>>>> 5b18a2fa9d181632d676c475122fbc4a10fc0ac7
     }
 
     override protected function draw():void

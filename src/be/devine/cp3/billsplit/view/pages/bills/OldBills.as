@@ -53,6 +53,8 @@ public class OldBills extends Screen
         var list:List = List(event.currentTarget);
         var item:Object = list.selectedItem.billVO;
 
+        trace(item.arrFriends);
+
         _appModel.currentBill.readObject(item);
         _appModel.currentPage = Config.NEW_BILL;
     }
