@@ -1,11 +1,5 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Annelies
- * Date: 5/12/13
- * Time: 18:55
- * To change this template use File | Settings | File Templates.
- */
-package be.devine.cp3.billsplit.view.pages {
+package be.devine.cp3.billsplit.view.pages
+{
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
@@ -19,8 +13,8 @@ import feathers.layout.HorizontalLayout;
 
 import starling.events.Event;
 
-public class Home extends Screen{
-
+public class Home extends Screen
+{
     // Properties
     private var _appModel:AppModel;
 
@@ -61,14 +55,15 @@ public class Home extends Screen{
         var button:Button = event.currentTarget as Button;
         var nextScreen:String;
 
-        switch (button){
+        switch (button)
+        {
             case _oldBillsButton:
                     nextScreen = Config.OLD_BILLS;
-                break;
+                    break;
+
             case _newBillButton:
-                    _appModel.currentBillVO = new BillVO();
                     nextScreen = Config.NEW_BILL;
-                break;
+                    break;
         }
 
         _appModel.currentPage = nextScreen;

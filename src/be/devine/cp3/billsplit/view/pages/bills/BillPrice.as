@@ -25,6 +25,7 @@ public class BillPrice extends Screen{
 
     // Properties
     private var _appModel:AppModel;
+    private var _billModel:BillModel;
 
     private var _group:LayoutGroup;
     private var _textInput:TextInput;
@@ -37,7 +38,9 @@ public class BillPrice extends Screen{
         trace('[BillPrice]');
 
         _appModel = AppModel.getInstance();
-        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
+
+        _billModel = BillModel.getInstance();
+        _billModel.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
 
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
@@ -48,7 +51,6 @@ public class BillPrice extends Screen{
         _group.layout = layout;
 
         _textInput = new TextInput();
-        trace(_appModel.currentBill.totalPrice);
         _textInput.text = '';
         _textInput.prompt = 'Total price';
         _textInput.restrict = "0-9.";
@@ -70,7 +72,7 @@ public class BillPrice extends Screen{
     // Methods
     private function totalPriceChanged(event:flash.events.Event):void
     {
-        _textInput.text = (_appModel.currentBill.totalPrice != 0)? String(_appModel.currentBill.totalPrice) : '' ;
+        _textInput.text = (_billModel.totalPrice != 0)? String(_billModel.totalPrice) : '' ;
     }
 
     private function inputChangeHandler(event:starling.events.Event):void
@@ -94,7 +96,7 @@ public class BillPrice extends Screen{
                     _textInput.setFocus();
                 break;
             case _submitButton:
-                    _appModel.currentBill.totalPrice = Number(_textInput.text);
+                    _billModel.totalPrice = Number(_textInput.text);
                     _appModel.currentPage = Config.NEW_BILL;
                 break;
         }

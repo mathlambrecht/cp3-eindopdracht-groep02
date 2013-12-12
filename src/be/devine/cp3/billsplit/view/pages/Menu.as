@@ -1,11 +1,5 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Annelies
- * Date: 7/12/13
- * Time: 22:52
- * To change this template use File | Settings | File Templates.
- */
-package be.devine.cp3.billsplit.view.pages {
+package be.devine.cp3.billsplit.view.pages
+{
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.vo.BillVO;
@@ -22,8 +16,8 @@ import starling.display.Quad;
 
 import starling.events.Event;
 
-public class Menu extends Screen{
-
+public class Menu extends Screen
+{
     // Properties
     private var _appModel:AppModel;
 
@@ -75,9 +69,9 @@ public class Menu extends Screen{
         var button:Button = event.currentTarget as Button;
         var nextScreen:String;
 
-        switch (button){
+        switch (button)
+        {
             case _newBillButton:
-                _appModel.currentBillVO = new BillVO();
                 nextScreen = Config.NEW_BILL;
                 break;
             case _oldBillsButton:
@@ -118,7 +112,8 @@ public class Menu extends Screen{
         _group.x = 10;
         _group.y = 10;
 
-        for each(var button:Button in _arrButtons){
+        for each(var button:Button in _arrButtons)
+        {
             button.width = _group.width - 20;
             button.height = 70;
         }

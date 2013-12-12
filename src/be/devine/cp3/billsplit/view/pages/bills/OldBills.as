@@ -41,7 +41,7 @@ public class OldBills extends Screen
     {
         for each(var billVO:BillVO in _appModel.arrBillsVO)
         {
-            _billsListCollection.addItem({title: billVO.title, billVO: billVO});
+            _billsListCollection.addItem({title: billVO.title, index: _appModel.arrBillsVO.indexOf(billVO)});
         }
 
         _list.dataProvider = _billsListCollection;
@@ -51,11 +51,9 @@ public class OldBills extends Screen
     private function listChangeHandler(event:starling.events.Event):void
     {
         var list:List = List(event.currentTarget);
-        var item:Object = list.selectedItem.billVO;
+        var item:Object = list.selectedItem;
 
-        trace(item.arrFriends);
-
-        _appModel.currentBill.readObject(item);
+        _appModel.currentBillIndex = item.index;
         _appModel.currentPage = Config.NEW_BILL;
     }
 

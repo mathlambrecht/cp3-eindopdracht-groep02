@@ -27,6 +27,7 @@ public class BillFriends extends Screen{
 
     // Properties
     private var _appModel:AppModel;
+    private var _billModel:BillModel;
 
     private var _friendsList:List;
     private var _selectedFriendsList:List;
@@ -41,8 +42,9 @@ public class BillFriends extends Screen{
         trace('[BillFriends]');
 
         _appModel = AppModel.getInstance();
+        _billModel = BillModel.getInstance();
         _appModel.addEventListener(AppModel.ARRAY_FRIENDS_VO_CHANGED, arrFriendsChangedHandler);
-        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrSelectedFriendsChangedHandler);
+        _billModel.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrSelectedFriendsChangedHandler);
 
         _scrollContainer = new ScrollContainer();
         _scrollContainer.interactionMode = ScrollContainer.INTERACTION_MODE_TOUCH;
@@ -81,13 +83,13 @@ public class BillFriends extends Screen{
     private function arrFriendsUpdateHandler():void
     {
         if(_friendsListCollection.length != 0) _friendsListCollection.removeAll();
-        if(_appModel.currentBill.arrFriends.length == 0) _friendsList.selectedIndices = new <int>[];
+        if(_billModel.arrFriends.length == 0) _friendsList.selectedIndices = new <int>[];
 
         for each(var friendVO:FriendVO in _appModel.arrFriendsVO)
         {
             _friendsListCollection.addItem({name: friendVO.name, friendVO: friendVO});
 
-            for each(var billFriendVO:FriendVO in _appModel.currentBill.arrFriends)
+            for each(var billFriendVO:FriendVO in _billModel.arrFriends)
             {
                 if(FriendVO.equals(billFriendVO,friendVO)) _friendsList.selectedIndices = _friendsList.selectedIndices.concat(new <int>[_friendsListCollection.length-1]);
             }
@@ -101,7 +103,7 @@ public class BillFriends extends Screen{
     {
         if(_selectedFriendsListCollection.length != 0) _selectedFriendsListCollection.removeAll();
 
-        for each(var selectedFriendVO:FriendVO in _appModel.currentBill.arrFriends)
+        for each(var selectedFriendVO:FriendVO in _billModel.arrFriends)
         {
             _selectedFriendsListCollection.addItem({name: selectedFriendVO.name, friendVO: selectedFriendVO});
         }
@@ -123,9 +125,11 @@ public class BillFriends extends Screen{
             var friendVO:FriendVO = item.friendVO;
             if(list.selectedIndices.indexOf(index) == -1)
             {
-                _appModel.currentBill.removeFriend(friendVO);
-            } else {
-                _appModel.currentBill.addFriend(friendVO);
+                _billModel.removeFriend(friendVO);
+            }
+            else
+            {
+                _billModel.addFriend(friendVO);
             }
         }
     }

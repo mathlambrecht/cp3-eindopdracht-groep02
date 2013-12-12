@@ -58,7 +58,7 @@ public class FactoryVO
     {
         var friendPercentageVO:FriendPercentageVO = new FriendPercentageVO();
 
-        friendPercentageVO.idFriend = friendPercentage.id;
+        friendPercentageVO.idFriend = friendPercentage.idFriend;
         friendPercentageVO.percentage = friendPercentage.percentage;
 
         return friendPercentageVO;

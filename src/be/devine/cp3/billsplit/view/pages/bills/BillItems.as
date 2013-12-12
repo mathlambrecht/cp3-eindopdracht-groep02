@@ -30,6 +30,7 @@ public class BillItems extends Screen{
 
     //Properties
     private var _appModel:AppModel;
+    private var _billModel:BillModel;
 
     private var _group:LayoutGroup;
     private var _buttonGroup:LayoutGroup;
@@ -49,7 +50,8 @@ public class BillItems extends Screen{
         trace('[BillItems]');
 
         _appModel = AppModel.getInstance();
-        _appModel.currentBill.addEventListener(BillModel.ARR_ITEMS_CHANGED, itemsChangedHandler);
+        _billModel = BillModel.getInstance();
+        _billModel.addEventListener(BillModel.ARR_ITEMS_CHANGED, itemsChangedHandler);
 
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
@@ -103,7 +105,7 @@ public class BillItems extends Screen{
         trace('items');
         if(_itemsListCollection.length != 0) _itemsListCollection.removeAll();
 
-        for each(var itemVO:ItemVO in _appModel.currentBill.arrItems)
+        for each(var itemVO:ItemVO in _billModel.arrItems)
         {
             trace(itemVO);
             trace(itemVO.description);
@@ -121,13 +123,12 @@ public class BillItems extends Screen{
         if(button == _addItemButton)
         {
             var itemVO:ItemVO = new ItemVO();
-            itemVO.id = (_appModel.currentBill.arrFriends.length != 0)? _appModel.currentBill.arrFriends.length : 1 ;
+            itemVO.id = (_billModel.arrFriends.length != 0)? _billModel.arrFriends.length : 1 ;
             itemVO.description = _descriptionInput.text;
             itemVO.value = Number(_valueInput.text);
             itemVO.amount = _amountStepper.value;
 
-            trace(itemVO.id);
-            _appModel.currentBill.addItem(itemVO);
+            _billModel.addItem(itemVO);
         }
 
         _descriptionInput.text = '';

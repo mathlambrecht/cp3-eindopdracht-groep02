@@ -1,8 +1,7 @@
 package be.devine.cp3.billsplit.view.pages.bills
 {
-import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRenderer;
-import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
@@ -11,10 +10,12 @@ import feathers.controls.Screen;
 import feathers.controls.renderers.IListItemRenderer;
 import feathers.data.ListCollection;
 
+import flash.events.Event;
+
 public class SplitBillPercentage extends Screen
 {
     // Properties
-    private var _appModel:AppModel;
+    private var _billModel:BillModel;
 
     private var _list:List;
     private var _listCollection:ListCollection;
@@ -22,9 +23,10 @@ public class SplitBillPercentage extends Screen
     // Constructor
     public function SplitBillPercentage()
     {
-        trace('[SplitBill]');
+        trace('[SplitBillPercentage]');
 
-        _appModel = AppModel.getInstance();
+        _billModel = BillModel.getInstance();
+        _billModel.addEventListener(BillModel.BILL_CHANGED, currentBillChangedHandler);
 
         _list = new List();
         _list.isSelectable = false;
@@ -36,17 +38,24 @@ public class SplitBillPercentage extends Screen
         }
 
         _listCollection = new ListCollection();
+    }
 
-        for each(var friendVO:FriendVO in _appModel.currentBill.arrFriends)
+    private function currentBillChangedHandler(event:Event):void
+    {
+        for each(var friendVO:FriendVO in _billModel.arrFriends)
         {
-            for each(var friendPercentage:FriendPercentageVO in _appModel.currentBill.arrFriendPercentage)
+            for each(var friendPercentage:FriendPercentageVO in _billModel.arrFriendPercentage)
             {
-                if(friendVO.id = friendPercentage.idFriend)
+                trace(friendPercentage.idFriend);
+
+                if(friendVO.id == friendPercentage.idFriend)
                 {
                     _listCollection.addItem({value: friendPercentage.percentage, label:friendVO.name});
                 }
             }
         }
+
+        _list.dataProvider = _listCollection;
     }
 
     // Methods

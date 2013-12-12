@@ -1,11 +1,5 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Annelies
- * Date: 6/12/13
- * Time: 09:28
- * To change this template use File | Settings | File Templates.
- */
-package be.devine.cp3.billsplit.model {
+package be.devine.cp3.billsplit.model
+{
 
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
@@ -13,16 +7,19 @@ import be.devine.cp3.billsplit.vo.ItemVO;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-public class BillModel extends EventDispatcher{
-
+public class BillModel extends EventDispatcher
+{
     // Properties
     public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
     public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
     public static const TITLE_CHANGED:String = 'TitleChanged';
     public static const ARR_FRIENDS_CHANGED:String = 'arrFriendsChanged';
     public static const ARR_ITEMS_CHANGED:String = 'arrFriendsChanged';
+    public static const BILL_CHANGED:String = 'billChanged';
 
-    private var _id:String;
+    private static var _instance:BillModel;
+    private var _appModel:AppModel;
+
     private var _title:String;
     private var _datetime:String;
     private var _arrItems:Array;
@@ -32,16 +29,41 @@ public class BillModel extends EventDispatcher{
     private var _arrFriendPercentage:Array;
     private var _arrFriendItems:Array;
 
-    // Constructor
-    public function BillModel()
+    //---------------------------------------------------------------
+    //-------------------------- Singleton --------------------------
+    //---------------------------------------------------------------
+    public static function getInstance():BillModel
     {
+        if(_instance == null)
+        {
+            _instance = new BillModel(new Enforcer());
+        }
+
+        return _instance;
+    }
+
+    //---------------------------------------------------------------
+    //-------------------------- Constructor ------------------------
+    //---------------------------------------------------------------
+    public function BillModel(event:Enforcer)
+    {
+        if(event == null)
+        {
+            throw new Error("AppModel is a singleton, use getInstance() instead");
+        }
+
+        _appModel = AppModel.getInstance();
+        _appModel.addEventListener(AppModel.CURRENT_BILL_CHANGED, readObject);
+
         _arrItems = [];
         _arrFriends = [];
         _arrFriendItems = [];
         _arrFriendPercentage = [];
     }
 
-    // Methods
+    //---------------------------------------------------------------
+    //-------------------------- Methods ----------------------------
+    //---------------------------------------------------------------
     public function get title():String
     {
         return _title;
@@ -81,23 +103,30 @@ public class BillModel extends EventDispatcher{
         dispatchEvent(new Event(SPLITMETHOD_CHANGED));
     }
 
-    public function get arrFriendItems():Array {
+    public function get arrFriendItems():Array
+    {
         return _arrFriendItems;
     }
 
-    public function set arrFriendItems(value:Array):void {
+    public function set arrFriendItems(value:Array):void
+    {
+        if(_arrFriendItems == value) return;
         _arrFriendItems = value;
     }
 
-    public function get arrFriendPercentage():Array {
+    public function get arrFriendPercentage():Array
+    {
         return _arrFriendPercentage;
     }
 
-    public function set arrFriendPercentage(value:Array):void {
+    public function set arrFriendPercentage(value:Array):void
+    {
+        if(_arrFriendPercentage == value) return;
         _arrFriendPercentage = value;
     }
 
-    public function get arrFriends():Array {
+    public function get arrFriends():Array
+    {
         return _arrFriends;
     }
 
@@ -108,30 +137,26 @@ public class BillModel extends EventDispatcher{
         dispatchEvent(new Event(ARR_FRIENDS_CHANGED));
     }
 
-    public function get arrItems():Array {
+    public function get arrItems():Array
+    {
         return _arrItems;
     }
 
-    public function set arrItems(value:Array):void {
+    public function set arrItems(value:Array):void
+    {
         if(_arrItems == value) return;
         _arrItems = value;
         dispatchEvent(new Event(ARR_ITEMS_CHANGED));
     }
 
-    public function get datetime():String {
+    public function get datetime():String
+    {
         return _datetime;
     }
 
-    public function set datetime(value:String):void {
+    public function set datetime(value:String):void
+    {
         _datetime = value;
-    }
-
-    public function get id():String {
-        return _id;
-    }
-
-    public function set id(value:String):void {
-        _id = value;
     }
 
     public function addItem(itemVO:ItemVO):void
@@ -171,7 +196,8 @@ public class BillModel extends EventDispatcher{
             }
         }
 
-        if(contains){
+        if(contains)
+        {
             var newArrFriends:Array = [];
 
             for each(var friendVOAdd:FriendVO in _arrFriends)
@@ -183,21 +209,26 @@ public class BillModel extends EventDispatcher{
         }
     }
 
-    public function readObject(billVO:Object):void
+    public function readObject(event:Event):void
     {
-        id = billVO.id;
-        title = billVO.title;
-        datetime = billVO.datetime;
-        arrItems = billVO.arrItems;
-        arrFriends = billVO.arrFriends;
-        totalPrice = billVO.totalPrice;
+        title = _appModel.arrBillsVO[_appModel.currentBillIndex].title;
+        datetime = _appModel.arrBillsVO[_appModel.currentBillIndex].datetime;
+        arrItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrItems;
+        arrFriends = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriends;
+        totalPrice = _appModel.arrBillsVO[_appModel.currentBillIndex].totalPrice;
+        arrFriendItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendItems;
+        arrFriendPercentage = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendPercentage;
 
         // new bill -> splitmethod standaard op percentage
-        if(billVO.splitMethod == null) splitMethod = 'percentage';
-        if(billVO.splitMethod != null) splitMethod = billVO.splitMethod;
+        if(_appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod == null) splitMethod = 'percentage';
+        if(_appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod != null) splitMethod = _appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod;
 
-        arrFriendPercentage = billVO.arrFriendPercentage;
-        arrFriendItems = billVO.arrFriendItems;
+        arrFriendPercentage = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendPercentage;
+        arrFriendItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendItems;
+
+        dispatchEvent(new Event(BILL_CHANGED));
     }
 }
 }
+
+internal class Enforcer{}

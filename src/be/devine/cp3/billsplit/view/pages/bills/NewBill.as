@@ -26,6 +26,7 @@ public class NewBill extends Screen{
 
     // Properties
     private var _appModel:AppModel;
+    private var _billModel:BillModel;
 
     private var _group:LayoutGroup;
     private var _textInput:TextInput;
@@ -40,10 +41,12 @@ public class NewBill extends Screen{
         trace('[NewBill]');
 
         _appModel = AppModel.getInstance();
-        _appModel.currentBill.addEventListener(BillModel.TITLE_CHANGED,titleChanged);
-        _appModel.currentBill.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
-        _appModel.currentBill.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
-        _appModel.currentBill.addEventListener(BillModel.ARR_FRIENDS_CHANGED,arrFriendsChangedHandler);
+
+        _billModel = BillModel.getInstance();
+        _billModel.addEventListener(BillModel.TITLE_CHANGED,titleChanged);
+        _billModel.addEventListener(BillModel.TOTAL_PRICE_CHANGED,totalPriceChanged);
+        _billModel.addEventListener(BillModel.SPLITMETHOD_CHANGED,splitMethodChanged);
+        _billModel.addEventListener(BillModel.ARR_FRIENDS_CHANGED,arrFriendsChangedHandler);
 
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
@@ -84,23 +87,23 @@ public class NewBill extends Screen{
     // Methods
     private function splitMethodChanged(event:flash.events.Event):void
     {
-        _splitMethodToggle.isSelected = (_appModel.currentBill.splitMethod != 'percentage');
+        _splitMethodToggle.isSelected = (_billModel.splitMethod != 'percentage');
     }
 
     private function totalPriceChanged(event:flash.events.Event):void
     {
-        _priceButton.label = _appModel.currentBill.totalPrice + ' euros';
+        _priceButton.label = _billModel.totalPrice + ' euros';
     }
 
     private function titleChanged(event:flash.events.Event):void
     {
-        _textInput.text = _appModel.currentBill.title;
+        _textInput.text = _billModel.title;
     }
 
     private function arrFriendsChangedHandler(event:flash.events.Event):void
     {
-        var friendText:String = (_appModel.currentBill.arrFriends.length == 1)? ' friend' : ' friends';
-        _friendsButton.label = _appModel.currentBill.arrFriends.length + friendText;
+        var friendText:String = (_billModel.arrFriends.length == 1)? ' friend' : ' friends';
+        _friendsButton.label = _billModel.arrFriends.length + friendText;
     }
 
     private function createNewBill():void{
@@ -108,12 +111,12 @@ public class NewBill extends Screen{
 
     private function inputChangeHandler(event:starling.events.Event):void
     {
-        _appModel.currentBill.title = _textInput.text;
+        _billModel.title = _textInput.text;
     }
 
     private function toggleChangeHandler(event:starling.events.Event):void
     {
-        _appModel.currentBill.splitMethod = (_splitMethodToggle.isSelected == true)? "absolute" : "percentage" ;
+        _billModel.splitMethod = (_splitMethodToggle.isSelected == true)? "absolute" : "percentage" ;
     }
 
     private function clickHandler(event:starling.events.Event):void
@@ -126,10 +129,10 @@ public class NewBill extends Screen{
                 nextScreen = Config.BILL_FRIENDS;
                 break;
             case _priceButton:
-                nextScreen = (_appModel.currentBill.splitMethod == "percentage")? Config.BILL_PRICE : Config.BILL_ITEMS;
+                nextScreen = (_billModel.splitMethod == "percentage")? Config.BILL_PRICE : Config.BILL_ITEMS;
                 break;
             case _submitButton:
-                nextScreen = (_appModel.currentBill.splitMethod == "percentage")? Config.SPLIT_BILL_PERCENTAGE : Config.SPLIT_BILL_ABSOLUTE;
+                nextScreen = (_billModel.splitMethod == "percentage")? Config.SPLIT_BILL_PERCENTAGE : Config.SPLIT_BILL_ABSOLUTE;
                 break;
         }
 

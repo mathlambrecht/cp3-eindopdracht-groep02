@@ -8,6 +8,7 @@
 package be.devine.cp3.billsplit.view.pages.friends {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
 import feathers.controls.Button;
@@ -24,6 +25,7 @@ public class AddFriend extends Screen{
 
     // Properties
     private var _appModel:AppModel;
+    private var _billModel:BillModel;
 
     private var _group:LayoutGroup;
     private var _textInput:TextInput;
@@ -35,6 +37,7 @@ public class AddFriend extends Screen{
         trace('[AddFriend]');
 
         _appModel = AppModel.getInstance();
+        _billModel = BillModel.getInstance();
 
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
@@ -94,7 +97,7 @@ public class AddFriend extends Screen{
                     newFriendVO.name = _textInput.text;
 
                     _appModel.addFriend(newFriendVO);
-                    _appModel.currentBill.addFriend(newFriendVO);
+                    _billModel.addFriend(newFriendVO);
 
                     _textInput.text = 'Name of your new friend';
 
