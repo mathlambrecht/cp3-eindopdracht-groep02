@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
@@ -19,13 +20,16 @@ import feathers.controls.List;
 package be.devine.cp3.billsplit.view.pages.bills
 {
 >>>>>>> 65becf109c9eaf9a91d6d15a22933c69e5e36893
+=======
+package be.devine.cp3.billsplit.view.pages.bills {
+>>>>>>> 5b18a2fa9d181632d676c475122fbc4a10fc0ac7
 import feathers.controls.Screen;
 import feathers.data.ListCollection;
 
 import starling.events.Event;
 
-public class BillItems extends Screen
-{
+public class BillItems extends Screen{
+
     //Properties
     private var _appModel:AppModel;
     private var _itemsList:List;
@@ -78,8 +82,12 @@ public class BillItems extends Screen
 
     override protected function initialize():void
     {
+<<<<<<< HEAD
 =======
 >>>>>>> 65becf109c9eaf9a91d6d15a22933c69e5e36893
+=======
+
+>>>>>>> 5b18a2fa9d181632d676c475122fbc4a10fc0ac7
     }
 
     override protected function draw():void
