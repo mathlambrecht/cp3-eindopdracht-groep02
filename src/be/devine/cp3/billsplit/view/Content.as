@@ -16,15 +16,15 @@ import be.devine.cp3.billsplit.view.pages.bills.OldBills;
 import be.devine.cp3.billsplit.view.pages.bills.Results;
 import be.devine.cp3.billsplit.view.pages.bills.SplitBillPercentage;
 
-import feathers.controls.Screen;
 import feathers.controls.ScreenNavigatorItem;
 import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 
 import flash.events.Event;
 
 import starling.animation.Transitions;
+import starling.display.Sprite;
 
-public class Content extends Screen
+public class Content extends Sprite
 {
     // Properties
     private var _appModel:AppModel;
@@ -85,6 +85,11 @@ public class Content extends Screen
     private function changeScreenHandler(event:Event):void
     {
         _navigator.showScreen(_appModel.currentPage);
+    }
+
+    public function setSize(w:Number, h:Number):void
+    {
+        _navigator.setSize(w, h);
     }
 }
 }

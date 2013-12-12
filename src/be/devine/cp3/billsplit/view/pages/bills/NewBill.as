@@ -153,6 +153,7 @@ public class NewBill extends Screen{
 
     override protected function draw():void
     {
+        super.draw();
         _group.y = 60;
         _group.x = this.width/2 - _group.width/2;
     }

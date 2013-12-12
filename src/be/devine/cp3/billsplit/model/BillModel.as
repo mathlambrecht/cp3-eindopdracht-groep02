@@ -8,6 +8,7 @@
 package be.devine.cp3.billsplit.model {
 
 import be.devine.cp3.billsplit.vo.FriendVO;
+import be.devine.cp3.billsplit.vo.ItemVO;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -131,6 +132,16 @@ public class BillModel extends EventDispatcher{
 
     public function set id(value:String):void {
         _id = value;
+    }
+
+    public function addItem(itemVO:ItemVO):void
+    {
+        arrItems = arrItems.concat(itemVO);
+    }
+
+    public function removeItem(itemVO:ItemVO):void
+    {
+        arrItems.splice(itemVO);
     }
 
     public function addFriend(friendVOAdd:FriendVO):void{

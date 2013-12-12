@@ -17,6 +17,7 @@ import be.devine.cp3.billsplit.view.Header;
 import flash.events.Event;
 
 import starling.display.Sprite;
+import starling.events.Event;
 
 public class Application extends Sprite
 {
@@ -48,12 +49,23 @@ public class Application extends Sprite
         addChild(_header);
 
         _JSONService = new JSONService();
-        _JSONService.addEventListener(Event.COMPLETE, jsonServiceCompleteHandler);
+        _JSONService.addEventListener(flash.events.Event.COMPLETE, jsonServiceCompleteHandler);
         _JSONService.load();
+
+        addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+    }
+
+    private function addedHandler(event:starling.events.Event):void {
+        stage.addEventListener(starling.events.Event.RESIZE, resizeHandler);
+        resizeHandler();
+    }
+
+    private function resizeHandler(event:starling.events.Event = null):void {
+        _content.setSize(stage.stageWidth, stage.stageHeight - Config.HEADER_HEIGHT);
     }
 
     // Methods
-    private function jsonServiceCompleteHandler(event:Event):void
+    private function jsonServiceCompleteHandler(event:flash.events.Event):void
     {
         _appModel.arrBillsVO = _JSONService.arrBillsData;
         _appModel.arrFriendsVO = _JSONService.arrFriendsData;
