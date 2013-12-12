@@ -14,7 +14,6 @@ import flash.events.Event;
 
 import starling.events.Event;
 
-
 public class OldBills extends Screen
 {
     // Properties
