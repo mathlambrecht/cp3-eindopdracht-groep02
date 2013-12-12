@@ -19,7 +19,8 @@ public class Config
     public static const BILL_PRICE:String = 'BillPrice';
     public static const BILL_ITEMS:String = 'BillItems';
     public static const ADD_ITEM:String = 'AddItem';
-    public static const SPLIT_BILL:String = 'SplitBill';
+    public static const SPLIT_BILL_PERCENTAGE:String = 'SplitBillPercentage';
+    public static const SPLIT_BILL_ABSOLUTE:String = 'SplitBillAbsolute';
     public static const RESULTS:String = 'Results';
 
     public function Config(){}

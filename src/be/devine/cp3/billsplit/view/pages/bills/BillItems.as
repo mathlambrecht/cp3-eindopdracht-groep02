@@ -5,6 +5,7 @@
  * Time: 15:43
  * To change this template use File | Settings | File Templates.
  */
+<<<<<<< HEAD
 package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
@@ -14,13 +15,17 @@ import be.devine.cp3.billsplit.vo.ItemVO;
 import feathers.controls.Button;
 
 import feathers.controls.List;
+=======
+package be.devine.cp3.billsplit.view.pages.bills
+{
+>>>>>>> 65becf109c9eaf9a91d6d15a22933c69e5e36893
 import feathers.controls.Screen;
 import feathers.data.ListCollection;
 
 import starling.events.Event;
 
-public class BillItems extends Screen{
-
+public class BillItems extends Screen
+{
     //Properties
     private var _appModel:AppModel;
     private var _itemsList:List;
@@ -68,10 +73,13 @@ public class BillItems extends Screen{
 
     private function listChangeHandler(event:Event):void
     {
+<<<<<<< HEAD
     }
 
     override protected function initialize():void
     {
+=======
+>>>>>>> 65becf109c9eaf9a91d6d15a22933c69e5e36893
     }
 
     override protected function draw():void

@@ -26,10 +26,10 @@ public class FactoryVO
         billVO.totalPrice = bill.totalPrice;
         billVO.splitMethod = bill.splitMethod;
 
-        /*for each(var item:Object in bill.items)
+        for each(var item:Object in bill.items)
         {
             billVO.arrItems.push(createItemVO(item));
-        }*/
+        }
 
         for each(var friendPercentage:Object in bill.friendPercentages)
         {

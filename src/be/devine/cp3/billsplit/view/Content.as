@@ -7,13 +7,14 @@ import be.devine.cp3.billsplit.view.pages.bills.AddItem;
 import be.devine.cp3.billsplit.view.pages.bills.BillFriends;
 import be.devine.cp3.billsplit.view.pages.bills.BillItems;
 import be.devine.cp3.billsplit.view.pages.bills.BillPrice;
+import be.devine.cp3.billsplit.view.pages.bills.SplitBillAbsolute;
 import be.devine.cp3.billsplit.view.pages.friends.AddFriend;
 import be.devine.cp3.billsplit.view.pages.friends.Friends;
 import be.devine.cp3.billsplit.view.pages.Home;
 import be.devine.cp3.billsplit.view.pages.bills.NewBill;
 import be.devine.cp3.billsplit.view.pages.bills.OldBills;
 import be.devine.cp3.billsplit.view.pages.bills.Results;
-import be.devine.cp3.billsplit.view.pages.bills.SplitBill;
+import be.devine.cp3.billsplit.view.pages.bills.SplitBillPercentage;
 
 import feathers.controls.Screen;
 import feathers.controls.ScreenNavigatorItem;
@@ -56,7 +57,8 @@ public class Content extends Screen
         var billItems:ScreenNavigatorItem = new ScreenNavigatorItem( new BillItems() );
         var addItem:ScreenNavigatorItem = new ScreenNavigatorItem( new AddItem() );
         var billFriends:ScreenNavigatorItem = new ScreenNavigatorItem( new BillFriends() );
-        var splitBill:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBill() );
+        var splitBillPercentage:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBillPercentage() );
+        var splitBillAbsolute:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBillAbsolute() );
         var results:ScreenNavigatorItem = new ScreenNavigatorItem( new Results() );
 
         _navigator.addScreen( Config.HOME , home );
@@ -68,7 +70,8 @@ public class Content extends Screen
         _navigator.addScreen( Config.BILL_ITEMS , billItems );
         _navigator.addScreen( Config.ADD_ITEM , addItem );
         _navigator.addScreen( Config.BILL_FRIENDS , billFriends );
-        _navigator.addScreen( Config.SPLIT_BILL , splitBill );
+        _navigator.addScreen( Config.SPLIT_BILL_PERCENTAGE , splitBillPercentage );
+        _navigator.addScreen( Config.SPLIT_BILL_ABSOLUTE , splitBillAbsolute );
         _navigator.addScreen( Config.RESULTS , results );
         this.addChild(_navigator);
 
