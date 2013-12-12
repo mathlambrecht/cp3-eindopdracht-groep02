@@ -42,13 +42,11 @@ public class BillItems extends Screen{
         _addItemButton = new Button();
         _addItemButton.label = 'Add item';
         _addItemButton.addEventListener(Event.TRIGGERED, clickHandler);
-
     }
 
     // Methods
     private function itemsChangedHandler(event:Event):void
     {
-
         if(_itemsListCollection.length != 0) _itemsListCollection.removeAll();
 
         for each(var itemVO:ItemVO in _appModel.currentBill.arrItems)
@@ -71,6 +69,7 @@ public class BillItems extends Screen{
 
     override protected function initialize():void
     {
+        this.addChild(_itemsList);
     }
 
     override protected function draw():void
