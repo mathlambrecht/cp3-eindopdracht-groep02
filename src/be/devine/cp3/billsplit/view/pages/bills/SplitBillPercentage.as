@@ -42,12 +42,12 @@ public class SplitBillPercentage extends Screen
 
     private function currentBillChangedHandler(event:Event):void
     {
+        _listCollection.removeAll();
+
         for each(var friendVO:FriendVO in _billModel.arrFriends)
         {
             for each(var friendPercentage:FriendPercentageVO in _billModel.arrFriendPercentage)
             {
-                trace(friendPercentage.idFriend);
-
                 if(friendVO.id == friendPercentage.idFriend)
                 {
                     _listCollection.addItem({value: friendPercentage.percentage, label:friendVO.name});

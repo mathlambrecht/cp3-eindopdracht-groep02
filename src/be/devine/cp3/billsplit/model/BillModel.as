@@ -219,7 +219,7 @@ public class BillModel extends EventDispatcher
         arrFriendItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendItems;
         arrFriendPercentage = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendPercentage;
 
-        // new bill -> splitmethod standaard op percentage
+        // new bill -> split method standard op percentage
         if(_appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod == null) splitMethod = 'percentage';
         if(_appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod != null) splitMethod = _appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod;
 
