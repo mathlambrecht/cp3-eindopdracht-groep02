@@ -103,21 +103,25 @@ public class AppModel extends EventDispatcher
         dispatchEvent(new Event(CURRENT_PAGE_CHANGED));
     }
 
-    public function get currentBillVO():BillVO {
+    public function get currentBillVO():BillVO
+    {
         return _currentBillVO;
     }
 
-    public function set currentBillVO(value:BillVO):void {
+    public function set currentBillVO(value:BillVO):void
+    {
         if( _currentBillVO == value ) return;
         _currentBillVO = value;
         currentBill.readObject(_currentBillVO);
     }
 
-    public function get currentBill():BillModel {
+    public function get currentBill():BillModel
+    {
         return _currentBill;
     }
 
-    public function set currentBill(value:BillModel):void {
+    public function set currentBill(value:BillModel):void
+    {
         _currentBill = value;
     }
 

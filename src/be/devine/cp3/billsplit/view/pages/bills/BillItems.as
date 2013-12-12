@@ -5,11 +5,12 @@
  * Time: 15:43
  * To change this template use File | Settings | File Templates.
  */
-package be.devine.cp3.billsplit.view.pages.bills {
+package be.devine.cp3.billsplit.view.pages.bills
+{
 import feathers.controls.Screen;
 
-public class BillItems extends Screen{
-
+public class BillItems extends Screen
+{
     //Properties
 
     // Constructor
@@ -26,7 +27,6 @@ public class BillItems extends Screen{
 
     private function layout():void
     {
-
     }
 
     override public function setSize(width:Number, height:Number):void

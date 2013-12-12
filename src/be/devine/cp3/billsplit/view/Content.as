@@ -13,7 +13,7 @@ import be.devine.cp3.billsplit.view.pages.Home;
 import be.devine.cp3.billsplit.view.pages.bills.NewBill;
 import be.devine.cp3.billsplit.view.pages.bills.OldBills;
 import be.devine.cp3.billsplit.view.pages.bills.Results;
-import be.devine.cp3.billsplit.view.pages.bills.SplitBill;
+import be.devine.cp3.billsplit.view.pages.bills.SplitBillPercentage;
 
 import feathers.controls.Screen;
 import feathers.controls.ScreenNavigatorItem;
@@ -56,7 +56,7 @@ public class Content extends Screen
         var billItems:ScreenNavigatorItem = new ScreenNavigatorItem( new BillItems() );
         var addItem:ScreenNavigatorItem = new ScreenNavigatorItem( new AddItem() );
         var billFriends:ScreenNavigatorItem = new ScreenNavigatorItem( new BillFriends() );
-        var splitBill:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBill() );
+        var splitBill:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBillPercentage() );
         var results:ScreenNavigatorItem = new ScreenNavigatorItem( new Results() );
 
         _navigator.addScreen( Config.HOME , home );

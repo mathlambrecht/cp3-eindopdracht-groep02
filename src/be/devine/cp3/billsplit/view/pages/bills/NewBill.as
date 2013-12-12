@@ -78,7 +78,7 @@ public class NewBill extends Screen{
         _submitButton = new Button();
         _submitButton.label = 'Split that bill!';
         _submitButton.alpha = 0.5;
-        // _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
+        _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
     }
 
     // Methods
@@ -127,6 +127,9 @@ public class NewBill extends Screen{
                 break;
             case _priceButton:
                 nextScreen = (_appModel.currentBill.splitMethod == "percentage")? Config.BILL_PRICE : Config.BILL_ITEMS;
+                break;
+            case _submitButton:
+                nextScreen = (_appModel.currentBill.splitMethod == "percentage")? Config.SPLIT_BILL_PERCENTAGE : Config.SPLIT_BILL_ABSOLUTE;
                 break;
         }
 
