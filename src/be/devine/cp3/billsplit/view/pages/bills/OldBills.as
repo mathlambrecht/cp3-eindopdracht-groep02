@@ -66,8 +66,7 @@ public class OldBills extends Screen
 
     override protected function draw():void
     {
-        _list.width = stage.stageWidth;
-        _list.height = this.height;
+        _list.setSize(this.width, this.height);
     }
 }
 }

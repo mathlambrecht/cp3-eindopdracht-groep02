@@ -24,7 +24,9 @@
  */
 package feathers.themes
 {
-	import feathers.controls.Alert;
+import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRenderer;
+
+import feathers.controls.Alert;
 	import feathers.controls.Button;
 	import feathers.controls.ButtonGroup;
 	import feathers.controls.Callout;
@@ -514,6 +516,10 @@ package feathers.themes
 			this.setInitializerForClass(Panel, panelInitializer);
 			this.setInitializerForClass(Alert, alertInitializer);
 			this.setInitializerForClass(ScrollContainer, scrollContainerToolbarInitializer, ScrollContainer.ALTERNATE_NAME_TOOLBAR);
+
+            //CUSTOM INITIALIZERS
+            this.setInitializerForClass(CustomLayoutGroupItemRenderer, itemRendererInitializer);
+            //END CUSTOM INITIALIZERS
 		}
 
 		protected function pageIndicatorNormalSymbolFactory():DisplayObject
