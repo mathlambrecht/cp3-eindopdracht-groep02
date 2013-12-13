@@ -2,10 +2,11 @@ package be.devine.cp3.billsplit.view.components
 {
 
 import be.devine.cp3.billsplit.model.BillModel;
-import be.devine.cp3.billsplit.utils.MathUtilities;
 
 import feathers.controls.NumericStepper;
 import feathers.controls.renderers.DefaultListItemRenderer;
+
+import flash.events.Event;
 
 import starling.events.Event;
 
@@ -17,21 +18,28 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
     public function CustomLayoutGroupItemRenderer()
     {
         _billModel = BillModel.getInstance();
+        _billModel.addEventListener(BillModel.PERCENTAGE_LEFT_CHANGED, percentageLeftChangedHandler);
+
         _numericStepper = new NumericStepper();
     }
 
-    override protected function initialize():void
+    private function percentageLeftChangedHandler(event:flash.events.Event):void
     {
-        super.initialize();
-        addChild(_numericStepper);
-        _numericStepper.addEventListener(Event.CHANGE, numericStepperChangeHandler);
+        if(_billModel.percentageLeft > 0)
+        {
+            _numericStepper.addEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
+        }
+        else
+        {
+            _numericStepper.removeEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
+        }
     }
 
-    private function numericStepperChangeHandler(event:Event):void
+    private function numericStepperChangeHandler(event:starling.events.Event):void
     {
         this._data.value = this._numericStepper.value;
 
-        _billModel.percentageLeft = MathUtilities.calculatePercentageLeft();
+        dispatchEvent(new starling.events.Event(starling.events.Event.CHANGE));
     }
 
     override protected function commitData():void
@@ -52,22 +60,18 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         }
     }
 
+    override protected function initialize():void
+    {
+        super.initialize();
+        addChild(_numericStepper);
+    }
+
     override protected function layoutContent():void
     {
         super.layoutContent();
 
         _numericStepper.height = this.height;
         _numericStepper.x = 200;
-    }
-
-    public function get numericStepper():NumericStepper
-    {
-        return _numericStepper;
-    }
-
-    public function set numericStepper(value:NumericStepper):void
-    {
-        _numericStepper = value;
     }
 }
 }

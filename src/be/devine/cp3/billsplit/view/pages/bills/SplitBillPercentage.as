@@ -49,6 +49,7 @@ public class SplitBillPercentage extends Screen
         _list.itemRendererFactory = function():IListItemRenderer
         {
             var renderer:CustomLayoutGroupItemRenderer = new CustomLayoutGroupItemRenderer();
+            renderer.addEventListener(starling.events.Event.CHANGE, rendererChangeHandler);
             return renderer;
         }
 
@@ -72,8 +73,10 @@ public class SplitBillPercentage extends Screen
         commitProperties();
     }
 
-    private function _buttonTriggeredHandler(event:starling.events.Event):void
+    private function rendererChangeHandler(event:starling.events.Event):void
     {
+        trace('changes');
+
         var tmpArray:Array = [];
 
         for each(var listObject:Object in _listCollection.data)
@@ -87,6 +90,11 @@ public class SplitBillPercentage extends Screen
 
         _billModel.arrFriendPercentage = tmpArray;
 
+        _billModel.percentageLeft = MathUtilities.calculatePercentageLeft();
+    }
+
+    private function _buttonTriggeredHandler(event:starling.events.Event):void
+    {
         _appModel.currentPage = Config.RESULTS;
     }
 
@@ -139,5 +147,7 @@ public class SplitBillPercentage extends Screen
     {
         _list.setSize(this.width, this.height);
     }
+
+
 }
 }

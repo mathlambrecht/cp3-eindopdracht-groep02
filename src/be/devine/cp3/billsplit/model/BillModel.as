@@ -1,6 +1,7 @@
 package be.devine.cp3.billsplit.model
 {
 
+import be.devine.cp3.billsplit.utils.MathUtilities;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
 
@@ -236,6 +237,8 @@ public class BillModel extends EventDispatcher
 
         arrFriendPercentage = _appModel.currentBillVO.arrFriendPercentage;
         arrFriendItems = _appModel.currentBillVO.arrFriendItems;
+
+        _percentageLeft = MathUtilities.calculatePercentageLeft();
 
         dispatchEvent(new Event(BILL_CHANGED));
     }
