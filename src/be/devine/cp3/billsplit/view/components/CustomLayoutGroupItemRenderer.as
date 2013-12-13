@@ -29,6 +29,8 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
 
     private function numericStepperChangeHandler(event:Event):void
     {
+        this._data.value = this._numericStepper.value;
+
         _billModel.percentageLeft = MathUtilities.calculatePercentageLeft();
     }
 

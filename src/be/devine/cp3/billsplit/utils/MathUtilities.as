@@ -5,7 +5,6 @@ import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 
 public class MathUtilities
 {
-
     public static function divideEqual(splitCount):Number
     {
         var result:Number = 100/splitCount;
@@ -21,6 +20,17 @@ public class MathUtilities
         {
             result -= friendPercentageVO.percentage;
         }
+
+        return result;
+    }
+
+    public static function calculatePercentageByFriend(percentage:Number):Number
+    {
+        var billModel:BillModel = BillModel.getInstance();
+
+        var result:Number;
+
+        result = billModel.totalPrice * (percentage/100);
 
         return result;
     }

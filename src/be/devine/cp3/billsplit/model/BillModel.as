@@ -10,11 +10,16 @@ import flash.events.EventDispatcher;
 public class BillModel extends EventDispatcher
 {
     // Properties
-    public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
-    public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
     public static const TITLE_CHANGED:String = 'TitleChanged';
+    public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
+    public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
+
     public static const ARR_FRIENDS_CHANGED:String = 'arrFriendsChanged';
     public static const ARR_ITEMS_CHANGED:String = 'arrFriendsChanged';
+
+    public static const ARR_FRIEND_PERCENTAGE_CHANGED:String = 'arrFriendPercentageChanged';
+    public static const ARR_FRIEND_ITEMS_CHANGED:String = 'arrFriendItemsChanged';
+
     public static const BILL_CHANGED:String = 'billChanged';
     public static const PERCENTAGE_LEFT_CHANGED:String = 'percentageLeftChanged';
 
@@ -22,11 +27,12 @@ public class BillModel extends EventDispatcher
     private var _appModel:AppModel;
 
     private var _title:String;
-    private var _datetime:String;
-    private var _arrItems:Array;
-    private var _arrFriends:Array;
     private var _totalPrice:Number;
     private var _splitMethod:String;
+
+    private var _arrItems:Array;
+    private var _arrFriends:Array;
+
     private var _arrFriendPercentage:Array;
     private var _arrFriendItems:Array;
 
@@ -126,6 +132,7 @@ public class BillModel extends EventDispatcher
     {
         if(_arrFriendPercentage == value) return;
         _arrFriendPercentage = value;
+        dispatchEvent(new Event(ARR_FRIEND_PERCENTAGE_CHANGED));
     }
 
     public function get arrFriends():Array
@@ -150,16 +157,6 @@ public class BillModel extends EventDispatcher
         if(_arrItems == value) return;
         _arrItems = value;
         dispatchEvent(new Event(ARR_ITEMS_CHANGED));
-    }
-
-    public function get datetime():String
-    {
-        return _datetime;
-    }
-
-    public function set datetime(value:String):void
-    {
-        _datetime = value;
     }
 
     public function get percentageLeft():Number
@@ -227,7 +224,6 @@ public class BillModel extends EventDispatcher
     public function readObject(event:Event):void
     {
         title = _appModel.currentBillVO.title;
-        datetime = _appModel.currentBillVO.datetime;
         arrItems = _appModel.currentBillVO.arrItems;
         arrFriends = _appModel.currentBillVO.arrFriends;
         totalPrice = _appModel.currentBillVO.totalPrice;

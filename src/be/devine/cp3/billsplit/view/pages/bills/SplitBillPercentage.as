@@ -1,5 +1,7 @@
 package be.devine.cp3.billsplit.view.pages.bills
 {
+import be.devine.cp3.billsplit.config.Config;
+import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.utils.MathUtilities;
 import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRenderer;
@@ -20,6 +22,7 @@ import starling.events.Event;
 public class SplitBillPercentage extends Screen
 {
     // Properties
+    private var _appModel:AppModel;
     private var _billModel:BillModel;
 
     private var _list:List;
@@ -33,6 +36,8 @@ public class SplitBillPercentage extends Screen
     public function SplitBillPercentage()
     {
         trace('[SplitBillPercentage]');
+
+        _appModel = AppModel.getInstance();
 
         _billModel = BillModel.getInstance();
         _billModel.addEventListener(BillModel.BILL_CHANGED, currentBillChangedHandler);
@@ -69,18 +74,31 @@ public class SplitBillPercentage extends Screen
 
     private function _buttonTriggeredHandler(event:starling.events.Event):void
     {
+        var tmpArray:Array = [];
 
+        for each(var listObject:Object in _listCollection.data)
+        {
+            var friendPercentageVO:FriendPercentageVO = new FriendPercentageVO();
+            friendPercentageVO.idFriend = listObject.idFriend;
+            friendPercentageVO.percentage = listObject.value;
+
+            tmpArray.push(friendPercentageVO);
+        }
+
+        _billModel.arrFriendPercentage = tmpArray;
+
+        _appModel.currentPage = Config.RESULTS;
     }
 
     private function commitProperties():void
     {
+        var tmpArray:Array = [];
+
         _listCollection.removeAll();
 
         if(_isSplitEqual)
         {
             var equalPercentage:Number = MathUtilities.divideEqual(_billModel.arrFriends.length);
-
-            _billModel.arrFriendPercentage = [];
 
             for each(var friendVO:FriendVO in _billModel.arrFriends)
             {
@@ -89,8 +107,10 @@ public class SplitBillPercentage extends Screen
                 friendPercentageVO.idFriend = friendVO.id;
                 friendPercentageVO.percentage = equalPercentage;
 
-                _billModel.arrFriendPercentage.push(friendPercentageVO);
+                tmpArray.push(friendPercentageVO);
             }
+
+            _billModel.arrFriendPercentage = tmpArray;
         }
 
         for each(var friendVO:FriendVO in _billModel.arrFriends)
@@ -99,7 +119,7 @@ public class SplitBillPercentage extends Screen
             {
                 if(friendVO.id == friendPercentage.idFriend)
                 {
-                    _listCollection.addItem({value: friendPercentage.percentage, label:friendVO.name});
+                    _listCollection.addItem({value: friendPercentage.percentage, label:friendVO.name, idFriend:friendPercentage.idFriend});
                 }
             }
         }
