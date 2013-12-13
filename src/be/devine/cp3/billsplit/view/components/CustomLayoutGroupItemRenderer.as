@@ -1,15 +1,22 @@
 package be.devine.cp3.billsplit.view.components
 {
 
+import be.devine.cp3.billsplit.model.BillModel;
+import be.devine.cp3.billsplit.utils.MathUtilities;
+
 import feathers.controls.NumericStepper;
 import feathers.controls.renderers.DefaultListItemRenderer;
 
+import starling.events.Event;
+
 public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
 {
+    private var _billModel:BillModel;
     private var _numericStepper:NumericStepper;
 
     public function CustomLayoutGroupItemRenderer()
     {
+        _billModel = BillModel.getInstance();
         _numericStepper = new NumericStepper();
     }
 
@@ -17,6 +24,12 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
     {
         super.initialize();
         addChild(_numericStepper);
+        _numericStepper.addEventListener(Event.CHANGE, numericStepperChangeHandler);
+    }
+
+    private function numericStepperChangeHandler(event:Event):void
+    {
+        _billModel.percentageLeft = MathUtilities.calculatePercentageLeft();
     }
 
     override protected function commitData():void
@@ -36,7 +49,6 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
             _numericStepper.value = 0;
         }
     }
-
 
     override protected function layoutContent():void
     {

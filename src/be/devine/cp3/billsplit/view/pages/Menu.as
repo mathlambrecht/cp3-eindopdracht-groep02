@@ -72,6 +72,7 @@ public class Menu extends Screen
         switch (button)
         {
             case _newBillButton:
+                _appModel.currentBillVO = new BillVO();
                 nextScreen = Config.NEW_BILL;
                 break;
             case _oldBillsButton:

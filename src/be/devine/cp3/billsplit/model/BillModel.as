@@ -16,6 +16,7 @@ public class BillModel extends EventDispatcher
     public static const ARR_FRIENDS_CHANGED:String = 'arrFriendsChanged';
     public static const ARR_ITEMS_CHANGED:String = 'arrFriendsChanged';
     public static const BILL_CHANGED:String = 'billChanged';
+    public static const PERCENTAGE_LEFT_CHANGED:String = 'percentageLeftChanged';
 
     private static var _instance:BillModel;
     private var _appModel:AppModel;
@@ -28,6 +29,8 @@ public class BillModel extends EventDispatcher
     private var _splitMethod:String;
     private var _arrFriendPercentage:Array;
     private var _arrFriendItems:Array;
+
+    private var _percentageLeft:Number;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -159,6 +162,18 @@ public class BillModel extends EventDispatcher
         _datetime = value;
     }
 
+    public function get percentageLeft():Number
+    {
+        return _percentageLeft;
+    }
+
+    public function set percentageLeft(value:Number):void
+    {
+        if(_percentageLeft == value) return;
+        _percentageLeft = value;
+        dispatchEvent(new Event(PERCENTAGE_LEFT_CHANGED));
+    }
+
     public function addItem(itemVO:ItemVO):void
     {
         arrItems = arrItems.concat(itemVO);
@@ -211,20 +226,20 @@ public class BillModel extends EventDispatcher
 
     public function readObject(event:Event):void
     {
-        title = _appModel.arrBillsVO[_appModel.currentBillIndex].title;
-        datetime = _appModel.arrBillsVO[_appModel.currentBillIndex].datetime;
-        arrItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrItems;
-        arrFriends = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriends;
-        totalPrice = _appModel.arrBillsVO[_appModel.currentBillIndex].totalPrice;
-        arrFriendItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendItems;
-        arrFriendPercentage = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendPercentage;
+        title = _appModel.currentBillVO.title;
+        datetime = _appModel.currentBillVO.datetime;
+        arrItems = _appModel.currentBillVO.arrItems;
+        arrFriends = _appModel.currentBillVO.arrFriends;
+        totalPrice = _appModel.currentBillVO.totalPrice;
+        arrFriendItems = _appModel.currentBillVO.arrFriendItems;
+        arrFriendPercentage = _appModel.currentBillVO.arrFriendPercentage;
 
         // new bill -> split method standard op percentage
-        if(_appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod == null) splitMethod = 'percentage';
-        if(_appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod != null) splitMethod = _appModel.arrBillsVO[_appModel.currentBillIndex].splitMethod;
+        if(_appModel.currentBillVO.splitMethod == null) splitMethod = 'percentage';
+        if(_appModel.currentBillVO.splitMethod != null) splitMethod = _appModel.currentBillVO.splitMethod;
 
-        arrFriendPercentage = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendPercentage;
-        arrFriendItems = _appModel.arrBillsVO[_appModel.currentBillIndex].arrFriendItems;
+        arrFriendPercentage = _appModel.currentBillVO.arrFriendPercentage;
+        arrFriendItems = _appModel.currentBillVO.arrFriendItems;
 
         dispatchEvent(new Event(BILL_CHANGED));
     }

@@ -24,7 +24,7 @@ public class AppModel extends EventDispatcher
     private var _arrFriendsVO:Vector.<FriendVO>;
 
     private var _currentPage:String;
-    private var _currentBillIndex:uint = -1;
+    private var _currentBillVO:BillVO;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -105,15 +105,15 @@ public class AppModel extends EventDispatcher
         arrFriendsVO = _arrFriendsVO.concat(new <FriendVO>[friendVO]);
     }
 
-    public function get currentBillIndex():uint
+    public function get currentBillVO():BillVO
     {
-        return _currentBillIndex;
+        return _currentBillVO;
     }
 
-    public function set currentBillIndex(value:uint):void
+    public function set currentBillVO(value:BillVO):void
     {
-        if(_currentBillIndex == value) return;
-        _currentBillIndex = value;
+        if(_currentBillVO == value) return;
+        _currentBillVO = value;
         dispatchEvent(new Event(CURRENT_BILL_CHANGED));
     }
 }

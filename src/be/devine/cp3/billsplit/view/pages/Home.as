@@ -62,6 +62,7 @@ public class Home extends Screen
                     break;
 
             case _newBillButton:
+                    _appModel.currentBillVO = new BillVO();
                     nextScreen = Config.NEW_BILL;
                     break;
         }
