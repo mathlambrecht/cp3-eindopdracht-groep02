@@ -9,11 +9,15 @@ import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
 import feathers.controls.Button;
+import feathers.controls.ButtonGroup;
+import feathers.controls.LayoutGroup;
 
 import feathers.controls.List;
 import feathers.controls.Screen;
 import feathers.controls.renderers.IListItemRenderer;
 import feathers.data.ListCollection;
+import feathers.events.FeathersEventType;
+import feathers.layout.HorizontalLayout;
 
 import flash.events.Event;
 
@@ -28,7 +32,9 @@ public class SplitBillPercentage extends Screen
     private var _list:List;
     private var _listCollection:ListCollection;
 
-    private var _button:Button;
+    private var _buttonGroup:LayoutGroup;
+    private var _buttonSubmit:Button;
+    private var _buttonReset:Button;
 
     private var _isSplitEqual:Boolean;
 
@@ -55,9 +61,20 @@ public class SplitBillPercentage extends Screen
 
         _listCollection = new ListCollection();
 
-        _button = new Button();
-        _button.label = 'Split !'
-        _button.addEventListener(starling.events.Event.TRIGGERED, _buttonTriggeredHandler);
+        _buttonGroup = new LayoutGroup();
+        _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
+
+        var layout:HorizontalLayout = new HorizontalLayout();
+        layout.gap = 40;
+        _buttonGroup.layout = layout;
+
+        _buttonSubmit = new Button();
+        _buttonSubmit.label = 'Split !'
+        _buttonSubmit.addEventListener(starling.events.Event.TRIGGERED, _buttonSubmitTriggeredHandler);
+
+        _buttonReset = new Button();
+        _buttonReset.label = 'Reset';
+        _buttonReset.addEventListener(starling.events.Event.TRIGGERED, buttonResetTriggeredHandler);
     }
 
     // Methods
@@ -91,9 +108,15 @@ public class SplitBillPercentage extends Screen
         _billModel.percentageLeft = MathUtilities.calculatePercentageLeft();
     }
 
-    private function _buttonTriggeredHandler(event:starling.events.Event):void
+    private function _buttonSubmitTriggeredHandler(event:starling.events.Event):void
     {
         _appModel.currentPage = Config.RESULTS;
+    }
+
+    private function buttonResetTriggeredHandler(event:starling.events.Event):void
+    {
+        _isSplitEqual = true;
+        commitProperties();
     }
 
     private function commitProperties():void
@@ -135,17 +158,26 @@ public class SplitBillPercentage extends Screen
         _isSplitEqual = false;
     }
 
+    private function buttonGroupCreationCompleteHandler(event:starling.events.Event):void
+    {
+        draw();
+    }
+
     override protected function initialize():void
     {
         addChild(_list);
-        addChild(_button);
+
+        _buttonGroup.addChild(_buttonSubmit);
+        _buttonGroup.addChild(_buttonReset);
+        addChild(_buttonGroup);
     }
 
     override protected function draw():void
     {
         _list.setSize(this.width, this.height);
+
+        _buttonGroup.y = this.height - _buttonGroup.height - 80;
+        _buttonGroup.x = this.width / 2 - _buttonGroup.width / 2;
     }
-
-
 }
 }
