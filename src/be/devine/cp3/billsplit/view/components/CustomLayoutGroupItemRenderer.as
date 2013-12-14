@@ -21,7 +21,6 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         _billModel.addEventListener(BillModel.PERCENTAGE_LEFT_CHANGED, percentageLeftChangedHandler);
 
         _numericStepper = new NumericStepper();
-        percentageLeftChangedHandler(null);
         _numericStepper.addEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
     }
 
@@ -29,16 +28,16 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
     {
         if(_billModel.percentageLeft > 0)
         {
-            _numericStepper.incrementButtonProperties.mouseEnabled = true;
-            _numericStepper.decrementButtonProperties.mouseEnabled = true;
+            _numericStepper.minimum = 0;
+            _numericStepper.maximum = 100;
         }
         else if(_billModel.percentageLeft == 0)
         {
-            _numericStepper.incrementButtonProperties.mouseEnabled = false;
+            _numericStepper.maximum = _numericStepper.value;
         }
         else if(_billModel.percentageLeft == 100)
         {
-            _numericStepper.decrementButtonProperties.mouseEnabled = false;
+            _numericStepper.minimum = _numericStepper.value;
         }
     }
 
@@ -65,6 +64,8 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         {
             _numericStepper.value = 0;
         }
+
+        percentageLeftChangedHandler(null);
     }
 
     override protected function initialize():void

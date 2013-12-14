@@ -75,8 +75,6 @@ public class SplitBillPercentage extends Screen
 
     private function rendererChangeHandler(event:starling.events.Event):void
     {
-        trace('changes');
-
         var tmpArray:Array = [];
 
         for each(var listObject:Object in _listCollection.data)
