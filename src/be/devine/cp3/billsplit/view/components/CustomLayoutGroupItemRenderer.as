@@ -21,17 +21,24 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         _billModel.addEventListener(BillModel.PERCENTAGE_LEFT_CHANGED, percentageLeftChangedHandler);
 
         _numericStepper = new NumericStepper();
+        percentageLeftChangedHandler(null);
+        _numericStepper.addEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
     }
 
     private function percentageLeftChangedHandler(event:flash.events.Event):void
     {
         if(_billModel.percentageLeft > 0)
         {
-            _numericStepper.addEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
+            _numericStepper.incrementButtonProperties.mouseEnabled = true;
+            _numericStepper.decrementButtonProperties.mouseEnabled = true;
         }
-        else
+        else if(_billModel.percentageLeft == 0)
         {
-            _numericStepper.removeEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
+            _numericStepper.incrementButtonProperties.mouseEnabled = false;
+        }
+        else if(_billModel.percentageLeft == 100)
+        {
+            _numericStepper.decrementButtonProperties.mouseEnabled = false;
         }
     }
 
