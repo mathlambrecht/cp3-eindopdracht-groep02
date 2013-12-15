@@ -18,9 +18,10 @@ public class Home extends Screen
     // Properties
     private var _appModel:AppModel;
 
+    private var _buttonGroup:LayoutGroup;
+
     private var _oldBillsButton:Button;
     private var _newBillButton:Button;
-    private var _buttonGroup:LayoutGroup;
 
     // Contructor
     public function Home()
@@ -36,38 +37,26 @@ public class Home extends Screen
     {
         _buttonGroup = new LayoutGroup();
         _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
-
-        var layout:HorizontalLayout = new HorizontalLayout();
-        layout.gap = 40;
-        _buttonGroup.layout = layout;
+        _buttonGroup.layout = new HorizontalLayout();
 
         _oldBillsButton = new Button();
         _oldBillsButton.label = 'Old bills';
-        _oldBillsButton.addEventListener(Event.TRIGGERED, clickHandler);
+        _oldBillsButton.addEventListener(Event.TRIGGERED, oldBillsButtonTriggeredHandler);
 
         _newBillButton = new Button();
         _newBillButton.label = 'New bill';
-        _newBillButton.addEventListener(Event.TRIGGERED, clickHandler);
+        _newBillButton.addEventListener(Event.TRIGGERED, newBillButtonTriggeredHandler);
     }
 
-    private function clickHandler(event:Event):void
+    private function newBillButtonTriggeredHandler(event:Event):void
     {
-        var button:Button = event.currentTarget as Button;
-        var nextScreen:String;
+        _appModel.currentBillVO = new BillVO();
+        _appModel.currentPage = Config.NEW_BILL;
+    }
 
-        switch (button)
-        {
-            case _oldBillsButton:
-                    nextScreen = Config.OLD_BILLS;
-                    break;
-
-            case _newBillButton:
-                    _appModel.currentBillVO = new BillVO();
-                    nextScreen = Config.NEW_BILL;
-                    break;
-        }
-
-        _appModel.currentPage = nextScreen;
+    private function oldBillsButtonTriggeredHandler(event:Event):void
+    {
+        _appModel.currentPage = Config.OLD_BILLS;
     }
 
     override protected function initialize():void
@@ -84,8 +73,15 @@ public class Home extends Screen
 
     override protected function draw():void
     {
-        _buttonGroup.y = this.height - _buttonGroup.height - 80;
-        _buttonGroup.x = this.width/2 - _buttonGroup.width/2;
+        super.draw();
+
+        _oldBillsButton.width = this.width/2;
+        _oldBillsButton.height = this.width/2;
+
+        _newBillButton.width = this.width/2;
+        _newBillButton.height = this.width/2;
+
+        _buttonGroup.y = this.height - _buttonGroup.height;
     }
 }
 }

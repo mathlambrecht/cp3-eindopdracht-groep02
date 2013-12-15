@@ -27,7 +27,6 @@ public class Application extends Sprite
     private var _appModel:AppModel;
     private var _JSONService:JSONService;
 
-    /*private var _header:Header;*/
     private var _content:Content;
     private var _header:Header;
     private var _navigator:ScreenNavigatorWithHistory;
@@ -61,6 +60,7 @@ public class Application extends Sprite
     }
 
     private function resizeHandler(event:starling.events.Event = null):void {
+        _header.setSize(stage.stageWidth, Config.HEADER_HEIGHT);
         _content.setSize(stage.stageWidth, stage.stageHeight - Config.HEADER_HEIGHT);
     }
 

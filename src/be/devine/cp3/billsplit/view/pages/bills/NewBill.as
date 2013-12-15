@@ -9,6 +9,9 @@ package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
+import be.devine.cp3.billsplit.utils.Functions;
+import be.devine.cp3.billsplit.utils.MathUtilities;
+import be.devine.cp3.billsplit.vo.ItemVO;
 
 import feathers.controls.Button;
 import feathers.controls.LayoutGroup;
@@ -16,11 +19,14 @@ import feathers.controls.Screen;
 import feathers.controls.TextInput;
 import feathers.controls.ToggleSwitch;
 import feathers.events.FeathersEventType;
-import feathers.layout.VerticalLayout;
+import feathers.layout.HorizontalLayout;
 
 import flash.events.Event;
 
+import starling.display.Image;
+
 import starling.events.Event;
+import starling.textures.Texture;
 
 public class NewBill extends Screen{
 
@@ -29,6 +35,8 @@ public class NewBill extends Screen{
     private var _billModel:BillModel;
 
     private var _group:LayoutGroup;
+    private var _buttonGroup:LayoutGroup;
+
     private var _textInput:TextInput;
     private var _splitMethodToggle:ToggleSwitch;
     private var _priceButton:Button;
@@ -51,9 +59,9 @@ public class NewBill extends Screen{
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
 
-        var layout:VerticalLayout = new VerticalLayout();
-        layout.gap = 10;
-        _group.layout = layout;
+        _buttonGroup = new LayoutGroup();
+        _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
+        _buttonGroup.layout = new HorizontalLayout();
 
         _textInput = new TextInput();
         _textInput.text = '';
@@ -81,32 +89,56 @@ public class NewBill extends Screen{
         _submitButton = new Button();
         _submitButton.label = 'Split that bill!';
         _submitButton.alpha = 0.5;
-        _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
     }
 
     // Methods
     private function splitMethodChanged(event:flash.events.Event):void
     {
+        if(_billModel.splitMethod == 'absolute' && _billModel.arrItems.length != 0)
+        {
+            _billModel.totalPrice = MathUtilities.calculateTotalPrice(_billModel.arrItems);
+        }
+
         _splitMethodToggle.isSelected = (_billModel.splitMethod != 'percentage');
+        checkBill();
     }
 
     private function totalPriceChanged(event:flash.events.Event):void
     {
         _priceButton.label = _billModel.totalPrice + ' euros';
+        checkBill();
     }
 
     private function titleChanged(event:flash.events.Event):void
     {
         _textInput.text = _billModel.title;
+        checkBill();
     }
 
     private function arrFriendsChangedHandler(event:flash.events.Event):void
     {
         var friendText:String = (_billModel.arrFriends.length == 1)? ' friend' : ' friends';
         _friendsButton.label = _billModel.arrFriends.length + friendText;
+        checkBill();
     }
 
-    private function createNewBill():void{
+    private function checkBill():void
+    {
+        if(_billModel.totalPrice != 0 && _billModel.arrFriends.length >= 2 && _billModel.title != null)
+        {
+            if(_billModel.splitMethod != 'absolute' && _billModel.arrItems.length != 0)
+            {
+                _submitButton.alpha = 0.5;
+                _submitButton.removeEventListener(starling.events.Event.TRIGGERED, clickHandler);
+            }else{
+                _submitButton.alpha = 1;
+                _submitButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
+            }
+        }else
+        {
+            _submitButton.alpha = 0.5;
+            _submitButton.removeEventListener(starling.events.Event.TRIGGERED, clickHandler);
+        }
     }
 
     private function inputChangeHandler(event:starling.events.Event):void
@@ -141,12 +173,16 @@ public class NewBill extends Screen{
 
     override protected function initialize():void
     {
+        _buttonGroup.addChild(_friendsButton);
+        _buttonGroup.addChild(_priceButton);
+        _group.addChild(_buttonGroup);
+
         _group.addChild(_textInput);
         _group.addChild(_splitMethodToggle);
-        _group.addChild(_friendsButton);
-        _group.addChild(_priceButton);
+
         _group.addChild(_submitButton);
-        this.addChild(_group);
+
+        addChild(_group);
     }
 
     private function groupCreationCompleteHandler(event:starling.events.Event):void
@@ -157,8 +193,25 @@ public class NewBill extends Screen{
     override protected function draw():void
     {
         super.draw();
-        _group.y = 60;
-        _group.x = this.width/2 - _group.width/2;
+
+        _textInput.y = 40;
+        _textInput.width = this.width;
+        _textInput.height = 80;
+
+        _submitButton.width = this.width;
+        _submitButton.height = Config.BUTTON_HEIGHT;
+        _submitButton.y = this.height - _submitButton.height;
+
+        _friendsButton.width = this.width/2;
+        _friendsButton.height = this.height -  _buttonGroup.y - _submitButton.height;
+
+        _priceButton.width = this.width/2;
+        _priceButton.height = this.height - _buttonGroup.y - _submitButton.height;
+
+        _buttonGroup.y = _textInput.y + _textInput.height + 40;
+
+        _splitMethodToggle.y = _buttonGroup.y - _splitMethodToggle.height/2;
+        _splitMethodToggle.x = this.width/2 - _splitMethodToggle.width/2;
     }
 }
 }

@@ -5,8 +5,9 @@ import feathers.themes.MetalWorksMobileTheme;
 public class Config
 {
     public static const JSON_FILENAME:String = 'bills.json';
-    public static const HEADER_HEIGHT:Number = 65;
+    public static const HEADER_HEIGHT:Number = 80;
     public static const MENU_MARGIN:Number = 120;
+    public static const BUTTON_HEIGHT:Number = 90;
 
     // pages
     public static const HOME:String = 'Home';
@@ -18,10 +19,11 @@ public class Config
     public static const BILL_FRIENDS:String = 'BillFriends';
     public static const BILL_PRICE:String = 'BillPrice';
     public static const BILL_ITEMS:String = 'BillItems';
-    public static const ADD_ITEM:String = 'AddItem';
     public static const SPLIT_BILL_PERCENTAGE:String = 'SplitBillPercentage';
     public static const SPLIT_BILL_ABSOLUTE:String = 'SplitBillAbsolute';
     public static const RESULTS:String = 'Results';
+
+    // assets
 
     public function Config(){}
 

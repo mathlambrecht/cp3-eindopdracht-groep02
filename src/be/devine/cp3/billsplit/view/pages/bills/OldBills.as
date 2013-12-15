@@ -64,6 +64,8 @@ public class OldBills extends Screen
 
     override protected function draw():void
     {
+        super.draw();
+
         _list.setSize(this.width, this.height);
     }
 }

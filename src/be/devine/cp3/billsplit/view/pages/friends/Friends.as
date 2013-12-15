@@ -8,6 +8,8 @@
 package be.devine.cp3.billsplit.view.pages.friends {
 import feathers.controls.Screen;
 
+import starling.events.Event;
+
 public class Friends extends Screen{
 
     // Properties
@@ -16,22 +18,20 @@ public class Friends extends Screen{
     public function Friends()
     {
         trace('[Friends]');
-        createFriends();
     }
 
     // Methods
-    private function createFriends():void
+    override protected function initialize():void
     {
     }
 
-    private function layout():void
+    private function buttonGroupCreationCompleteHandler(event:Event):void
     {
     }
 
-    override public function setSize(width:Number, height:Number):void
+    override protected function draw():void
     {
-        super.setSize(width,height);
-        layout();
+        super.draw();
     }
 }
 }

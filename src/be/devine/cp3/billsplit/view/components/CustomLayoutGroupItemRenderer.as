@@ -4,6 +4,7 @@ package be.devine.cp3.billsplit.view.components
 import be.devine.cp3.billsplit.model.BillModel;
 
 import feathers.controls.NumericStepper;
+import feathers.controls.TextInput;
 import feathers.controls.renderers.DefaultListItemRenderer;
 
 import flash.events.Event;
@@ -22,6 +23,7 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
 
         _numericStepper = new NumericStepper();
         _numericStepper.addEventListener(starling.events.Event.CHANGE, numericStepperChangeHandler);
+        _numericStepper.width = 160;
     }
 
     private function percentageLeftChangedHandler(event:flash.events.Event):void
@@ -79,7 +81,7 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         super.layoutContent();
 
         _numericStepper.height = this.height;
-        _numericStepper.x = 200;
+        _numericStepper.x = this.width - _numericStepper.width;
     }
 }
 }

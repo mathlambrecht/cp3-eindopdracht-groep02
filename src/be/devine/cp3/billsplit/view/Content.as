@@ -3,7 +3,6 @@ package be.devine.cp3.billsplit.view
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
-import be.devine.cp3.billsplit.view.pages.bills.AddItem;
 import be.devine.cp3.billsplit.view.pages.bills.BillFriends;
 import be.devine.cp3.billsplit.view.pages.bills.BillItems;
 import be.devine.cp3.billsplit.view.pages.bills.BillPrice;
@@ -29,14 +28,13 @@ public class Content extends Sprite
     // Properties
     private var _appModel:AppModel;
     private var _navigator:ScreenNavigatorWithHistory;
+
     private var _transitionManager:ScreenSlidingStackTransitionManager;
-    private var _arrScreens:Array;
 
     // Constructor
     public function Content(navigator:ScreenNavigatorWithHistory)
     {
         trace('[Content]');
-        _arrScreens =[];
 
         _navigator = navigator;
         _appModel = AppModel.getInstance();
@@ -55,7 +53,6 @@ public class Content extends Sprite
         var newBill:ScreenNavigatorItem = new ScreenNavigatorItem( new NewBill() );
         var billPrice:ScreenNavigatorItem = new ScreenNavigatorItem( new BillPrice() );
         var billItems:ScreenNavigatorItem = new ScreenNavigatorItem( new BillItems() );
-        var addItem:ScreenNavigatorItem = new ScreenNavigatorItem( new AddItem() );
         var billFriends:ScreenNavigatorItem = new ScreenNavigatorItem( new BillFriends() );
         var splitBillPercentage:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBillPercentage() );
         var splitBillAbsolute:ScreenNavigatorItem = new ScreenNavigatorItem( new SplitBillAbsolute() );
@@ -68,7 +65,6 @@ public class Content extends Sprite
         _navigator.addScreen( Config.NEW_BILL , newBill );
         _navigator.addScreen( Config.BILL_PRICE , billPrice );
         _navigator.addScreen( Config.BILL_ITEMS , billItems );
-        _navigator.addScreen( Config.ADD_ITEM , addItem );
         _navigator.addScreen( Config.BILL_FRIENDS , billFriends );
         _navigator.addScreen( Config.SPLIT_BILL_PERCENTAGE , splitBillPercentage );
         _navigator.addScreen( Config.SPLIT_BILL_ABSOLUTE , splitBillAbsolute );

@@ -3,6 +3,7 @@ package be.devine.cp3.billsplit.view.pages.bills
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.utils.MathUtilities;
+import be.devine.cp3.billsplit.utils.MathUtilities;
 import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
@@ -26,6 +27,7 @@ public class Results extends Screen
     public function Results()
     {
         trace('[Results]');
+
         _appModel = AppModel.getInstance();
         _appModel.addEventListener(AppModel.ARRAY_BILLS_VO_CHANGED, commitProperties);
 
@@ -37,6 +39,7 @@ public class Results extends Screen
         _listCollection = new ListCollection();
     }
 
+    // Methods
     private function commitProperties(event:Event):void
     {
         _listCollection.removeAll();
@@ -62,10 +65,10 @@ public class Results extends Screen
         addChild(_list);
     }
 
-    // Methods
     override protected function draw():void
     {
         super.draw();
+
         _list.setSize(this.width, this.height);
     }
 

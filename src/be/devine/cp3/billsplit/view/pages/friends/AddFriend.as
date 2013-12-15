@@ -18,7 +18,7 @@ import feathers.controls.LayoutGroup;
 import feathers.controls.Screen;
 import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
-import feathers.layout.VerticalLayout;
+import feathers.layout.HorizontalLayout;
 import starling.events.Event;
 
 public class AddFriend extends Screen{
@@ -28,6 +28,8 @@ public class AddFriend extends Screen{
     private var _billModel:BillModel;
 
     private var _group:LayoutGroup;
+    private var _buttonGroup:LayoutGroup;
+
     private var _textInput:TextInput;
     private var _resetButton:Button;
     private var _submitButton:Button;
@@ -42,19 +44,20 @@ public class AddFriend extends Screen{
         _group = new LayoutGroup();
         _group.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
 
-        var layout:VerticalLayout = new VerticalLayout();
-        layout.gap = 10;
-        _group.layout = layout;
+        _buttonGroup = new LayoutGroup();
+        _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, groupCreationCompleteHandler);
+        _buttonGroup.layout = new HorizontalLayout();
 
         _textInput = new TextInput();
         _textInput.text = '';
+        _textInput.setFocus();
         _textInput.maxChars = 25;
         _textInput.restrict = "a-zA-Z ";
         _textInput.prompt = 'Name of your new friend';
         _textInput.addEventListener(Event.CHANGE, inputChangeHandler);
 
         _resetButton = new Button();
-        _resetButton.label = 'Reset';
+        _resetButton.label = 'Clear';
         _resetButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
         _resetButton.addEventListener(Event.TRIGGERED, clickHandler);
 
@@ -110,9 +113,10 @@ public class AddFriend extends Screen{
     override protected function initialize():void
     {
         _group.addChild(_textInput);
-        _group.addChild(_resetButton);
-        _group.addChild(_submitButton);
-        this.addChild(_group);
+        _buttonGroup.addChild(_resetButton);
+        _buttonGroup.addChild(_submitButton);
+        _group.addChild(_buttonGroup);
+        addChild(_group);
     }
 
     private function groupCreationCompleteHandler(event:Event):void
@@ -122,10 +126,20 @@ public class AddFriend extends Screen{
 
     override protected function draw():void
     {
-        _textInput.width = stage.stageWidth - 100;
+        super.draw();
 
-        _group.y = 50;
-        _group.x = (this.width/2) - (_group.width/2);
+        _resetButton.width = this.width/2;
+        _resetButton.height = Config.BUTTON_HEIGHT;
+
+        _submitButton.width = this.width/2;
+        _submitButton.height = Config.BUTTON_HEIGHT;
+
+        _buttonGroup.y = this.height - _buttonGroup.height;
+
+        _textInput.setSize(this.width - 30 , 80);
+        _textInput.x = this.width/2 - _textInput.width/2;
+        _textInput.y = this.height/2 - _textInput.height/2 - _buttonGroup.height;
+
     }
 }
 }

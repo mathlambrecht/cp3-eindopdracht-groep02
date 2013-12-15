@@ -1,6 +1,7 @@
 package be.devine.cp3.billsplit.model
 {
 
+import be.devine.cp3.billsplit.utils.Functions;
 import be.devine.cp3.billsplit.utils.MathUtilities;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
@@ -157,6 +158,7 @@ public class BillModel extends EventDispatcher
     {
         if(_arrItems == value) return;
         _arrItems = value;
+        totalPrice = MathUtilities.calculateTotalPrice(_arrItems);
         dispatchEvent(new Event(ARR_ITEMS_CHANGED));
     }
 
@@ -179,7 +181,19 @@ public class BillModel extends EventDispatcher
 
     public function removeItem(itemVO:ItemVO):void
     {
-        arrItems.splice(itemVO);
+        var newArrItems:Array = [];
+
+        for each(var itemVOAdd:ItemVO in _arrItems)
+        {
+            if(itemVOAdd != itemVO) newArrItems.push(itemVOAdd);
+        }
+
+        arrItems = newArrItems;
+    }
+
+    public function removeAllItems():void
+    {
+        arrItems = [];
     }
 
     public function addFriend(friendVOAdd:FriendVO):void{
@@ -188,7 +202,7 @@ public class BillModel extends EventDispatcher
 
         for each(var selectedFriendVO:FriendVO in _arrFriends)
         {
-            if(FriendVO.equals(selectedFriendVO, friendVOAdd))
+            if(Functions.equals(selectedFriendVO, friendVOAdd))
             {
                 contains = true;
             }
@@ -203,7 +217,7 @@ public class BillModel extends EventDispatcher
 
         for each(var selectedFriendVO:FriendVO in _arrFriends)
         {
-            if(FriendVO.equals(selectedFriendVO, friendVO))
+            if(Functions.equals(selectedFriendVO, friendVO))
             {
                 contains = true;
             }
@@ -215,7 +229,7 @@ public class BillModel extends EventDispatcher
 
             for each(var friendVOAdd:FriendVO in _arrFriends)
             {
-                if(!FriendVO.equals(friendVOAdd,friendVO)) newArrFriends.push(friendVOAdd);
+                if(!Functions.equals(friendVOAdd,friendVO)) newArrFriends.push(friendVOAdd);
             }
 
             arrFriends = newArrFriends;

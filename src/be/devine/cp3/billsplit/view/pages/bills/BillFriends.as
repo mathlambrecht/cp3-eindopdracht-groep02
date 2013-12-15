@@ -9,14 +9,18 @@ package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
+import be.devine.cp3.billsplit.utils.Functions;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
 import feathers.controls.Button;
+import feathers.controls.LayoutGroup;
 
 import feathers.controls.List;
 import feathers.controls.Screen;
 import feathers.controls.ScrollContainer;
 import feathers.data.ListCollection;
+import feathers.events.FeathersEventType;
+import feathers.layout.HorizontalLayout;
 import feathers.layout.VerticalLayout;
 
 import flash.events.Event;
@@ -29,11 +33,15 @@ public class BillFriends extends Screen{
     private var _appModel:AppModel;
     private var _billModel:BillModel;
 
+    private var _scrollContainer:ScrollContainer;
+    private var _buttonGroup:LayoutGroup;
+
     private var _friendsList:List;
     private var _selectedFriendsList:List;
-    private var _scrollContainer:ScrollContainer;
     private var _friendsListCollection:ListCollection;
     private var _selectedFriendsListCollection:ListCollection;
+
+    private var _submitButton:Button;
     private var _addFriendButton:Button;
 
     // Constructor
@@ -61,9 +69,18 @@ public class BillFriends extends Screen{
         _selectedFriendsList.isSelectable = false;
         _selectedFriendsListCollection = new ListCollection();
 
+        _buttonGroup = new LayoutGroup();
+        _buttonGroup.addEventListener(FeathersEventType.CREATION_COMPLETE, buttonGroupCreationCompleteHandler);
+        _buttonGroup.layout =  new HorizontalLayout();
+
         _addFriendButton = new Button();
         _addFriendButton.label = 'Add a new friend';
-        _addFriendButton.addEventListener(starling.events.Event.TRIGGERED, clickHandler);
+        _addFriendButton.nameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
+        _addFriendButton.addEventListener(starling.events.Event.TRIGGERED, addFriendButtonTriggeredHander);
+
+        _submitButton = new Button();
+        _submitButton.label = 'Done';
+        _submitButton.addEventListener(starling.events.Event.TRIGGERED, submitButtonTriggeredHandler);
     }
 
     // Methods
@@ -91,7 +108,7 @@ public class BillFriends extends Screen{
 
             for each(var billFriendVO:FriendVO in _billModel.arrFriends)
             {
-                if(FriendVO.equals(billFriendVO,friendVO)) _friendsList.selectedIndices = _friendsList.selectedIndices.concat(new <int>[_friendsListCollection.length-1]);
+                if(Functions.equals(billFriendVO,friendVO)) _friendsList.selectedIndices = _friendsList.selectedIndices.concat(new <int>[_friendsListCollection.length-1]);
             }
         }
 
@@ -134,29 +151,46 @@ public class BillFriends extends Screen{
         }
     }
 
-    private function clickHandler(event:starling.events.Event):void
+    private function addFriendButtonTriggeredHander(event:starling.events.Event):void
     {
         _appModel.currentPage = Config.ADD_FRIEND;
+    }
+
+    private function submitButtonTriggeredHandler(event:starling.events.Event):void
+    {
+        _appModel.currentPage = Config.NEW_BILL;
+    }
+
+    private function buttonGroupCreationCompleteHandler(event:starling.events.Event):void {
+        draw();
     }
 
     override protected function initialize():void
     {
         _scrollContainer.addChild(_selectedFriendsList);
         _scrollContainer.addChild(_friendsList);
-        _scrollContainer.addChild(_addFriendButton);
-        this.addChild(_scrollContainer);
+        _buttonGroup.addChild(_addFriendButton);
+        _buttonGroup.addChild(_submitButton);
+        addChild(_scrollContainer);
+        addChild(_buttonGroup);
     }
 
     override protected function draw():void
     {
-        _scrollContainer.width = stage.stageWidth;
-        _scrollContainer.height = stage.stageHeight;
+        super.draw();
 
-        _friendsList.width = stage.stageWidth;
-        _selectedFriendsList.width = stage.stageWidth;
+        _addFriendButton.width = this.width / 2;
+        _addFriendButton.height = Config.BUTTON_HEIGHT;
 
-        _addFriendButton.width = stage.stageWidth;
-        _addFriendButton.height = 90;
+        _submitButton.width = this.width / 2;
+        _submitButton.height = Config.BUTTON_HEIGHT;
+
+        _buttonGroup.y = this.height - _buttonGroup.height;
+
+        _scrollContainer.setSize(this.width, this.height-_buttonGroup.height);
+
+        _friendsList.width = this.width;
+        _selectedFriendsList.width = this.width;
     }
 }
 }

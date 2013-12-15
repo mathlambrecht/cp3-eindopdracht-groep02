@@ -102,6 +102,8 @@ public class Menu extends Screen
 
     override protected function draw():void
     {
+        super.draw();
+
         _background.height = stage.stageHeight;
         _background.width = stage.stageWidth - Config.MENU_MARGIN;
 
