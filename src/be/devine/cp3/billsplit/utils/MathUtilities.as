@@ -6,7 +6,7 @@ import be.devine.cp3.billsplit.vo.ItemVO;
 
 public class MathUtilities
 {
-    public static function divideEqual(splitCount):Number
+    public static function divideEqual(splitCount:Number):Number
     {
         var result:Number = 100/splitCount;
         return result;

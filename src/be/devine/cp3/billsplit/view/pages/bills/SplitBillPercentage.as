@@ -186,12 +186,8 @@ public class SplitBillPercentage extends Screen
         super.draw();
 
         _list.setSize(this.width, this.height - Config.BUTTON_HEIGHT);
-
-        _buttonReset.width = this.width / 2;
-        _buttonReset.height = Config.BUTTON_HEIGHT;
-
-        _buttonSubmit.width = this.width / 2;
-        _buttonSubmit.height = Config.BUTTON_HEIGHT;
+        _buttonReset.setSize(this.width / 2 , Config.BUTTON_HEIGHT);
+        _buttonSubmit.setSize(this.width / 2 , Config.BUTTON_HEIGHT);
 
         _buttonGroup.y = this.height - _buttonGroup.height;
     }

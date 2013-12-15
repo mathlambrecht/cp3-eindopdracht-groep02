@@ -81,7 +81,6 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         super.layoutContent();
 
         _numericStepper.height = this.height;
-        _numericStepper.x = this.width - _numericStepper.width;
     }
 }
 }
