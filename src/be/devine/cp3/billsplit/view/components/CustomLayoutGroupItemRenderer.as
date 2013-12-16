@@ -4,7 +4,6 @@ package be.devine.cp3.billsplit.view.components
 import be.devine.cp3.billsplit.model.BillModel;
 
 import feathers.controls.NumericStepper;
-import feathers.controls.TextInput;
 import feathers.controls.renderers.DefaultListItemRenderer;
 
 import flash.events.Event;
@@ -81,6 +80,7 @@ public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
         super.layoutContent();
 
         _numericStepper.height = this.height;
+        _numericStepper.x = this.width - _numericStepper.width;
     }
 }
 }
