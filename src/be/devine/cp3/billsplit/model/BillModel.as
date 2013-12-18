@@ -25,6 +25,8 @@ public class BillModel extends EventDispatcher
     public static const BILL_CHANGED:String = 'billChanged';
     public static const PERCENTAGE_LEFT_CHANGED:String = 'percentageLeftChanged';
 
+    public static const CURRENT_ITEM_INDEX_CHANGED:String = 'currentItemIndexChanged';
+
     private static var _instance:BillModel;
     private var _appModel:AppModel;
 
@@ -39,6 +41,9 @@ public class BillModel extends EventDispatcher
     private var _arrFriendItems:Array;
 
     private var _percentageLeft:Number;
+
+    private var _currentItemIndex:uint;
+    private var _currentItemAmount:uint;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -123,6 +128,7 @@ public class BillModel extends EventDispatcher
     {
         if(_arrFriendItems == value) return;
         _arrFriendItems = value;
+        dispatchEvent(new Event(ARR_FRIEND_ITEMS_CHANGED));
     }
 
     public function get arrFriendPercentage():Array
@@ -172,6 +178,24 @@ public class BillModel extends EventDispatcher
         if(_percentageLeft == value) return;
         _percentageLeft = value;
         dispatchEvent(new Event(PERCENTAGE_LEFT_CHANGED));
+    }
+
+    public function get currentItemIndex():uint
+    {
+        return _currentItemIndex;
+    }
+
+    public function set currentItemIndex(value:uint):void
+    {
+        if(_currentItemIndex == value) return;
+        _currentItemIndex = value;
+        _currentItemAmount = _arrItems[_currentItemIndex].amount;
+        dispatchEvent(new Event(CURRENT_ITEM_INDEX_CHANGED));
+    }
+
+    public function get currentItemAmount():uint
+    {
+        return _currentItemAmount;
     }
 
     public function addItem(itemVO:ItemVO):void
@@ -254,8 +278,12 @@ public class BillModel extends EventDispatcher
 
         _percentageLeft = MathUtilities.calculatePercentageLeft();
 
+        _currentItemAmount = _arrItems[_currentItemIndex].amount
+
         dispatchEvent(new Event(BILL_CHANGED));
     }
+
+
 }
 }
 

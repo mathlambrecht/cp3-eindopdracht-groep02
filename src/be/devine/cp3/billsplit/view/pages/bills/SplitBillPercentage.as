@@ -4,7 +4,7 @@ import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.utils.MathUtilities;
-import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRenderer;
+import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRendererPercentage;
 import be.devine.cp3.billsplit.vo.FriendPercentageVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 
@@ -54,7 +54,7 @@ public class SplitBillPercentage extends Screen
 
         _list.itemRendererFactory = function():IListItemRenderer
         {
-            var renderer:CustomLayoutGroupItemRenderer = new CustomLayoutGroupItemRenderer();
+            var renderer:CustomLayoutGroupItemRendererPercentage = new CustomLayoutGroupItemRendererPercentage();
             renderer.addEventListener(starling.events.Event.CHANGE, rendererChangeHandler);
             return renderer;
         };

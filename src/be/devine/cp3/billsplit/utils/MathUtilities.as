@@ -42,7 +42,7 @@ public class MathUtilities
 
         for each(var itemVO:ItemVO in arrItems)
         {
-            totalPrice = totalPrice + itemVO.value * itemVO.amount;
+            totalPrice += itemVO.value * itemVO.amount;
         }
 
         return roundDecimal(totalPrice);

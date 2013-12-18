@@ -80,7 +80,7 @@ public class FactoryVO
 
         itemVO.id = item.idFriend;
         itemVO.description = item.description;
-        itemVO.value = item.value;
+        itemVO.value = Number(item.price);
         itemVO.amount = item.amount;
 
         return itemVO;

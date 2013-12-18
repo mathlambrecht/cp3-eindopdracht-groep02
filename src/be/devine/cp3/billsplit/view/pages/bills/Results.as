@@ -26,8 +26,6 @@ public class Results extends Screen
     // Constructor
     public function Results()
     {
-        trace('[Results]');
-
         _appModel = AppModel.getInstance();
         _appModel.addEventListener(AppModel.ARRAY_BILLS_VO_CHANGED, commitProperties);
 
@@ -44,15 +42,22 @@ public class Results extends Screen
     {
         _listCollection.removeAll();
 
-        for each(var friendVO:FriendVO in _billModel.arrFriends)
+        if(_billModel.splitMethod == 'percentage')
         {
-            for each(var friendPercentageVO:FriendPercentageVO in _billModel.arrFriendPercentage)
+            for each(var friendVO:FriendVO in _billModel.arrFriends)
             {
-                if(friendVO.id == friendPercentageVO.idFriend)
+                for each(var friendPercentageVO:FriendPercentageVO in _billModel.arrFriendPercentage)
                 {
-                    _listCollection.addItem({value:MathUtilities.calculatePercentageByFriend(friendPercentageVO.percentage)});
+                    if(friendVO.id == friendPercentageVO.idFriend)
+                    {
+                        _listCollection.addItem({value:MathUtilities.calculatePercentageByFriend(friendPercentageVO.percentage)});
+                    }
                 }
             }
+        }
+        else
+        {
+
         }
 
         _list.dataProvider = _listCollection;

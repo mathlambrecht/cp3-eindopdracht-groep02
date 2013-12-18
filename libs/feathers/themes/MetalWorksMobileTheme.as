@@ -25,6 +25,7 @@
 package feathers.themes
 {
 import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRenderer;
+import be.devine.cp3.billsplit.view.components.CustomLayoutGroupItemRendererPercentage;
 
 import feathers.controls.Alert;
 	import feathers.controls.Button;
@@ -518,7 +519,7 @@ import feathers.controls.Alert;
 			this.setInitializerForClass(ScrollContainer, scrollContainerToolbarInitializer, ScrollContainer.ALTERNATE_NAME_TOOLBAR);
 
             //CUSTOM INITIALIZERS
-            this.setInitializerForClass(CustomLayoutGroupItemRenderer, itemRendererInitializer);
+            this.setInitializerForClass(CustomLayoutGroupItemRendererPercentage, itemRendererInitializer);
             //END CUSTOM INITIALIZERS
 		}
 

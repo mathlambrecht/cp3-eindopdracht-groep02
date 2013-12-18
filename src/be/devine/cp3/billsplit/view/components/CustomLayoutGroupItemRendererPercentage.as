@@ -10,12 +10,12 @@ import flash.events.Event;
 
 import starling.events.Event;
 
-public class CustomLayoutGroupItemRenderer extends DefaultListItemRenderer
+public class CustomLayoutGroupItemRendererPercentage extends DefaultListItemRenderer
 {
     private var _billModel:BillModel;
     private var _numericStepper:NumericStepper;
 
-    public function CustomLayoutGroupItemRenderer()
+    public function CustomLayoutGroupItemRendererPercentage()
     {
         _billModel = BillModel.getInstance();
         _billModel.addEventListener(BillModel.PERCENTAGE_LEFT_CHANGED, percentageLeftChangedHandler);
