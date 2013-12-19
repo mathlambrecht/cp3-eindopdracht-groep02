@@ -108,6 +108,9 @@ public class SplitBillAbsolute extends Screen
         var list:List = List(event.currentTarget);
         var listCollection:ListCollection = ListCollection(list.dataProvider);
 
+
+        /* alleen selected items worden geupdate, de gedeselecteerde niet */
+
         /*
         if(_list.selectedItems.length >= _billModel.currentItemAmount + 1)
         {
@@ -138,6 +141,7 @@ public class SplitBillAbsolute extends Screen
             //tmpArray.push(friendItemVO);
             _billModel.arrFriendItems = _billModel.arrFriendItems.concat(friendItemVO);
         }*/
+
 
         if(_list.selectedItems.length >= _billModel.currentItemAmount + 1)
         {
@@ -286,6 +290,8 @@ public class SplitBillAbsolute extends Screen
 
     override protected function initialize():void
     {
+
+        trace('INIT LIST');
         addChild(_list);
 
         _buttonGroup.addChild(_buttonPrev);

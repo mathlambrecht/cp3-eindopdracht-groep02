@@ -321,6 +321,7 @@ public class BillModel extends EventDispatcher
 
     public function readObject(event:Event):void
     {
+        trace('READ OBJECT');
 
         title = _appModel.currentBillVO.title;
         arrItems = _appModel.currentBillVO.arrItems;
