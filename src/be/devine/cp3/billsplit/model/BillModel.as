@@ -213,7 +213,9 @@ public class BillModel extends EventDispatcher
             if(itemVOAdd != itemVO) newArrItems.push(itemVOAdd);
         }
 
+        // remove friendItems from item
         removeAllFriendItemsByItem(itemVO.id);
+        currentItemIndex = 0;
 
         arrItems = newArrItems;
     }
@@ -261,6 +263,7 @@ public class BillModel extends EventDispatcher
 
             // remove friendItems from friend
             removeFriendItemsByFriendId(friendVO.id);
+            currentItemIndex = 0;
 
             arrFriends = newArrFriends;
         }

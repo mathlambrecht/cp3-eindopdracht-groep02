@@ -2,14 +2,11 @@ package be.devine.cp3.billsplit.view.pages.bills {
 import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
-import be.devine.cp3.billsplit.utils.Functions;
-import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
 
 import feathers.controls.Button;
-import feathers.controls.Check;
 
 import feathers.controls.LayoutGroup;
 
@@ -24,8 +21,6 @@ import feathers.layout.HorizontalLayout;
 import flash.events.Event;
 
 import starling.display.Quad;
-
-import starling.display.Sprite;
 
 import starling.events.Event;
 
