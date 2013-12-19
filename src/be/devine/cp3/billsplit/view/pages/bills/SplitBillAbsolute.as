@@ -43,6 +43,7 @@ public class SplitBillAbsolute extends Screen
     private var _textFieldGroup:LayoutGroup;
     private var _itemTextField:TextInput;
     private var _amountTextField:TextInput;
+    private var _valueTextField:TextInput;
 
     // Constructor
     public function SplitBillAbsolute()
@@ -89,6 +90,10 @@ public class SplitBillAbsolute extends Screen
         _itemTextField.text = '';
         _itemTextField.isEditable = false;
 
+        _valueTextField = new TextInput();
+        _valueTextField.text = '';
+        _valueTextField.isEditable = false;
+
         _amountTextField = new TextInput();
         _amountTextField.text = '';
         _amountTextField.isEditable = false;
@@ -104,41 +109,6 @@ public class SplitBillAbsolute extends Screen
     {
         var list:List = List(event.currentTarget);
         var listCollection:ListCollection = ListCollection(list.dataProvider);
-
-
-        /* alleen selected items worden geupdate, de gedeselecteerde niet */
-
-        /*
-        if(_list.selectedItems.length >= _billModel.currentItemAmount + 1)
-        {
-            _list.isSelectable = false;
-        }
-        else if(_list.selectedItems.length <= _billModel.currentItemAmount + 1)
-        {
-            _list.isSelectable = true;
-        }
-
-
-        var tmpArray:Array = [];
-
-        for each(var friendItemVO:FriendItemVO in _billModel.arrFriendItems)
-        {
-            if(friendItemVO.idItem != _billModel.arrItems[_billModel.currentItemIndex].id)
-            {
-                tmpArray.push(friendItemVO);
-            }
-        }
-
-        for each(var selectedFriend:Object in _list.selectedItems)
-        {
-            var friendItemVO:FriendItemVO = new FriendItemVO();
-            friendItemVO.idFriend = selectedFriend.id;
-            friendItemVO.idItem = _billModel.arrItems[_billModel.currentItemIndex].id;
-
-            //tmpArray.push(friendItemVO);
-            _billModel.arrFriendItems = _billModel.arrFriendItems.concat(friendItemVO);
-        }*/
-
 
         if(_list.selectedItems.length >= _billModel.currentItemAmount + 1)
         {
@@ -205,21 +175,9 @@ public class SplitBillAbsolute extends Screen
         {
             _itemTextField.text = _billModel.arrItems[_billModel.currentItemIndex].description;
             _amountTextField.text = _billModel.arrItems[_billModel.currentItemIndex].amount;
+            _valueTextField.text =  '€ ' + _billModel.arrItems[_billModel.currentItemIndex].value;
         }
 
-        /*
-       _listCollection.removeAll();
-
-
-        for each(var friendVO:FriendVO in _billModel.arrFriends)
-        {
-            _listCollection.addItem({name: friendVO.name, friendVO:friendVO});
-        }
-
-        _list.dataProvider = _listCollection;
-        _list.itemRendererProperties.labelField = "name";
-
-*/
         arrFriendsUpdateHandler(null);
     }
 
@@ -295,6 +253,7 @@ public class SplitBillAbsolute extends Screen
 
         _textFieldGroup.addChild(_bg);
         _textFieldGroup.addChild(_itemTextField);
+        _textFieldGroup.addChild(_valueTextField);
         _textFieldGroup.addChild(_amountTextField);
 
         addChild(_textFieldGroup);
@@ -311,10 +270,14 @@ public class SplitBillAbsolute extends Screen
         _bg.width = _textFieldGroup.width;
         _bg.height = _textFieldGroup.height;
 
-        _itemTextField.width = this.width / 100 * 80;
+        _itemTextField.width = this.width / 100 * 65;
         _itemTextField.y = _textFieldGroup.height / 2 - _itemTextField.height / 2;
 
-        _amountTextField.width = this.width / 100 * 20;
+        _valueTextField.width = this.width / 100 * 20;
+        _valueTextField.x = this.width - _amountTextField.width - _valueTextField.width;
+        _valueTextField.y = _textFieldGroup.height / 2 - _valueTextField.height / 2;
+
+        _amountTextField.width = this.width / 100 * 15;
         _amountTextField.x = this.width - _amountTextField.width;
         _amountTextField.y = _textFieldGroup.height / 2 - _amountTextField.height / 2;
 

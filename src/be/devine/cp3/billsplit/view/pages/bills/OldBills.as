@@ -38,6 +38,8 @@ public class OldBills extends Screen
 
     private function arrBillsVOChangedHandler(event:flash.events.Event):void
     {
+        _billsListCollection.removeAll();
+
         for each(var billVO:BillVO in _appModel.arrBillsVO)
         {
             _billsListCollection.addItem({title: billVO.title, billVO: billVO});
@@ -50,10 +52,13 @@ public class OldBills extends Screen
     private function listChangeHandler(event:starling.events.Event):void
     {
         var list:List = List(event.currentTarget);
-        var selectedItem:Object = list.selectedItem;
 
-        _appModel.currentBillVO = selectedItem.billVO;
-        _appModel.currentPage = Config.NEW_BILL;
+        if(list.selectedItems.length > 0)
+        {
+            var selectedItem:Object = list.selectedItem;
+            _appModel.currentBillVO = selectedItem.billVO;
+            _appModel.currentPage = Config.NEW_BILL;
+        }
     }
 
     override protected function initialize():void

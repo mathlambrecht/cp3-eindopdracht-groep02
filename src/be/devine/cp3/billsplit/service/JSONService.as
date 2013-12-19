@@ -1,10 +1,12 @@
 package be.devine.cp3.billsplit.service
 {
 
+import be.devine.cp3.billsplit.model.AppModel;
+import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.config.Config;
-import be.devine.cp3.billsplit.factory.FactoryVO;
+import be.devine.cp3.billsplit.factory.VOFactory;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -42,12 +44,12 @@ public class JSONService extends EventDispatcher
 
             for each(var bill:Object in _parsedJSON.bills)
             {
-                _arrBillsData.push(FactoryVO.createBillVO(bill));
+                _arrBillsData.push(VOFactory.createBillVO(bill));
             }
 
             for each(var friend:Object in _parsedJSON.friends)
             {
-                _arrFriendsData.push(FactoryVO.createFriendVO(friend));
+                _arrFriendsData.push(VOFactory.createFriendVO(friend));
             }
         }
         else

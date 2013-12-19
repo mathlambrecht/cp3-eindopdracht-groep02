@@ -11,6 +11,7 @@ import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.navigator.ScreenNavigatorWithHistory;
 import be.devine.cp3.billsplit.service.JSONService;
+import be.devine.cp3.billsplit.service.LocalSaveService;
 import be.devine.cp3.billsplit.view.Content;
 import be.devine.cp3.billsplit.view.Header;
 
@@ -25,6 +26,7 @@ public class Application extends Sprite
     private var _config:Config;
 
     private var _appModel:AppModel;
+    private var _localSaveService:LocalSaveService;
     private var _JSONService:JSONService;
 
     private var _content:Content;
@@ -46,6 +48,8 @@ public class Application extends Sprite
 
         _header = new Header(_navigator);
         addChild(_header);
+
+        _localSaveService = new LocalSaveService();
 
         _JSONService = new JSONService();
         _JSONService.addEventListener(flash.events.Event.COMPLETE, jsonServiceCompleteHandler);

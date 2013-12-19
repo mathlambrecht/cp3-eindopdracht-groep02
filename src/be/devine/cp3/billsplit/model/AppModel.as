@@ -20,6 +20,8 @@ public class AppModel extends EventDispatcher
     public static const CURRENT_PAGE_CHANGED:String = 'currentPageChanged';
     public static const CURRENT_BILL_CHANGED:String = 'currentBillChanged';
 
+    public static const SAVE_BILL_LOCAL:String = 'saveBillLocal';
+
     private static var _instance:AppModel;
 
     private var _arrBillsVO:Vector.<BillVO>;
@@ -117,6 +119,11 @@ public class AppModel extends EventDispatcher
         if(_currentBillVO == value) return;
         _currentBillVO = value;
         dispatchEvent(new Event(CURRENT_BILL_CHANGED));
+    }
+
+    public function saveBill():void
+    {
+        dispatchEvent(new Event(SAVE_BILL_LOCAL));
     }
 }
 }

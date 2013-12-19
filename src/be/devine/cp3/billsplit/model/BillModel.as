@@ -31,6 +31,7 @@ public class BillModel extends EventDispatcher
     private static var _instance:BillModel;
     private var _appModel:AppModel;
 
+    private var _id:uint;
     private var _title:String;
     private var _totalPrice:Number;
     private var _splitMethod:String;
@@ -81,6 +82,16 @@ public class BillModel extends EventDispatcher
     //---------------------------------------------------------------
     //-------------------------- Methods ----------------------------
     //---------------------------------------------------------------
+    public function get id():uint
+    {
+        return _id;
+    }
+
+    public function set id(value:uint):void
+    {
+        _id = value;
+    }
+
     public function get title():String
     {
         return _title;
@@ -346,6 +357,20 @@ public class BillModel extends EventDispatcher
     {
         trace('READ OBJECT');
 
+        id = _appModel.currentBillVO.id;
+
+        if(_appModel.currentBillVO.id == 0)
+        {
+            if(_appModel.arrBillsVO.length > 0)
+            {
+                id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+            }
+            else
+            {
+                id = 1;
+            }
+        }
+
         title = _appModel.currentBillVO.title;
         arrItems = _appModel.currentBillVO.arrItems;
         totalPrice = _appModel.currentBillVO.totalPrice;
@@ -357,17 +382,12 @@ public class BillModel extends EventDispatcher
         if(_appModel.currentBillVO.splitMethod == null) splitMethod = 'percentage';
         if(_appModel.currentBillVO.splitMethod != null) splitMethod = _appModel.currentBillVO.splitMethod;
 
-        arrFriendPercentage = _appModel.currentBillVO.arrFriendPercentage;
-        arrFriendItems = _appModel.currentBillVO.arrFriendItems;
-
         _percentageLeft = MathUtilities.calculatePercentageLeft();
 
         if(_arrItems.length != 0) _currentItemAmount = _arrItems[_currentItemIndex].amount;
 
         dispatchEvent(new Event(BILL_CHANGED));
     }
-
-
 }
 }
 

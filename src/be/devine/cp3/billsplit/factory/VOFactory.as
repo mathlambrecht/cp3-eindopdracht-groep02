@@ -6,15 +6,15 @@ import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
 
-public class FactoryVO
+public class VOFactory
 {
-    public function FactoryVO(){}
+    public function VOFactory(){}
 
     public static function createBillVO(bill:Object):BillVO
     {
         var billVO:BillVO = new BillVO();
 
-        billVO.id = bill.id;
+        billVO.id = uint(bill.id);
         billVO.title = bill.title;
         billVO.datetime = bill.date;
 
