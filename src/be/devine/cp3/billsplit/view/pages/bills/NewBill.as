@@ -105,8 +105,6 @@ public class NewBill extends Screen{
 
     private function totalPriceChanged(event:flash.events.Event):void
     {
-        trace('totalprice = ' + _billModel.totalPrice);
-
         _priceButton.label = _billModel.totalPrice + ' euros';
     }
 
@@ -127,7 +125,7 @@ public class NewBill extends Screen{
     {
         if(_billModel.totalPrice != 0 && _billModel.arrFriends.length >= 2 && _billModel.title != null)
         {
-            if(_billModel.splitMethod == 'absolute' && _billModel.arrItems.length == 0)
+            if(_billModel.title.length != 0 && _billModel.splitMethod == 'absolute' && _billModel.arrItems.length == 0)
             {
                 _submitButton.alpha = 0.5;
                 _submitButton.removeEventListener(starling.events.Event.TRIGGERED, clickHandler);

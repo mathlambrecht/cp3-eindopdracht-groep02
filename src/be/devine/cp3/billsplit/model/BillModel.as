@@ -3,6 +3,7 @@ package be.devine.cp3.billsplit.model
 
 import be.devine.cp3.billsplit.utils.Functions;
 import be.devine.cp3.billsplit.utils.MathUtilities;
+import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
 
@@ -12,7 +13,7 @@ import flash.events.EventDispatcher;
 public class BillModel extends EventDispatcher
 {
     // Properties
-    public static const TITLE_CHANGED:String = 'TitleChanged';
+    public static const TITLE_CHANGED:String = 'titleChanged';
     public static const TOTAL_PRICE_CHANGED:String = 'totalPriceChanged';
     public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
 
@@ -164,7 +165,7 @@ public class BillModel extends EventDispatcher
     {
         if(_arrItems == value) return;
         _arrItems = value;
-        totalPrice = MathUtilities.calculateTotalPrice(_arrItems);
+        if(arrItems.length != 0) totalPrice = MathUtilities.calculateTotalPrice(_arrItems);
         dispatchEvent(new Event(ARR_ITEMS_CHANGED));
     }
 
@@ -260,6 +261,60 @@ public class BillModel extends EventDispatcher
         }
     }
 
+    public function addFriendItem(friendItemVO:FriendItemVO):void
+    {
+        var contains:Boolean;
+        for each(var selectedFriendItemVO:FriendItemVO in _arrFriendItems)
+        {
+            if(Functions.equalsFriendItem(selectedFriendItemVO, friendItemVO))
+            {
+                contains = true;
+            }
+        }
+        if(!contains) arrFriendItems = arrFriendItems.concat(friendItemVO);
+    }
+
+    public function removeFriendItem(friendItemVO:FriendItemVO):void
+    {
+        var contains:Boolean;
+
+        for each(var selectedFriendItemVO:FriendItemVO in _arrFriendItems)
+        {
+            if(selectedFriendItemVO == friendItemVO){
+                contains = true;
+            }
+        }
+
+        if(contains)
+        {
+            var newArrFriendItems:Array = [];
+
+            for each(var friendItemVOAdd:FriendItemVO in _arrFriendItems)
+            {
+                if(!Functions.equalsFriendItem(friendItemVOAdd,friendItemVO)) newArrFriendItems.push(friendItemVOAdd);
+            }
+
+            arrFriendItems = newArrFriendItems;
+        }
+    }
+
+    public function removeAllFriendItems():void
+    {
+        arrFriendItems = [];
+    }
+
+    public function removeAllFriendItemsByItem(itemId:uint):void
+    {
+        var newArrFriendItems:Array = [];
+
+        for each(var friendItemVO:FriendItemVO in _arrFriendItems)
+        {
+             if(friendItemVO.idItem != itemId) newArrFriendItems.push(friendItemVO);
+        }
+
+        _arrFriendItems = newArrFriendItems;
+    }
+
     public function readObject(event:Event):void
     {
         title = _appModel.currentBillVO.title;
@@ -278,8 +333,9 @@ public class BillModel extends EventDispatcher
 
         _percentageLeft = MathUtilities.calculatePercentageLeft();
 
-        _currentItemAmount = _arrItems[_currentItemIndex].amount
+        if(_arrItems.length != 0) _currentItemAmount = _arrItems[_currentItemIndex].amount;
 
+        trace('titel' + _title);
         dispatchEvent(new Event(BILL_CHANGED));
     }
 
