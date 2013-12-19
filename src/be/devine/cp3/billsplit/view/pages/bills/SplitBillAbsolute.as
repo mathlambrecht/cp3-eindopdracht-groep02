@@ -60,6 +60,7 @@ public class SplitBillAbsolute extends Screen
 
         _list = new List();
         _listCollection = new ListCollection();
+        _list.allowMultipleSelection = true;
         _list.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
 
         _buttonGroup = new LayoutGroup();
@@ -166,8 +167,6 @@ public class SplitBillAbsolute extends Screen
             else
             {
                 var friendItemVO:FriendItemVO = new FriendItemVO();
-                trace(friendVO.id);
-                trace(_billModel.arrItems[_billModel.currentItemIndex].id);
                 friendItemVO.idFriend = friendVO.id;
                 friendItemVO.idItem = _billModel.arrItems[_billModel.currentItemIndex].id;
                 _billModel.addFriendItem(friendItemVO);
@@ -177,12 +176,11 @@ public class SplitBillAbsolute extends Screen
         checkFriendItems();
     }
 
+    // als friend items changed
     private function arrFriendsUpdateHandler(event:flash.events.Event):void
     {
         if(_listCollection.length != 0) _listCollection.removeAll();
         if(_billModel.arrFriendItems.length == 0) _list.selectedIndices = new <int>[];
-
-        _list.allowMultipleSelection = true;
 
         if(_billModel.arrItems[_billModel.currentItemIndex] == null) return;
 
@@ -213,9 +211,9 @@ public class SplitBillAbsolute extends Screen
             _amountTextField.text = _billModel.arrItems[_billModel.currentItemIndex].amount;
         }
 
+        /*
        _listCollection.removeAll();
 
-        _list.allowMultipleSelection = true;
 
         for each(var friendVO:FriendVO in _billModel.arrFriends)
         {
@@ -225,6 +223,7 @@ public class SplitBillAbsolute extends Screen
         _list.dataProvider = _listCollection;
         _list.itemRendererProperties.labelField = "name";
 
+*/
         arrFriendsUpdateHandler(null);
     }
 

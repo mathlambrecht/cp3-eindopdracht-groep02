@@ -273,7 +273,6 @@ public class BillModel extends EventDispatcher
         }
 
         if(!contains && arrFriendItems != null){
-            trace('addd');
             arrFriendItems = arrFriendItems.concat(friendItemVO);
         }
     }

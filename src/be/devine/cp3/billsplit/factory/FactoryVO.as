@@ -78,7 +78,7 @@ public class FactoryVO
     {
         var itemVO:ItemVO = new ItemVO();
 
-        itemVO.id = item.idFriend;
+        itemVO.id = item.id;
         itemVO.description = item.description;
         itemVO.value = Number(item.price);
         itemVO.amount = item.amount;
