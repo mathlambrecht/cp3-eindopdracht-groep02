@@ -1,6 +1,7 @@
 package be.devine.cp3.billsplit.model
 {
 
+import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;

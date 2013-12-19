@@ -133,7 +133,7 @@ public class BillItems extends Screen{
     private function addItemButtonTriggeredHandler(event:starling.events.Event):void
     {
         var itemVO:ItemVO = new ItemVO();
-        itemVO.id = (_billModel.arrFriends.length != 0)? _billModel.arrFriends.length : 1 ;
+        itemVO.id = (_billModel.arrItems.length != 0)? Functions.getHighestId(_billModel.arrItems) : 0 ;
         itemVO.description = _descriptionInput.text;
         itemVO.value = Number(_valueInput.text);
         itemVO.amount = _amountStepper.value;

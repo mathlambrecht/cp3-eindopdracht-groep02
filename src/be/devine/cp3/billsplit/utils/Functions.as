@@ -23,5 +23,15 @@ public class Functions {
     {
         return ((friendItemVO1.idFriend == friendItemVO2.idFriend) && (friendItemVO1.idItem == friendItemVO2.idItem));
     }
+
+    public static function getHighestId(arrItems:Array):uint
+    {
+        var id:uint = 0;
+        for each(var item:ItemVO in arrItems)
+        {
+            if(item.id >= id) id = item.id + 1;
+        }
+        return id;
+    }
 }
 }

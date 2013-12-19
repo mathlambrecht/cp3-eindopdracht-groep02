@@ -7,7 +7,6 @@ import be.devine.cp3.billsplit.vo.BillVO;
 import feathers.controls.List;
 
 import feathers.controls.Screen;
-import feathers.controls.ScrollContainer;
 import feathers.data.ListCollection;
 
 import flash.events.Event;

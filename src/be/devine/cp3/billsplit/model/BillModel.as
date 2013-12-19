@@ -263,7 +263,7 @@ public class BillModel extends EventDispatcher
 
     public function addFriendItem(friendItemVO:FriendItemVO):void
     {
-        var contains:Boolean;
+        var contains:Boolean = false;
         for each(var selectedFriendItemVO:FriendItemVO in _arrFriendItems)
         {
             if(Functions.equalsFriendItem(selectedFriendItemVO, friendItemVO))
@@ -271,7 +271,11 @@ public class BillModel extends EventDispatcher
                 contains = true;
             }
         }
-        if(!contains) arrFriendItems = arrFriendItems.concat(friendItemVO);
+
+        if(!contains && arrFriendItems != null){
+            trace('addd');
+            arrFriendItems = arrFriendItems.concat(friendItemVO);
+        }
     }
 
     public function removeFriendItem(friendItemVO:FriendItemVO):void
@@ -317,12 +321,13 @@ public class BillModel extends EventDispatcher
 
     public function readObject(event:Event):void
     {
+
         title = _appModel.currentBillVO.title;
         arrItems = _appModel.currentBillVO.arrItems;
-        arrFriends = _appModel.currentBillVO.arrFriends;
         totalPrice = _appModel.currentBillVO.totalPrice;
         arrFriendItems = _appModel.currentBillVO.arrFriendItems;
         arrFriendPercentage = _appModel.currentBillVO.arrFriendPercentage;
+        arrFriends = _appModel.currentBillVO.arrFriends;
 
         // new bill -> split method standard op percentage
         if(_appModel.currentBillVO.splitMethod == null) splitMethod = 'percentage';
@@ -335,7 +340,6 @@ public class BillModel extends EventDispatcher
 
         if(_arrItems.length != 0) _currentItemAmount = _arrItems[_currentItemIndex].amount;
 
-        trace('titel' + _title);
         dispatchEvent(new Event(BILL_CHANGED));
     }
 

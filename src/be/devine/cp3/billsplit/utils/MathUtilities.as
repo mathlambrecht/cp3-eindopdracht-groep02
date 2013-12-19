@@ -42,7 +42,6 @@ public class MathUtilities
 
         for each(var itemVO:ItemVO in arrItems)
         {
-            trace(itemVO.value);
             totalPrice += itemVO.value * itemVO.amount;
         }
 

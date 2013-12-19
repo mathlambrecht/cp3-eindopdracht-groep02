@@ -54,7 +54,7 @@ public class SplitBillAbsolute extends Screen
         _appModel = AppModel.getInstance();
 
         _billModel = BillModel.getInstance();
-        _billModel.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsUpdateHandler);
+        //_billModel.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsUpdateHandler);
         _billModel.addEventListener(BillModel.ARR_FRIEND_ITEMS_CHANGED, arrFriendsUpdateHandler);
         _billModel.addEventListener(BillModel.CURRENT_ITEM_INDEX_CHANGED, currentItemIndexChangedHandler);
 
@@ -89,18 +89,17 @@ public class SplitBillAbsolute extends Screen
         _bg = new Quad(1,1,0x000000);
 
         _itemTextField = new TextInput();
-        _itemTextField.text = 'test';
+        _itemTextField.text = '';
         _itemTextField.isEditable = false;
 
         _amountTextField = new TextInput();
-        _amountTextField.text = '9';
+        _amountTextField.text = '';
         _amountTextField.isEditable = false;
     }
 
     // Methods
     private function currentItemIndexChangedHandler(event:flash.events.Event):void
     {
-        trace('change');
         commitProperties();
     }
 
@@ -108,7 +107,6 @@ public class SplitBillAbsolute extends Screen
     {
         var list:List = List(event.currentTarget);
         var listCollection:ListCollection = ListCollection(list.dataProvider);
-        var selectedItem:Object = list.selectedItem;
 
         /*
         if(_list.selectedItems.length >= _billModel.currentItemAmount + 1)
@@ -150,6 +148,7 @@ public class SplitBillAbsolute extends Screen
         {
             var item:Object = listCollection.getItemAt(index);
             var friendVO:FriendVO = item.friendVO;
+
             if(list.selectedIndices.indexOf(index) == -1)
             {
                 for each(var friendItemVO in _billModel.arrFriendItems)
@@ -163,11 +162,12 @@ public class SplitBillAbsolute extends Screen
             else
             {
                 var friendItemVO:FriendItemVO = new FriendItemVO();
+                trace(friendVO.id);
+                trace(_billModel.arrItems[_billModel.currentItemIndex].id);
                 friendItemVO.idFriend = friendVO.id;
                 friendItemVO.idItem = _billModel.arrItems[_billModel.currentItemIndex].id;
                 _billModel.addFriendItem(friendItemVO);
             }
-            trace(_billModel.arrFriendItems);
         }
 
         checkFriendItems();
@@ -180,6 +180,8 @@ public class SplitBillAbsolute extends Screen
 
         _list.allowMultipleSelection = true;
 
+        if(_billModel.arrItems[_billModel.currentItemIndex] == null) return;
+
         for each(var friendVO:FriendVO in _billModel.arrFriends)
         {
             _listCollection.addItem({name: friendVO.name, friendVO:friendVO});
@@ -188,7 +190,6 @@ public class SplitBillAbsolute extends Screen
             {
                 if(friendVO.id == friendItemVO.idFriend && friendItemVO.idItem == _billModel.arrItems[_billModel.currentItemIndex].id)
                 {
-                    trace('test');
                     _list.selectedIndices = _list.selectedIndices.concat(new <int>[_listCollection.length-1]);
                 }
             }
@@ -196,6 +197,8 @@ public class SplitBillAbsolute extends Screen
 
         _list.dataProvider = _listCollection;
         _list.itemRendererProperties.labelField = "name";
+
+        trace(_billModel.arrFriendItems);
     }
 
     private function commitProperties():void
@@ -230,7 +233,16 @@ public class SplitBillAbsolute extends Screen
             for each(var friendItem:FriendItemVO in _billModel.arrFriendItems) if(friendItem.idItem == item.id) counter++;
             check = ((item.amount == counter));
         }
-        //trace(check);
+
+        if(check)
+        {
+            _buttonSplit.alpha = 1;
+            _buttonSplit.addEventListener(starling.events.Event.TRIGGERED, buttonSplitTriggeredHandler);
+        }else
+        {
+            _buttonSplit.alpha = 0.5;
+            _buttonSplit.removeEventListener(starling.events.Event.TRIGGERED, buttonSplitTriggeredHandler);
+        }
     }
 
     private function buttonPrevTriggeredHandler(event:starling.events.Event):void
