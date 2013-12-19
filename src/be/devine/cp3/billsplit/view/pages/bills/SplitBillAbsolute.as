@@ -4,6 +4,7 @@ import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.utils.Functions;
 import be.devine.cp3.billsplit.vo.FriendItemVO;
+import be.devine.cp3.billsplit.vo.FriendItemVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.vo.ItemVO;
 
@@ -229,15 +230,14 @@ public class SplitBillAbsolute extends Screen
 
     private function checkFriendItems():void
     {
-        var check:Boolean = false;
-        for each(var item:ItemVO in _billModel.arrItems)
+        var amountOfItems = 0;
+
+        for each(var itemVO:ItemVO in _billModel.arrItems)
         {
-            var counter:uint = 0;
-            for each(var friendItem:FriendItemVO in _billModel.arrFriendItems) if(friendItem.idItem == item.id) counter++;
-            check = ((item.amount == counter));
+            amountOfItems = amountOfItems + itemVO.amount;
         }
 
-        if(check)
+        if(amountOfItems == _billModel.arrFriendItems.length)
         {
             _buttonSplit.alpha = 1;
             _buttonSplit.addEventListener(starling.events.Event.TRIGGERED, buttonSplitTriggeredHandler);

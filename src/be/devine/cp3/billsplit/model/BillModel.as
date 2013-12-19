@@ -213,6 +213,8 @@ public class BillModel extends EventDispatcher
             if(itemVOAdd != itemVO) newArrItems.push(itemVOAdd);
         }
 
+        removeAllFriendItemsByItem(itemVO.id);
+
         arrItems = newArrItems;
     }
 
@@ -256,6 +258,9 @@ public class BillModel extends EventDispatcher
             {
                 if(!Functions.equals(friendVOAdd,friendVO)) newArrFriends.push(friendVOAdd);
             }
+
+            // remove friendItems from friend
+            removeFriendItemsByFriendId(friendVO.id);
 
             arrFriends = newArrFriends;
         }
@@ -316,6 +321,22 @@ public class BillModel extends EventDispatcher
         }
 
         _arrFriendItems = newArrFriendItems;
+    }
+
+    private function removeFriendItemsByFriendId(friendId:uint):void
+    {
+        for each(var friendItemVO:FriendItemVO in _arrFriendItems)
+        {
+            if(friendId == friendItemVO.idFriend) removeFriendItem(friendItemVO);
+        }
+    }
+
+    private function removeFriendItemsByItemId(itemId:uint):void
+    {
+        for each(var friendItemVO:FriendItemVO in _arrFriendItems)
+        {
+            if(itemId == friendItemVO.idItem) removeFriendItem(friendItemVO);
+        }
     }
 
     public function readObject(event:Event):void
