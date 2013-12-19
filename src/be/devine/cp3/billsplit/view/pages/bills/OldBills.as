@@ -55,6 +55,8 @@ public class OldBills extends Screen
 
         if(list.selectedItems.length > 0)
         {
+            _appModel.isNewBill = false;
+
             var selectedItem:Object = list.selectedItem;
             _appModel.currentBillVO = selectedItem.billVO;
             _appModel.currentPage = Config.NEW_BILL;

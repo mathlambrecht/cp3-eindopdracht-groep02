@@ -357,18 +357,13 @@ public class BillModel extends EventDispatcher
     {
         trace('READ OBJECT');
 
-        id = _appModel.currentBillVO.id;
-
-        if(_appModel.currentBillVO.id == 0)
+        if(_appModel.isNewBill)
         {
-            if(_appModel.arrBillsVO.length > 0)
-            {
-                id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
-            }
-            else
-            {
-                id = 1;
-            }
+            id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+        }
+        else
+        {
+            id = _appModel.currentBillVO.id;
         }
 
         title = _appModel.currentBillVO.title;

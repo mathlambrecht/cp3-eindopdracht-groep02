@@ -35,11 +35,18 @@ public class LocalSaveService
         _appModel.currentBillVO.arrFriendPercentage = _billModel.arrFriendPercentage;
         _appModel.currentBillVO.arrFriends = _billModel.arrFriends;
 
-        trace('arrfriends = ' + _billModel.arrFriends);
-
         var tmpArray:Vector.<BillVO> = new Vector.<BillVO>();
 
-        if(_appModel.arrBillsVO.length > 0)
+        if(_appModel.isNewBill || _appModel.arrBillsVO.length == 0)
+        {
+            for each(var billVO:BillVO in _appModel.arrBillsVO)
+            {
+                tmpArray.push(billVO);
+            }
+
+            tmpArray.push(_appModel.currentBillVO);
+        }
+        else
         {
             for each(var billVO:BillVO in _appModel.arrBillsVO)
             {
@@ -52,10 +59,6 @@ public class LocalSaveService
                     tmpArray.push(billVO);
                 }
             }
-        }
-        else
-        {
-            tmpArray.push(_appModel.currentBillVO);
         }
 
         _appModel.arrBillsVO = tmpArray;

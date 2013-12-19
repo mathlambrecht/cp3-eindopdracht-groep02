@@ -50,12 +50,15 @@ public class Home extends Screen
 
     private function newBillButtonTriggeredHandler(event:Event):void
     {
+        _appModel.isNewBill = true;
+
         _appModel.currentBillVO = new BillVO();
         _appModel.currentPage = Config.NEW_BILL;
     }
 
     private function oldBillsButtonTriggeredHandler(event:Event):void
     {
+
         _appModel.currentPage = Config.OLD_BILLS;
     }
 
