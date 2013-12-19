@@ -153,6 +153,8 @@ public class BillFriends extends Screen{
 
     private function addFriendButtonTriggeredHander(event:starling.events.Event):void
     {
+        _appModel.isAddFriendInBill = true;
+
         _appModel.currentPage = Config.ADD_FRIEND;
     }
 

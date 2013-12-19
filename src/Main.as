@@ -1,6 +1,8 @@
 package {
 
 import be.devine.cp3.billsplit.Application;
+import be.devine.cp3.billsplit.model.AppModel;
+
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;

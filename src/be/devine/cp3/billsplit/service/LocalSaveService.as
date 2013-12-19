@@ -5,6 +5,9 @@ import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.BillVO;
 
 import flash.events.Event;
+import flash.filesystem.File;
+import flash.filesystem.FileMode;
+import flash.filesystem.FileStream;
 
 public class LocalSaveService
 {
@@ -32,6 +35,8 @@ public class LocalSaveService
         _appModel.currentBillVO.arrFriendPercentage = _billModel.arrFriendPercentage;
         _appModel.currentBillVO.arrFriends = _billModel.arrFriends;
 
+        trace('arrfriends = ' + _billModel.arrFriends);
+
         var tmpArray:Vector.<BillVO> = new Vector.<BillVO>();
 
         if(_appModel.arrBillsVO.length > 0)
@@ -54,6 +59,11 @@ public class LocalSaveService
         }
 
         _appModel.arrBillsVO = tmpArray;
+
+        var wStream:FileStream = new FileStream();
+        wStream.open(File.applicationStorageDirectory.resolvePath("bills.json"),FileMode.WRITE);
+        wStream.writeUTFBytes(JSON.stringify({bills:_appModel.arrBillsVO, friends:_appModel.arrFriendsVO}));
+        wStream.close();
     }
 }
 }

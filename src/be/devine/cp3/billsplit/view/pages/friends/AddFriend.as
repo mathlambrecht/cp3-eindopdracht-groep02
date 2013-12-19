@@ -99,12 +99,18 @@ public class AddFriend extends Screen{
                     newFriendVO.id = highestID + 1;
                     newFriendVO.name = _textInput.text;
 
-                    _appModel.addFriend(newFriendVO);
-                    _billModel.addFriend(newFriendVO);
+                    _appModel.addFriend(newFriendVO)
+
+                    if(_appModel.isAddFriendInBill)
+                    {
+                        _billModel.addFriend(newFriendVO);
+                    }
 
                     _textInput.text = 'Name of your new friend';
 
                     _appModel.currentPage = Config.BILL_FRIENDS;
+
+                    _appModel.saveBill();
 
                 break;
         }

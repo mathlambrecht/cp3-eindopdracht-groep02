@@ -2,7 +2,6 @@ package be.devine.cp3.billsplit.service
 {
 
 import be.devine.cp3.billsplit.model.AppModel;
-import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.BillVO;
 import be.devine.cp3.billsplit.vo.FriendVO;
 import be.devine.cp3.billsplit.config.Config;
@@ -16,6 +15,8 @@ import flash.filesystem.FileStream;
 
 public class JSONService extends EventDispatcher
 {
+    private var _appModel:AppModel;
+
     private var _JSONFile:File;
     private var _fileStream:FileStream;
     private var _JSONString:String;
@@ -24,7 +25,10 @@ public class JSONService extends EventDispatcher
     private var _arrBillsData:Vector.<BillVO>;
     private var _arrFriendsData:Vector.<FriendVO>;
 
-    public function JSONService() {}
+    public function JSONService()
+    {
+        _appModel = AppModel.getInstance();
+    }
 
     public function load():void
     {

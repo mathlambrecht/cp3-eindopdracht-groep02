@@ -30,6 +30,8 @@ public class AppModel extends EventDispatcher
     private var _currentPage:String;
     private var _currentBillVO:BillVO;
 
+    private var _isAddFriendInBill:Boolean = false;
+
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
     //---------------------------------------------------------------
@@ -124,6 +126,14 @@ public class AppModel extends EventDispatcher
     public function saveBill():void
     {
         dispatchEvent(new Event(SAVE_BILL_LOCAL));
+    }
+
+    public function get isAddFriendInBill():Boolean {
+        return _isAddFriendInBill;
+    }
+
+    public function set isAddFriendInBill(value:Boolean):void {
+        _isAddFriendInBill = value;
     }
 }
 }

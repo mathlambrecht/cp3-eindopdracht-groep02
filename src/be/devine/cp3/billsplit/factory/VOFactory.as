@@ -18,7 +18,7 @@ public class VOFactory
         billVO.title = bill.title;
         billVO.datetime = bill.date;
 
-        for each(var friend:Object in bill.friends)
+        for each(var friend:Object in bill.arrFriends)
         {
             billVO.arrFriends.push(createFriendVO(friend));
         }
@@ -31,7 +31,7 @@ public class VOFactory
             billVO.arrItems.push(createItemVO(item));
         }
 
-        for each(var friendPercentage:Object in bill.friendPercentages)
+        for each(var friendPercentage:Object in bill.arrFriendPercentage)
         {
             billVO.arrFriendPercentage.push(createFriendPercentageVO(friendPercentage));
         }
