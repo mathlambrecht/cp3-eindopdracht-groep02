@@ -242,8 +242,6 @@ public class SplitBillAbsolute extends Screen
 
     override protected function initialize():void
     {
-
-        trace('INIT LIST');
         addChild(_list);
 
         _buttonGroup.addChild(_buttonPrev);
