@@ -40,7 +40,7 @@ public class Friends extends Screen
         _appModel.addEventListener(AppModel.ARRAY_FRIENDS_VO_CHANGED, arrFriendsVOChangedHandler);
 
         _friendsList = new List();
-        _friendsList.allowMultipleSelection = true;
+        _friendsList.isSelectable = false;
         _friendsListCollection = new ListCollection();
 
         _buttonGroup = new LayoutGroup();

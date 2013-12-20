@@ -338,7 +338,7 @@ public class BillModel extends EventDispatcher
              if(friendItemVO.idItem != itemId) newArrFriendItems.push(friendItemVO);
         }
 
-        _arrFriendItems = newArrFriendItems;
+        arrFriendItems = newArrFriendItems;
     }
 
     private function removeFriendItemsByFriendId(friendId:uint):void
