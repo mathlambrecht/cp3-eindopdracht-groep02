@@ -366,20 +366,28 @@ public class BillModel extends EventDispatcher
 
     public function readObject(event:Event):void
     {
-        if(_appModel.isNewBill)
+        if(_appModel.isNewJSONFile)
         {
-            if( _appModel.arrBillsVO.length == 0)
-            {
-                id = 1;
-            }
-            else
-            {
-                id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
-            }
+            id = 1;
+            _appModel.isNewJSONFile = false;
         }
         else
         {
-            id = _appModel.currentBillVO.id;
+            if(_appModel.isNewBill)
+            {
+                if( _appModel.arrBillsVO.length == 0)
+                {
+                    id = 1;
+                }
+                else
+                {
+                    id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+                }
+            }
+            else
+            {
+                id = _appModel.currentBillVO.id;
+            }
         }
 
         title = _appModel.currentBillVO.title;

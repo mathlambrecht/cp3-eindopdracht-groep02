@@ -33,6 +33,7 @@ public class AppModel extends EventDispatcher
     private var _isAddFriendInBill:Boolean = false;
     private var _isNewBill:Boolean = false;
     private var _isNewFriend:Boolean = false;
+    private var _isNewJSONFile:Boolean = false;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -154,6 +155,14 @@ public class AppModel extends EventDispatcher
 
     public function set isNewFriend(value:Boolean):void {
         _isNewFriend = value;
+    }
+
+    public function get isNewJSONFile():Boolean {
+        return _isNewJSONFile;
+    }
+
+    public function set isNewJSONFile(value:Boolean):void {
+        _isNewJSONFile = value;
     }
 }
 }

@@ -37,6 +37,8 @@ public class JSONService extends EventDispatcher
 
         if(_JSONFile.exists)
         {
+            _appModel.isNewJSONFile = false;
+
             _fileStream.open(_JSONFile, FileMode.READ);
             _JSONString = _fileStream.readUTFBytes(_fileStream.bytesAvailable);
             _fileStream.close();
@@ -62,6 +64,8 @@ public class JSONService extends EventDispatcher
             _fileStream.open(_JSONFile, FileMode.WRITE);
             _fileStream.writeUTFBytes('{}');
             _fileStream.close();
+
+            _appModel.isNewJSONFile = true;
         }
 
         dispatchEvent(new Event(Event.COMPLETE));
