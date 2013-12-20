@@ -106,6 +106,7 @@ public class NewBill extends Screen{
     private function totalPriceChanged(event:flash.events.Event):void
     {
         _priceButton.label = _billModel.totalPrice + ' euros';
+        checkBill();
     }
 
     private function titleChanged(event:flash.events.Event):void

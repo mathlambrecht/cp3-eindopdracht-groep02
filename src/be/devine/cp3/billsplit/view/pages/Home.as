@@ -58,7 +58,6 @@ public class Home extends Screen
 
     private function oldBillsButtonTriggeredHandler(event:Event):void
     {
-
         _appModel.currentPage = Config.OLD_BILLS;
     }
 

@@ -37,32 +37,48 @@ public class LocalSaveService
 
         var tmpArray:Vector.<BillVO> = new Vector.<BillVO>();
 
-        if(_appModel.isNewBill || _appModel.arrBillsVO.length == 0)
+        if(_appModel.isNewFriend)
         {
-            for each(var billVO:BillVO in _appModel.arrBillsVO)
-            {
-                tmpArray.push(billVO);
-            }
+            writeJSON();
 
-            tmpArray.push(_appModel.currentBillVO);
+            trace('saving new friend');
+
+            _appModel.isNewFriend = false;
         }
         else
         {
-            for each(var billVO:BillVO in _appModel.arrBillsVO)
+            if(_appModel.isNewBill || _appModel.arrBillsVO.length == 0)
             {
-                if(billVO.id == _billModel.id)
-                {
-                    tmpArray.push(_appModel.currentBillVO);
-                }
-                else
+                for each(var billVO:BillVO in _appModel.arrBillsVO)
                 {
                     tmpArray.push(billVO);
                 }
+
+                tmpArray.push(_appModel.currentBillVO);
             }
+            else
+            {
+                for each(var billVO:BillVO in _appModel.arrBillsVO)
+                {
+                    if(billVO.id == _billModel.id)
+                    {
+                        tmpArray.push(_appModel.currentBillVO);
+                    }
+                    else
+                    {
+                        tmpArray.push(billVO);
+                    }
+                }
+            }
+
+            _appModel.arrBillsVO = tmpArray;
+
+            writeJSON();
         }
+    }
 
-        _appModel.arrBillsVO = tmpArray;
-
+    private function writeJSON():void
+    {
         var wStream:FileStream = new FileStream();
         wStream.open(File.applicationStorageDirectory.resolvePath("bills.json"),FileMode.WRITE);
         wStream.writeUTFBytes(JSON.stringify({bills:_appModel.arrBillsVO, friends:_appModel.arrFriendsVO}));

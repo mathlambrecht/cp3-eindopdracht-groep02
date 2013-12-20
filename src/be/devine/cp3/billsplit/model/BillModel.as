@@ -175,8 +175,14 @@ public class BillModel extends EventDispatcher
     public function set arrItems(value:Array):void
     {
         if(_arrItems == value) return;
+
         _arrItems = value;
-        if(arrItems.length != 0) totalPrice = MathUtilities.calculateTotalPrice(_arrItems);
+
+        if(arrItems.length != 0)
+        {
+            totalPrice = MathUtilities.calculateTotalPrice(_arrItems);
+        }
+
         dispatchEvent(new Event(ARR_ITEMS_CHANGED));
     }
 
@@ -359,7 +365,14 @@ public class BillModel extends EventDispatcher
 
         if(_appModel.isNewBill)
         {
-            id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+            if( _appModel.arrBillsVO.length == 0)
+            {
+                id = 1;
+            }
+            else
+            {
+                id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+            }
         }
         else
         {

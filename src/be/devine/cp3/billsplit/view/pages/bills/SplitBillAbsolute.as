@@ -51,7 +51,7 @@ public class SplitBillAbsolute extends Screen
         _appModel = AppModel.getInstance();
 
         _billModel = BillModel.getInstance();
-        //_billModel.addEventListener(BillModel.ARR_FRIENDS_CHANGED, arrFriendsUpdateHandler);
+        _billModel.addEventListener(BillModel.ARR_ITEMS_CHANGED, arrItemsChangedHandler);
         _billModel.addEventListener(BillModel.ARR_FRIEND_ITEMS_CHANGED, arrFriendsUpdateHandler);
         _billModel.addEventListener(BillModel.CURRENT_ITEM_INDEX_CHANGED, currentItemIndexChangedHandler);
 
@@ -142,6 +142,11 @@ public class SplitBillAbsolute extends Screen
         checkFriendItems();
     }
 
+    private function arrItemsChangedHandler(event:flash.events.Event):void
+    {
+        commitProperties();
+    }
+
     // als friend items changed
     private function arrFriendsUpdateHandler(event:flash.events.Event):void
     {
@@ -165,8 +170,6 @@ public class SplitBillAbsolute extends Screen
 
         _list.dataProvider = _listCollection;
         _list.itemRendererProperties.labelField = "name";
-
-        trace(_billModel.arrFriendItems);
     }
 
     private function commitProperties():void
@@ -242,7 +245,6 @@ public class SplitBillAbsolute extends Screen
 
     override protected function initialize():void
     {
-
         trace('INIT LIST');
         addChild(_list);
 

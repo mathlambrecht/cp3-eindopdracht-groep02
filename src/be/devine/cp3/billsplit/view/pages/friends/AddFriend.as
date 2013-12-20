@@ -110,6 +110,8 @@ public class AddFriend extends Screen{
 
                     _appModel.currentPage = Config.BILL_FRIENDS;
 
+                    _appModel.isNewFriend = true;
+
                     _appModel.saveBill();
 
                 break;
