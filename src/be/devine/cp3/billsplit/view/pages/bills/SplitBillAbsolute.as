@@ -110,9 +110,12 @@ public class SplitBillAbsolute extends Screen
         var list:List = List(event.currentTarget);
         var listCollection:ListCollection = ListCollection(list.dataProvider);
 
-        if(_list.selectedItems.length > _billModel.arrItems[_billModel.currentItemIndex].amount )
+        if(_billModel.arrItems == null)
         {
-            _billModel.removeAllFriendItemsByItem(_billModel.arrItems[_billModel.currentItemIndex].id);
+            if(_list.selectedItems.length > _billModel.arrItems[_billModel.currentItemIndex].amount )
+            {
+                _billModel.removeAllFriendItemsByItem(_billModel.arrItems[_billModel.currentItemIndex].id);
+            }
         }
 
         for(var index:uint = 0; index < listCollection.length; index++)
