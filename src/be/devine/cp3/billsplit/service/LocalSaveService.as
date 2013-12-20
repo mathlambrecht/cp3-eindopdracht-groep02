@@ -26,14 +26,17 @@ public class LocalSaveService
     {
         trace('saving');
 
-        _appModel.currentBillVO.id = _billModel.id;
-        _appModel.currentBillVO.title = _billModel.title;
-        _appModel.currentBillVO.totalPrice = _billModel.totalPrice;
-        _appModel.currentBillVO.splitMethod = _billModel.splitMethod;
-        _appModel.currentBillVO.arrItems = _billModel.arrItems;
-        _appModel.currentBillVO.arrFriendItems = _billModel.arrFriendItems;
-        _appModel.currentBillVO.arrFriendPercentage = _billModel.arrFriendPercentage;
-        _appModel.currentBillVO.arrFriends = _billModel.arrFriends;
+        if(!_appModel.isNewFriend)
+        {
+            _appModel.currentBillVO.id = _billModel.id;
+            _appModel.currentBillVO.title = _billModel.title;
+            _appModel.currentBillVO.totalPrice = _billModel.totalPrice;
+            _appModel.currentBillVO.splitMethod = _billModel.splitMethod;
+            _appModel.currentBillVO.arrItems = _billModel.arrItems;
+            _appModel.currentBillVO.arrFriendItems = _billModel.arrFriendItems;
+            _appModel.currentBillVO.arrFriendPercentage = _billModel.arrFriendPercentage;
+            _appModel.currentBillVO.arrFriends = _billModel.arrFriends;
+        }
 
         var tmpArray:Vector.<BillVO> = new Vector.<BillVO>();
 

@@ -124,7 +124,14 @@ public class AddFriend extends Screen{
 
                 _textInput.text = 'Name of your new friend';
 
-                _appModel.currentPage = Config.BILL_FRIENDS;
+                if(_appModel.isAddFriendInBill)
+                {
+                    _appModel.currentPage = Config.BILL_FRIENDS;
+                }
+                else
+                {
+                    _appModel.currentPage = Config.FRIENDS;
+                }
 
                 _appModel.isNewFriend = true;
 
