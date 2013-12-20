@@ -204,6 +204,13 @@ public class BillModel extends EventDispatcher
         return _currentItemIndex;
     }
 
+    public function set currentItemIndex(value:uint):void
+    {
+        if(_currentItemIndex == value) return;
+        _currentItemIndex = value;
+        dispatchEvent(new Event(CURRENT_ITEM_INDEX_CHANGED));
+    }
+
     public function addItem(itemVO:ItemVO):void
     {
         arrItems = arrItems.concat(itemVO);
@@ -220,6 +227,7 @@ public class BillModel extends EventDispatcher
 
         // remove friendItems from item
         removeAllFriendItemsByItem(itemVO.id);
+        currentItemIndex = 0;
 
         arrItems = newArrItems;
     }
@@ -267,6 +275,7 @@ public class BillModel extends EventDispatcher
 
             // remove friendItems from friend
             removeFriendItemsByFriendId(friendVO.id);
+            currentItemIndex = 0;
 
             arrFriends = newArrFriends;
         }

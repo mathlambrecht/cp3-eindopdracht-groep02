@@ -126,14 +126,12 @@ public class SplitBillAbsolute extends Screen
                 {
                     if(friendItemVO.idFriend == friendVO.id && friendItemVO.idItem == _billModel.arrItems[_billModel.currentItemIndex].id)
                     {
-                        trace('remove');
                         _billModel.removeFriendItem(friendItemVO);
                     }
                 }
             }
             else
             {
-                trace('add');
                 var friendItemVO:FriendItemVO = new FriendItemVO();
                 friendItemVO.idFriend = friendVO.id;
                 friendItemVO.idItem = _billModel.arrItems[_billModel.currentItemIndex].id;
