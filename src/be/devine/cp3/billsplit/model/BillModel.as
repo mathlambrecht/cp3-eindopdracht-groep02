@@ -18,7 +18,7 @@ public class BillModel extends EventDispatcher
     public static const SPLITMETHOD_CHANGED:String = 'splitmethodChanged';
 
     public static const ARR_FRIENDS_CHANGED:String = 'arrFriendsChanged';
-    public static const ARR_ITEMS_CHANGED:String = 'arrFriendsChanged';
+    public static const ARR_ITEMS_CHANGED:String = 'arrItemsChanged';
 
     public static const ARR_FRIEND_PERCENTAGE_CHANGED:String = 'arrFriendPercentageChanged';
     public static const ARR_FRIEND_ITEMS_CHANGED:String = 'arrFriendItemsChanged';
@@ -181,6 +181,8 @@ public class BillModel extends EventDispatcher
         if(arrItems.length != 0)
         {
             totalPrice = MathUtilities.calculateTotalPrice(_arrItems);
+        }else{
+            totalPrice = 0;
         }
 
         dispatchEvent(new Event(ARR_ITEMS_CHANGED));
@@ -288,7 +290,7 @@ public class BillModel extends EventDispatcher
 
     public function addFriendItem(friendItemVO:FriendItemVO):void
     {
-        var contains:Boolean = false;
+        var contains:Boolean;
         for each(var selectedFriendItemVO:FriendItemVO in _arrFriendItems)
         {
             if(Functions.equalsFriendItem(selectedFriendItemVO, friendItemVO))
@@ -297,7 +299,10 @@ public class BillModel extends EventDispatcher
             }
         }
 
-        if(!contains && arrFriendItems != null){
+        trace('boolean ' + contains);
+        trace('length ' + arrFriendItems.length);
+        if(!contains){
+            trace('ADD');
             arrFriendItems = arrFriendItems.concat(friendItemVO);
         }
     }
@@ -361,8 +366,6 @@ public class BillModel extends EventDispatcher
 
     public function readObject(event:Event):void
     {
-        trace('READ OBJECT');
-
         if(_appModel.isNewBill)
         {
             if( _appModel.arrBillsVO.length == 0)

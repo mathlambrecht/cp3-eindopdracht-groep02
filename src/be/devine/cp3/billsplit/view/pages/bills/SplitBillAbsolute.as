@@ -87,7 +87,7 @@ public class SplitBillAbsolute extends Screen
         _bg = new Quad(1,1,0x000000);
 
         _itemTextField = new TextInput();
-        _itemTextField.text = '';
+        _itemTextField.text = 'Use the arrows to navigate';
         _itemTextField.isEditable = false;
 
         _valueTextField = new TextInput();
@@ -110,7 +110,7 @@ public class SplitBillAbsolute extends Screen
         var list:List = List(event.currentTarget);
         var listCollection:ListCollection = ListCollection(list.dataProvider);
 
-        if(_list.selectedItems.length >= _billModel.currentItemAmount + 1)
+        if(_list.selectedItems.length > _billModel.arrItems[_billModel.currentItemIndex].amount )
         {
             _billModel.removeAllFriendItemsByItem(_billModel.arrItems[_billModel.currentItemIndex].id);
         }
@@ -126,12 +126,14 @@ public class SplitBillAbsolute extends Screen
                 {
                     if(friendItemVO.idFriend == friendVO.id && friendItemVO.idItem == _billModel.arrItems[_billModel.currentItemIndex].id)
                     {
+                        trace('remove');
                         _billModel.removeFriendItem(friendItemVO);
                     }
                 }
             }
             else
             {
+                trace('add');
                 var friendItemVO:FriendItemVO = new FriendItemVO();
                 friendItemVO.idFriend = friendVO.id;
                 friendItemVO.idItem = _billModel.arrItems[_billModel.currentItemIndex].id;
@@ -139,6 +141,8 @@ public class SplitBillAbsolute extends Screen
             }
         }
 
+
+        trace(_billModel.arrFriendItems);
         checkFriendItems();
     }
 
@@ -245,7 +249,6 @@ public class SplitBillAbsolute extends Screen
 
     override protected function initialize():void
     {
-        trace('INIT LIST');
         addChild(_list);
 
         _buttonGroup.addChild(_buttonPrev);
