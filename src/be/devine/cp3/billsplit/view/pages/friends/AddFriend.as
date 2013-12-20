@@ -89,30 +89,45 @@ public class AddFriend extends Screen{
                 break;
             case _submitButton:
 
-                    var highestID:uint = 0;
-                    for each(var friendVO:FriendVO in _appModel.arrFriendsVO)
+                var newFriendVO:FriendVO = new FriendVO();
+
+                if(_appModel.arrFriendsVO == null)
+                {
+                    newFriendVO.id = 0;
+                }
+                else
+                {
+                    if(_appModel.arrFriendsVO.length == 0)
                     {
-                        if (friendVO.id > highestID) highestID = friendVO.id;
+                        newFriendVO.id = 0;
                     }
-
-                    var newFriendVO:FriendVO = new FriendVO();
-                    newFriendVO.id = highestID + 1;
-                    newFriendVO.name = _textInput.text;
-
-                    _appModel.addFriend(newFriendVO)
-
-                    if(_appModel.isAddFriendInBill)
+                    else
                     {
-                        _billModel.addFriend(newFriendVO);
+                        var highestID:uint;
+                        for each(var friendVO:FriendVO in _appModel.arrFriendsVO)
+                        {
+                            if (friendVO.id > highestID) highestID = friendVO.id;
+                        }
+                        newFriendVO.id = highestID + 1;
                     }
+                }
 
-                    _textInput.text = 'Name of your new friend';
+                newFriendVO.name = _textInput.text;
 
-                    _appModel.currentPage = Config.BILL_FRIENDS;
+                _appModel.addFriend(newFriendVO);
 
-                    _appModel.isNewFriend = true;
+                if(_appModel.isAddFriendInBill)
+                {
+                    _billModel.addFriend(newFriendVO);
+                }
 
-                    _appModel.saveBill();
+                _textInput.text = 'Name of your new friend';
+
+                _appModel.currentPage = Config.BILL_FRIENDS;
+
+                _appModel.isNewFriend = true;
+
+                _appModel.saveBill();
 
                 break;
         }

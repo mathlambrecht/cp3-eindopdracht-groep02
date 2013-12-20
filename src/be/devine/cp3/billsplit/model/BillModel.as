@@ -369,7 +369,6 @@ public class BillModel extends EventDispatcher
         if(_appModel.isNewJSONFile)
         {
             id = 1;
-            _appModel.isNewJSONFile = false;
         }
         else
         {

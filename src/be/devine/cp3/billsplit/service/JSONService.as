@@ -62,7 +62,7 @@ public class JSONService extends EventDispatcher
         {
             _JSONFile = File.applicationStorageDirectory.resolvePath(Config.JSON_FILENAME);
             _fileStream.open(_JSONFile, FileMode.WRITE);
-            _fileStream.writeUTFBytes('{}');
+            _fileStream.writeUTFBytes('{"bills":[], "friends":[]}');
             _fileStream.close();
 
             _appModel.isNewJSONFile = true;
