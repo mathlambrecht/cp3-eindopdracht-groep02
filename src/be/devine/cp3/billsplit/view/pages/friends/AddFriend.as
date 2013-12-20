@@ -82,7 +82,8 @@ public class AddFriend extends Screen{
     {
         var button:Button = event.currentTarget as Button;
 
-        switch (button){
+        switch (button)
+        {
             case _resetButton:
                 _textInput.text = "";
                 _textInput.setFocus();
@@ -130,6 +131,7 @@ public class AddFriend extends Screen{
                 _appModel.saveBill();
 
                 break;
+
         }
     }
 

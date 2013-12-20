@@ -45,7 +45,6 @@ public class BillModel extends EventDispatcher
     private var _percentageLeft:Number;
 
     private var _currentItemIndex:uint;
-    private var _currentItemAmount:uint;
 
     //---------------------------------------------------------------
     //-------------------------- Singleton --------------------------
@@ -205,19 +204,6 @@ public class BillModel extends EventDispatcher
         return _currentItemIndex;
     }
 
-    public function set currentItemIndex(value:uint):void
-    {
-        if(_currentItemIndex == value) return;
-        _currentItemIndex = value;
-        _currentItemAmount = _arrItems[_currentItemIndex].amount;
-        dispatchEvent(new Event(CURRENT_ITEM_INDEX_CHANGED));
-    }
-
-    public function get currentItemAmount():uint
-    {
-        return _currentItemAmount;
-    }
-
     public function addItem(itemVO:ItemVO):void
     {
         arrItems = arrItems.concat(itemVO);
@@ -234,7 +220,6 @@ public class BillModel extends EventDispatcher
 
         // remove friendItems from item
         removeAllFriendItemsByItem(itemVO.id);
-        currentItemIndex = 0;
 
         arrItems = newArrItems;
     }
@@ -282,7 +267,6 @@ public class BillModel extends EventDispatcher
 
             // remove friendItems from friend
             removeFriendItemsByFriendId(friendVO.id);
-            currentItemIndex = 0;
 
             arrFriends = newArrFriends;
         }
@@ -374,13 +358,19 @@ public class BillModel extends EventDispatcher
         {
             if(_appModel.isNewBill)
             {
-                if( _appModel.arrBillsVO.length == 0)
+                if( _appModel.arrBillsVO == null)
                 {
                     id = 1;
                 }
                 else
                 {
-                    id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+                    if(_appModel.arrBillsVO.length == 0)
+                    {
+                        id = 1;
+                    }else{
+                        id = _appModel.arrBillsVO[_appModel.arrBillsVO.length -1].id += 1;
+                    }
+
                 }
             }
             else
@@ -401,8 +391,6 @@ public class BillModel extends EventDispatcher
         if(_appModel.currentBillVO.splitMethod != null) splitMethod = _appModel.currentBillVO.splitMethod;
 
         _percentageLeft = MathUtilities.calculatePercentageLeft();
-
-        if(_arrItems.length != 0) _currentItemAmount = _arrItems[_currentItemIndex].amount;
 
         dispatchEvent(new Event(BILL_CHANGED));
     }

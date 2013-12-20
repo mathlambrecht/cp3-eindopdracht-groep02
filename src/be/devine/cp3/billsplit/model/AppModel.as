@@ -77,7 +77,6 @@ public class AppModel extends EventDispatcher
         if(_arrBillsVO != value)
         {
             _arrBillsVO = value;
-
             dispatchEvent(new Event(ARRAY_BILLS_VO_CHANGED));
         }
     }
@@ -92,7 +91,6 @@ public class AppModel extends EventDispatcher
         if(_arrFriendsVO != value)
         {
             _arrFriendsVO = value;
-
             dispatchEvent(new Event(ARRAY_FRIENDS_VO_CHANGED));
         }
     }
@@ -111,6 +109,11 @@ public class AppModel extends EventDispatcher
 
     public function addFriend(friendVO:FriendVO):void
     {
+        if(_arrFriendsVO == null)
+        {
+            // geen json file, bounds error -> fix
+            _arrFriendsVO = new Vector.<FriendVO>();
+        }
         arrFriendsVO = _arrFriendsVO.concat(new <FriendVO>[friendVO]);
     }
 
