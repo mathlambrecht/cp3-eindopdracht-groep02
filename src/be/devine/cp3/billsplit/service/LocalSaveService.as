@@ -1,5 +1,6 @@
 package be.devine.cp3.billsplit.service
 {
+import be.devine.cp3.billsplit.config.Config;
 import be.devine.cp3.billsplit.model.AppModel;
 import be.devine.cp3.billsplit.model.BillModel;
 import be.devine.cp3.billsplit.vo.BillVO;
@@ -77,6 +78,8 @@ public class LocalSaveService
             _appModel.arrBillsVO = tmpArray;
 
             writeJSON();
+
+            _appModel.currentPage = Config.OLD_BILLS;
         }
     }
 
